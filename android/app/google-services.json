@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "164382619834",
+    "project_id": "saranelapp",
+    "storage_bucket": "saranelapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164382619834:android:12721a9ead752b779d2a83",
+        "android_client_info": {
+          "package_name": "com.saraneltr.saranel_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164382619834-fpi5vau8p0vm9p60bh0uh56hdussdm2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI93dzsC8Vgk3kos-1xc9KZrP9eGwIcAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164382619834-fpi5vau8p0vm9p60bh0uh56hdussdm2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
