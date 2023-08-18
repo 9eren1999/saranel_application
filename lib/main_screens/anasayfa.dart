@@ -10,8 +10,6 @@ class AnaSayfa extends StatefulWidget {
 class _AnaSayfaState extends State<AnaSayfa> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Akış")));
-
-          }
+    return Scaffold(appBar: AppBar(title: Text("Akış")));
+  }
 }
