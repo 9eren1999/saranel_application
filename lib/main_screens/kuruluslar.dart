@@ -19,7 +19,7 @@ class _KurusluslarState extends State<Kurusluslar> {
           },
           icon: Icon(
             Icons.arrow_back_ios_sharp,
-            color: Color.fromARGB(255, 23, 190, 219),
+            color: Color.fromARGB(255, 255, 255, 255),
             size: 19,
           )),
     ));
