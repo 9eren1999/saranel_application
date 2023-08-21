@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SmaKampanyalari extends StatefulWidget {
   const SmaKampanyalari({super.key});
@@ -17,17 +17,16 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   Widget build(BuildContext context) {
     CollectionReference sma = FirebaseFirestore.instance.collection('sma');
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 244, 241, 241),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("SMA Kampanyaları"),
+        title: Text("SMA Kampanyaları" ,style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_ios_sharp,
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: Colors.blue.shade800,
             size: 19,
           ),
         ),
@@ -53,12 +52,12 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   document.data()! as Map<String, dynamic>;
 
               if (showDetails.length <= index) {
-                showDetails.add(false);
+                showDetails.add(true);
               }
 
               return Card(
-                margin: EdgeInsets.only(top: 35, left: 15, right: 15),
-                color: Color.fromARGB(255, 255, 255, 251),
+                margin: EdgeInsets.only(top: 35, left: 15, right: 15,),
+                color: Colors.blue.shade600,
                 shadowColor: Color.fromARGB(110, 0, 0, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,8 +88,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                     data['title1'],
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(
-                                            255, 218, 50, 64)),
+                                        color: const Color.fromARGB(255, 253, 253, 253)),
                                   ),
                                   SizedBox(width: 10),
                                   Text(
@@ -98,8 +96,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                     style: TextStyle(
                                         fontWeight: FontWeight.w100,
                                         fontSize: 14,
-                                        color: const Color.fromARGB(
-                                            255, 218, 50, 64)),
+                                        color: const Color.fromARGB(255, 255, 255, 255)),
                                   ),
                                 ],
                               ),
@@ -109,16 +106,14 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                     data['title2'],
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(
-                                            255, 218, 50, 64)),
+                                        color: const Color.fromARGB(255, 255, 255, 255)),
                                   ),
                                   SizedBox(width: 10),
                                   Text(
                                     data['aciklama2'],
                                     style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        color: const Color.fromARGB(
-                                            255, 218, 50, 64)),
+                                        color: const Color.fromARGB(255, 255, 255, 255)),
                                   ),
                                 ],
                               ),
@@ -138,14 +133,14 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Detayları Gör",
+                            "Kampanya Detayları ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 218, 50, 64)),
+                                color: const Color.fromARGB(255, 250, 250, 250)),
                           ),
                           Icon(
                             Icons.arrow_drop_down,
-                            color: const Color.fromARGB(255, 218, 50, 64),
+                            color: Color.fromARGB(255, 255, 255, 255),
                           ),
                           SizedBox(
                             height: 40,
@@ -162,11 +157,11 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                               "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(1)}%",
                               style: TextStyle(
                                   color:
-                                      const Color.fromARGB(255, 218, 50, 64)),
+                                      Color.fromARGB(255, 255, 255, 255)),
                             ),
                             LinearProgressIndicator(
-                              color: const Color.fromARGB(255, 218, 50, 64),
-                              value: double.parse(data['bagis']) / 100,
+                              color: Color.fromARGB(255, 159, 230, 79),
+                                                 value: double.parse(data['bagis']) / 100,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -176,20 +171,17 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                   Text(data['btitle1'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: const Color.fromARGB(
-                                              255, 218, 50, 64))),
+                                          color: const Color.fromARGB(255, 255, 255, 255))),
                                   SizedBox(width: 10),
                                   Text(data['iban'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.normal,
-                                          color: const Color.fromARGB(
-                                              255, 218, 50, 64))),
+                                          color: const Color.fromARGB(255, 249, 249, 250))),
                                   IconButton(
                                       icon: Icon(
                                         Icons.copy,
                                         size: 15,
-                                        color: const Color.fromARGB(
-                                            255, 218, 50, 64),
+                                        color: const Color.fromARGB(255, 253, 253, 253),
                                       ), // Kopyalama simgesi
                                       onPressed: () {
                                         Clipboard.setData(ClipboardData(
@@ -217,73 +209,63 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                   Text(data['btitle2'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: const Color.fromARGB(
-                                              255, 218, 50, 64))),
+                                          color: const Color.fromARGB(255, 255, 255, 255))),
                                   SizedBox(width: 10),
                                   Text(data['alici'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.normal,
-                                          color: const Color.fromARGB(
-                                              255, 218, 50, 64))),
+                                          color: const Color.fromARGB(255, 253, 253, 253))),
                           ],
                         ),
                       ),
                        Padding(
                               padding:  EdgeInsets.only(
-                                  top: 1.0, left: 5, right: 0),
+                                  top: 1.0, left: 5, right: 0, ),
                               child: Row(
                                 children: [
                                   Text(data['btitle3'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: const Color.fromARGB(
-                                              255, 218, 50, 64))),
+                                          color: const Color.fromARGB(255, 253, 253, 253))),
                                   SizedBox(width: 10,),
                                   TextButton(
-  onPressed: () async {
-    String urlString = data['ylink'];
-    if (urlString.startsWith("http://") || urlString.startsWith("https://")) {
-      Uri url = Uri.parse(urlString);
-      if (await canLaunchUrl(url)) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              content: Container(
-                child: Image.network(urlString), // Görseli burada göster
-              ),
-              actions: [
-                TextButton(
-                  child: Text("Kapat"),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Pop-up penceresini kapat
-                  },
-                ),
-              ],
-            );
-          },
+  onPressed: () {
+    String urlString = data['ylink']; // Veritabanından alınan URL
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog( backgroundColor: Colors.blue.shade800,
+          content: Container(
+            child: Image.network(urlString), // URL'deki görseli burada göster
+          ),
+          actions: [
+            TextButton(
+              child: Text("Kapat",style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),),
+              onPressed: () {
+                Navigator.of(context).pop(); // Pop-up penceresini kapat
+              },
+            ),
+          ],
         );
-      } else {
-        print("URL başlatılamıyor");
-      }
-    } else {
-      print("Geçersiz URL");
-    }
+      },
+    );
   },
   child: Text(
     "Görüntülemek için tıklayınız.",
     style: TextStyle(
       decoration: TextDecoration.underline,
       fontWeight: FontWeight.normal,
-      color: const Color.fromARGB(255, 218, 50, 64),
+      color: const Color.fromARGB(255, 255, 255, 255),
     ),
   ),
 )
 
-                          ],
+
+                          ], 
                         ))],
                 ),
-              )]));
+              ),Padding(padding: EdgeInsets.only(bottom: 20))]));
             },
           );
         },

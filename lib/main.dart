@@ -13,8 +13,11 @@ Future<void> main() async {
   );
   runApp(const MyApp());
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: const Color.fromARGB(255, 218, 50, 64), ),);// Navigasyon çubuğunun rengi
+   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.white, // Gezinme çubuğu rengi
+    statusBarIconBrightness: Brightness.dark, // Durum çubuğu simgeleri için dark
+    systemNavigationBarIconBrightness: Brightness.dark)); // Gezinme çubuğu simgeleri için dark
+    
 }
 
 class MyApp extends StatelessWidget {
@@ -30,16 +33,16 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
-        scaffoldBackgroundColor: Color.fromRGBO(250, 250, 250, 1),
+        scaffoldBackgroundColor: Colors.blue.shade800,
         appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
                 fontWeight: FontWeight.w500,
-                color: Color.fromARGB(255, 253, 253, 253),
+                color: Colors.blue.shade800,
                 fontSize: 20),
                 centerTitle: true,
                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0), bottomRight: Radius.circular(100))),
             shadowColor: Colors.black54,
-            backgroundColor: Color.fromARGB(255, 218, 50, 64)),
+            backgroundColor: Colors.white),
         useMaterial3: true,
       ),
       home: MainPage(),

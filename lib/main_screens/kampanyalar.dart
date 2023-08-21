@@ -18,21 +18,21 @@ class _KampanyalarState extends State<Kampanyalar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kampanyalar", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600)), ),
+      appBar: AppBar(title: Text("Kampanyalar", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)), ),
       body: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-                  BoxShadow(
-                    color:
-                        Color.fromRGBO(243, 240, 240, 1).withOpacity(0.9),
-                    spreadRadius: 900,
-                    blurRadius: 0.1,
-                    offset: Offset(0, 1),
-                  ),
-        ]),
+        // decoration: BoxDecoration(
+        //   boxShadow: [
+        //           BoxShadow(
+        //             color:
+        //                 Color.fromRGBO(243, 240, 240, 1).withOpacity(0.9),
+        //             spreadRadius: 900,
+        //             blurRadius: 0.1,
+        //             offset: Offset(0, 1),
+        //           ),
+        // ]),
         child: Column(children: [
           Card(
-            color: Color.fromARGB(255, 255, 255, 251),
+            color: Colors.blue.shade600,
             shadowColor: Color.fromARGB(20, 0, 0, 1), 
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -47,12 +47,12 @@ class _KampanyalarState extends State<Kampanyalar> {
                     "Vakıf ve Dernekler",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Color.fromARGB(255, 218, 50, 64),
+                        color: const Color.fromARGB(255, 252, 252, 252),
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                   trailing: Icon(Icons.navigate_next_outlined,
-                      color: Color.fromARGB(255, 218, 50, 64)),
+                      color: const Color.fromARGB(255, 255, 255, 255)),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -67,7 +67,7 @@ class _KampanyalarState extends State<Kampanyalar> {
           ),
           Container(
             child: Card(
-                color: Color.fromARGB(255, 255, 255, 251),
+                color: Colors.blue.shade600,
                 shadowColor: Color.fromARGB(20, 0, 0, 1),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -80,12 +80,12 @@ class _KampanyalarState extends State<Kampanyalar> {
                         "Belediye Kampanyaları",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            color: Color.fromARGB(255, 218, 50, 64),
+                            color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.w600),
                       ),
                       trailing: Icon(Icons.navigate_next_outlined,
-                          color: Color.fromARGB(255, 218, 50, 64)),
+                          color: Colors.white),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -99,7 +99,7 @@ class _KampanyalarState extends State<Kampanyalar> {
                 )),
           ),
           Card(
-              color: Color.fromARGB(255, 255, 255, 251),
+              color: Colors.blue.shade600,
               shadowColor: Color.fromARGB(20, 0, 0, 1),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -111,12 +111,12 @@ class _KampanyalarState extends State<Kampanyalar> {
                     "SMA Kampanyaları",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Color.fromARGB(255, 218, 50, 64),
+                        color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                   trailing: Icon(Icons.navigate_next_outlined,
-                      color: Color.fromARGB(255, 218, 50, 64)),
+                      color: Colors.white),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -128,7 +128,7 @@ class _KampanyalarState extends State<Kampanyalar> {
                 ),
               ])),
           Card(
-              color: Color.fromARGB(255, 255, 255, 251),
+              color: Colors.blue.shade600,
               shadowColor: Color.fromARGB(20, 0, 0, 1),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -141,12 +141,12 @@ class _KampanyalarState extends State<Kampanyalar> {
                       "Eğitim Kampanyaları",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          color: Color.fromARGB(255, 218, 50, 64),
+                          color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
                     ),
                     trailing: Icon(Icons.navigate_next_outlined,
-                        color: Color.fromARGB(255, 218, 50, 64)),
+                        color: Colors.white),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -159,7 +159,7 @@ class _KampanyalarState extends State<Kampanyalar> {
                 ],
               )),
           Card(
-              color: Color.fromARGB(255, 255, 255, 251),
+              color: Colors.blue.shade600,
               shadowColor: Color.fromARGB(20, 0, 0, 1),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -171,12 +171,12 @@ class _KampanyalarState extends State<Kampanyalar> {
                     "Diğer Kampanyalar",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Color.fromARGB(255, 218, 50, 64),
+                        color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                   trailing: Icon(Icons.navigate_next_outlined,
-                      color: Color.fromARGB(255, 218, 50, 64)),
+                      color: Colors.white),
                   onTap: () {
                     Navigator.push(
                       context,
