@@ -82,8 +82,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    data['title1'],
+                  Text("Ad Soyad",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: const Color.fromARGB(255, 253, 253, 253)),
@@ -97,8 +96,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                         color: const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   SizedBox(height: 10), // Bu satırı ekledim
-                  Text(
-                    data['title2'],
+                  Text("Kampanya Türü",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: const Color.fromARGB(255, 255, 255, 255)),
@@ -110,37 +108,41 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                         fontWeight: FontWeight.normal,
                         color: const Color.fromARGB(255, 255, 255, 255)),
                   ),
+                  
                 ],
               ),
             ),
           ],
         ),
-      ),
-                    Divider(), // İnce çizgi
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            showDetails[index] = !showDetails[index];
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Kampanya Detayları ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 250, 250, 250)),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
-                            SizedBox(
-                              height: 40,
-                            )
-                          ],
+      ), Divider(color:Colors.blue.shade800, thickness: 4,),
+                   
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              showDetails[index] = !showDetails[index];
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Kampanya Detayları ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color.fromARGB(255, 250, 250, 250)),
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -156,16 +158,32 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                       Color.fromARGB(255, 255, 255, 255)),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 35, right: 35, top:4),
+                              padding: const EdgeInsets.only(left: 35, right: 35, top:4, bottom: 35),
                               child: LinearProgressIndicator(
                                 color: Color.fromARGB(255, 159, 230, 79),
                                                    value: double.parse(data['bagis']) / 100,
                               ),
-                            ),Padding(
-  padding: const EdgeInsets.only( left: 1, right: 0, top: 25),
+                            ),  Row(
+                      children: <Widget>[Expanded(
+      child: Divider( color: Colors.blue.shade100,
+        thickness: 0.5,
+      ),
+    ),
+    Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Text("Banka Bilgileri", style: TextStyle(fontSize: 12, color: Colors.blue.shade100)),
+    ),
+    Expanded(
+      child: Divider( color: Colors.blue.shade100,
+        thickness: 0.5,
+      ),
+    ),
+    ]),
+                            Padding(
+  padding: const EdgeInsets.only( left: 1, right: 0, top: 15),
   child: Row(
     children: [
-      Text(data['banka'],
+      Text("Banka:",
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
@@ -175,7 +193,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
         child: Text(data['banka2'],
             softWrap: true,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 13,
                 fontWeight: FontWeight.normal,
                 color: const Color.fromARGB(255, 249, 249, 250))),
       ),
@@ -184,10 +202,10 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   ),
 ),
                             Padding(
-  padding: const EdgeInsets.only(top: 0.0, left: 1, right: 0),
+  padding: const EdgeInsets.only(left: 1),
   child: Row(
     children: [
-      Text(data['btitle1'],
+      Text("IBAN:",
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
@@ -197,7 +215,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
         child: Text(data['iban'],
             softWrap: true,
             style: TextStyle(
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.normal,
                 color: const Color.fromARGB(255, 249, 249, 250))),
       ),
@@ -219,12 +237,13 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
             );
           })
     ],
-  ),
-),Padding(
-  padding: const EdgeInsets.only( left: 1, right: 0, top: 0),
+  ), 
+), 
+Padding(
+  padding: const EdgeInsets.only( left: 1),
   child: Row(
     children: [
-      Text(data['btitle2'],
+      Text("Alıcı:",
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
@@ -234,18 +253,56 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
         child: Text(data['alici'],
             softWrap: true,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 13,
                 fontWeight: FontWeight.normal,
                 color: const Color.fromARGB(255, 249, 249, 250))),
       ),
      
     ],
   ),
-),Padding(
-  padding: EdgeInsets.only(left: 1, right: 0),
+ ), Padding(
+  padding: const EdgeInsets.only( left: 1, right: 0, top: 12, bottom: 25),
   child: Row(
     children: [
-      Text(data['btitle3'],
+      Text("Açıklama:",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: const Color.fromARGB(255, 255, 255, 255))),
+      SizedBox(width: 5),
+      Flexible( // Bu satırı ekledim
+        child: Text(data['aciklamasi'],
+            softWrap: true,
+            style: TextStyle(
+              fontSize: 13,
+                fontWeight: FontWeight.normal,
+                color: const Color.fromARGB(255, 249, 249, 250))),
+      ),
+     
+    ],
+  ),
+ ),
+  Row(
+                      children: <Widget>[Expanded(
+      child: Divider( color: Colors.blue.shade100,
+        thickness: 0.5,
+      ),
+    ),
+    Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Text("Kampanya İzinleri", style: TextStyle(fontSize: 12, color: Colors.blue.shade100)),
+    ),
+    Expanded(
+      child: Divider( color: Colors.blue.shade100,
+        thickness: 0.5,
+      ),
+    ),
+    ]),
+Padding(
+  padding: EdgeInsets.only(left: 1, bottom: 10),
+  child: Row(
+    children: [
+      Text("Yasal İzin:",
           style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -292,12 +349,27 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
     ],
   ),
 ),
-
+Row(
+                      children: <Widget>[Expanded(
+      child: Divider( color: Colors.blue.shade100,
+        thickness: 0.5,
+      ),
+    ),
+    Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Text("Diğer Bilgiler", style: TextStyle(fontSize: 12, color: Colors.blue.shade100)),
+    ),
+    Expanded(
+      child: Divider( color: Colors.blue.shade100,
+        thickness: 0.5,
+      ),
+    ),
+    ]),
 Padding(
-  padding: const EdgeInsets.only( left: 5, right: 0, top: 5),
+  padding: const EdgeInsets.only( left: 5, bottom: 5, top: 15),
   child: Row(
     children: [
-      Text(data['detay'],
+      Text("Detaylar:",
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
@@ -307,7 +379,7 @@ Padding(
         child: Text(data['detayaciklama'], 
             softWrap: true, textAlign: TextAlign.left,
             style: TextStyle(  
-              fontSize: 14,
+              fontSize: 13,
                 fontWeight: FontWeight.normal,
                 color: const Color.fromARGB(255, 249, 249, 250))),
       ),
