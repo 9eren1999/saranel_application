@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/company_screens/belediye_kampanyalari.dart';
+import 'package:saranel_application/company_screens/dernekler.dart';
 import 'package:saranel_application/company_screens/diger_kampanyalar.dart';
+import 'package:saranel_application/company_screens/sivil_toplum.dart';
 import 'package:saranel_application/company_screens/sma_kampanyalari.dart';
-import '../company_screens/kuruluslar.dart';
+import '../company_screens/vakiflar.dart';
 
 class AnaSayfa extends StatefulWidget {
   const AnaSayfa({super.key});
@@ -70,6 +72,59 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     fontWeight: FontWeight.w700,
                     color: Colors.white)),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
+          //   child: IntrinsicHeight(
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         Expanded(
+          //           child: InkWell(
+          //             onTap: () {
+          //               Navigator.push(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                     builder: (context) => Vakiflar(),
+          //                   ));
+          //             },
+          //             child: Container(
+          //               width: 185,
+          //               height: 50,
+          //               decoration: BoxDecoration(
+          //                 color: Colors.red.shade800,
+          //                 boxShadow: [
+          //                   BoxShadow(
+          //                     color: Color.fromARGB(8, 0, 0, 1),
+          //                     spreadRadius: 1,
+          //                     blurRadius: 1,
+          //                   ),
+          //                 ],
+          //                 borderRadius: BorderRadius.all(Radius.circular(25)),
+          //               ),
+          //               child: Column(
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 children: [
+
+          //                   Text(
+          //                     'Acil Yardım Talepleri',
+          //                     overflow: TextOverflow.ellipsis,
+          //                     textAlign: TextAlign.center,
+          //                     style: TextStyle(
+          //                       fontSize: 14,
+          //                       color: Colors.white,
+          //                       fontWeight: FontWeight.bold,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+                 
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
             child: IntrinsicHeight(
@@ -82,7 +137,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Kurusluslar(),
+                              builder: (context) => Vakiflar(),
                             ));
                       },
                       child: Container(
@@ -132,7 +187,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BelediyeKampanyalari(),
+                              builder: (context) => dernekler(),
                             ));
                       },
                       child: Container(
@@ -191,7 +246,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Kurusluslar(),
+                                builder: (context) => stkuruluslari(),
                               ));
                         },
                         child: Container(

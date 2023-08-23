@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BelediyeKampanyalari extends StatefulWidget {
   const BelediyeKampanyalari({super.key});
@@ -12,7 +13,7 @@ class _BelediyeKampanyalariState extends State<BelediyeKampanyalari> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-      title: Text("Belediye Kampanyaları"),
+      title: Text("Belediye Kampanyaları", style: appbarStyle()),
       leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -24,4 +25,6 @@ class _BelediyeKampanyalariState extends State<BelediyeKampanyalari> {
           )),
     ));
   }
+
+  TextStyle appbarStyle() => GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
 }

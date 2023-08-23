@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class Kurusluslar extends StatefulWidget {
-  const Kurusluslar({super.key});
+class Vakiflar extends StatefulWidget {
+  const Vakiflar({super.key});
 
   @override
-  State<Kurusluslar> createState() => _KurusluslarState();
+  State<Vakiflar> createState() => _VakiflarState();
 }
 
-class _KurusluslarState extends State<Kurusluslar> {
+class _VakiflarState extends State<Vakiflar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-      title: Text("Vakıf ve Dernekler"),
+      title: Text("Vakıflar", style: appbarStyle()),
       leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -24,4 +25,7 @@ class _KurusluslarState extends State<Kurusluslar> {
           )),
     ));
   }
+
+  TextStyle appbarStyle() =>
+      GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
 }
