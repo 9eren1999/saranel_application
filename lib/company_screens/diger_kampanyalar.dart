@@ -19,7 +19,7 @@ class _DigerKampanyalarState extends State<DigerKampanyalar> {
           },
           icon: Icon(
             Icons.arrow_back_ios_sharp,
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: Colors.blue.shade800,
             size: 19,
           )),
     ));
