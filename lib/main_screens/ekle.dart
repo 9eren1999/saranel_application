@@ -87,22 +87,45 @@ class _IlanEkleState extends State<IlanEkle> {
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(top: 25, left: 16, right: 16),
         child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Ad Soyad'),
-                onChanged: (value) {
-                  adSoyad = value;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Ad soyad alanı boş olamaz';
-                  }
-                  return null;
-                },
+          key: _formKey, 
+          child: ListView( 
+            children: [ Row(children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Colors.blue.shade100,
+                      thickness: 0.5,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text("Kişisel Bilgiler",
+                        style: TextStyle(
+                            fontSize: 12, color: Colors.blue.shade100)),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.blue.shade100,
+                      thickness: 0.5,
+                    ),
+                  ),
+                ]), 
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: 'Ad Soyad', labelStyle: TextStyle(color: Colors.blue.shade800, fontSize: 12,fontWeight: FontWeight.w400) ,filled: true, fillColor: Colors.white,  
+                   ),
+                  onChanged: (value) {
+                    adSoyad = value;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Ad soyad alanı boş olamaz';
+                    }
+                    return null;
+                  },
+                ),
               ),
               DropdownButtonFormField(
                 value: kampanyaTuru,
@@ -133,7 +156,7 @@ class _IlanEkleState extends State<IlanEkle> {
                   }
                   return null;
                 },
-              ), Divider(thickness: 1,),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: IconButton(
@@ -178,7 +201,7 @@ class _IlanEkleState extends State<IlanEkle> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white70),
                 ),
-              ),Divider(thickness: 1,),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 22, bottom: 15),
                 child: ElevatedButton(
