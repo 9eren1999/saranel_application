@@ -15,44 +15,59 @@ class SmaKampanyalari extends StatefulWidget {
 class _SmaKampanyalariState extends State<SmaKampanyalari> {
   List<bool> showDetails = [];
   List<Map<String, dynamic>>? localData;
+  Stream<QuerySnapshot>? smaStream; // Bu satırı ekleyin
+  bool shouldFetchFromFirestore = false;
+  
 
-  Future<void> saveDataToLocal(List<DocumentSnapshot> documents) async {
-    final prefs = await SharedPreferences.getInstance();
-    final data = documents.map((doc) => doc.data()).toList();
-    prefs.setString('sma_data', jsonEncode(data));
-    prefs.setInt('last_fetch_time', DateTime.now().millisecondsSinceEpoch);
-  }
+ Future<void> saveDataToLocal(List<DocumentSnapshot> documents) async {
+  final prefs = await SharedPreferences.getInstance();
+  final data = documents.map((doc) => doc.data()).toList();
+  prefs.setString('sma_data', jsonEncode(data));
+  prefs.setInt('last_fetch_time', DateTime.now().millisecondsSinceEpoch);
+
+  // Veriyi kaydettikten sonra sayfayı yeniden yükle
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => SmaKampanyalari()),
+  );
+}
 
   Future<List<Map<String, dynamic>>?> fetchDataFromLocal() async {
-    final prefs = await SharedPreferences.getInstance();
-    final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
-    final currentTime = DateTime.now().millisecondsSinceEpoch;
+  final prefs = await SharedPreferences.getInstance();
+  final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
+  final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-    if (currentTime - lastFetchTime < 600000) {
-      final data = prefs.getString('sma_data');
-      if (data != null) {
-        return List<Map<String, dynamic>>.from(jsonDecode(data));
-      }
+  if (currentTime - lastFetchTime < 600000) {
+    final data = prefs.getString('sma_data');
+    if (data != null) {
+      return List<Map<String, dynamic>>.from(jsonDecode(data));
     }
-    return null;
   }
+  return null;
+}
 
-  @override
-  void initState() {
-    super.initState();
-    fetchDataFromLocal().then((data) {
-      if (data != null) {
-        data.shuffle();
-        setState(() {
-          localData = data;
-        });
-      }
-    });
-  }
+@override
+void initState() {
+  super.initState();
+  smaStream = FirebaseFirestore.instance.collection('sma').snapshots();
+  fetchDataFromLocal().then((data) {
+    if (data != null) {
+      data.shuffle();
+      setState(() {
+        localData = data;
+      });
+    } else {
+      setState(() {
+        shouldFetchFromFirestore = true;
+      });
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference sma = FirebaseFirestore.instance.collection('sma');
+    // CollectionReference sma = FirebaseFirestore.instance.collection('sma');
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -70,31 +85,32 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
           ),
         ),
       ),
-      body: localData != null
-          ? buildListViewFromLocalData(localData!)
-          : fetchDataFromFirebase(sma),
-    );
-  }
+     body: localData != null
+      ? buildListViewFromLocalData(localData!)
+      : (shouldFetchFromFirestore ? fetchDataFromFirebase() : CircularProgressIndicator()),
+  );
+}
 
-  Widget fetchDataFromFirebase(CollectionReference sma) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: sma.snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Bir hata oluştu');
-        }
+  Widget fetchDataFromFirebase() {
+  print("Firestore'dan okuma yapılıyor...");
+  return StreamBuilder<QuerySnapshot>(
+    stream: smaStream, // Bu satırı değiştirin
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.hasError) {
+        return Text('Bir hata oluştu');
+      }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          );
-        }
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        );
+      }
 
-        saveDataToLocal(snapshot.data!.docs);
-        return buildListViewFromFirebase(snapshot.data!.docs);
-      },
-    );
-  }
+      saveDataToLocal(snapshot.data!.docs);
+      return buildListViewFromFirebase(snapshot.data!.docs);
+    },
+  );
+}
 
   Widget buildListViewFromLocalData(List<Map<String, dynamic>> data) {
     return ListView.builder(

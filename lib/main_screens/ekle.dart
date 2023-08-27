@@ -176,9 +176,9 @@ class _IlanEkleState extends State<IlanEkle> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Yeni İlan ekle",
+        title: Text("Yeni İlan ekle", 
             style:
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
       ),
