@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+
 class SmaKampanyalari extends StatefulWidget {
   const SmaKampanyalari({super.key});
 
@@ -15,53 +16,96 @@ class SmaKampanyalari extends StatefulWidget {
 class _SmaKampanyalariState extends State<SmaKampanyalari> {
   List<bool> showDetails = [];
   List<Map<String, dynamic>>? localData;
-  Stream<QuerySnapshot>? smaStream; // Bu satırı ekleyin
+  Stream<QuerySnapshot>? smaStream;
   bool shouldFetchFromFirestore = false;
-  
 
- Future<void> saveDataToLocal(List<DocumentSnapshot> documents) async {
-  final prefs = await SharedPreferences.getInstance();
-  final data = documents.map((doc) => doc.data()).toList();
-  prefs.setString('sma_data', jsonEncode(data));
-  prefs.setInt('last_fetch_time', DateTime.now().millisecondsSinceEpoch);
+  late Future<void> _initializationFuture;
 
-  // Veriyi kaydettikten sonra sayfayı yeniden yükle
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => SmaKampanyalari()),
-  );
-}
-
-  Future<List<Map<String, dynamic>>?> fetchDataFromLocal() async {
-  final prefs = await SharedPreferences.getInstance();
-  final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
-  final currentTime = DateTime.now().millisecondsSinceEpoch;
-
-  if (currentTime - lastFetchTime < 600000) {
-    final data = prefs.getString('sma_data');
-    if (data != null) {
-      return List<Map<String, dynamic>>.from(jsonDecode(data));
-    }
+  @override
+  void initState() {
+    super.initState();
+    _initializationFuture = initializeData();
   }
-  return null;
-}
 
-@override
-void initState() {
-  super.initState();
-  smaStream = FirebaseFirestore.instance.collection('sma').snapshots();
-  fetchDataFromLocal().then((data) {
-    if (data != null) {
-      data.shuffle();
-      setState(() {
-        localData = data;
-      });
-    } else {
+  Future<void> initializeData() async {
+  localData = await fetchDataFromLocal();
+  if (localData == null || localData!.isEmpty) {
+    List<String> ids = await fetchAllSmaIds();
+    if (ids.isNotEmpty) {
+      smaStream = FirebaseFirestore.instance.collection('sma').where(FieldPath.documentId, whereIn: ids).snapshots();
       setState(() {
         shouldFetchFromFirestore = true;
       });
+    } else {
+      Text("Veri alınamadı.");
     }
-  });
+  } else {
+    localData!.shuffle();
+  }
+}
+
+  Future<void> saveDataToLocal(List<Map<String, dynamic>> documents) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('sma_data', jsonEncode(documents));
+  await prefs.setInt('last_fetch_time', DateTime.now().millisecondsSinceEpoch);
+}
+
+
+Widget buildListViewFromFirebaseData(List<DocumentSnapshot> data) {
+  return ListView.builder(
+    itemCount: data.length,
+    itemBuilder: (context, index) {
+      if (showDetails.length <= index) {
+        showDetails.add(false);
+      }
+
+      Map<String, dynamic> dataMap = data[index].data() as Map<String, dynamic>;
+      return buildCard(dataMap, index);
+    },
+  );
+}
+
+
+  Future<List<Map<String, dynamic>>?> fetchDataFromLocal() async {
+    final prefs = await SharedPreferences.getInstance();
+    final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
+
+    if (currentTime - lastFetchTime < 60000) { // 1 dakika kontrolü
+      final data = prefs.getString('sma_data');
+      if (data != null) {
+        return List<Map<String, dynamic>>.from(jsonDecode(data));
+      }
+    }
+    return null;
+  }
+
+  Future<List<String>> fetchAllSmaIds() async {
+  final prefs = await SharedPreferences.getInstance();
+  final lastFetchTime = prefs.getInt('sma_ids_last_fetch_time') ?? 0;
+  final currentTime = DateTime.now().millisecondsSinceEpoch;
+
+  // 24 saat kontrolü (86400000 ms = 24 saat)
+  if (currentTime - lastFetchTime >= 60000) {
+    DocumentSnapshot doc = await FirebaseFirestore.instance.collection('allsma').doc('7DNg1yOoUq6v2zSXO84K').get();
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+    List<String> ids = [];
+    data.forEach((key, value) {
+      if (key.startsWith('id')) {
+        ids.add(value as String);
+      }
+    });
+
+    // Yeni ID'leri ve güncel zaman damgasını yerel depolamaya kaydedin
+    await prefs.setStringList('sma_ids', ids);
+    await prefs.setInt('sma_ids_last_fetch_time', currentTime);
+
+    return ids;
+  } else {
+    // Yerel depolamadan ID'leri alın
+    return prefs.getStringList('sma_ids') ?? [];
+  }
 }
 
 
@@ -85,33 +129,66 @@ void initState() {
           ),
         ),
       ),
-     body: localData != null
-      ? buildListViewFromLocalData(localData!)
-      : (shouldFetchFromFirestore ? fetchDataFromFirebase() : CircularProgressIndicator()),
+   body: FutureBuilder(
+  future: _initializationFuture,
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return CircularProgressIndicator();
+    } else if (snapshot.hasError) {
+      return Text('Bir hata oluştu');
+    } else {
+      return localData != null
+          ? buildListViewFromLocalData(localData!)
+          : (shouldFetchFromFirestore 
+              ? FutureBuilder(
+                  future: fetchDataFromFirebaseOnce(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Bir hata oluştu');
+                    } else {
+                      List<DocumentSnapshot> data = snapshot.data as List<DocumentSnapshot>;
+                      return buildListViewFromFirebaseData(data); // Bu fonksiyonu tanımlamanız gerekmekte
+                    }
+                  },
+                )
+              : CircularProgressIndicator());
+    }
+  },
+),
+
+
   );
 }
 
-  Widget fetchDataFromFirebase() {
-  print("Firestore'dan okuma yapılıyor...");
-  return StreamBuilder<QuerySnapshot>(
-    stream: smaStream, // Bu satırı değiştirin
-    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      if (snapshot.hasError) {
-        return Text('Bir hata oluştu');
-      }
+  Future<List<Map<String, dynamic>>> fetchDataFromFirebaseOnce() async {
+  final prefs = await SharedPreferences.getInstance();
+  final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
+  final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(
-          child: CircularProgressIndicator(color: Colors.white),
-        );
-      }
+  if (currentTime - lastFetchTime >= 60000) { // 1 dakika kontrolü
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sma').get();
+    List<Map<String, dynamic>> docs = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    
+    // Verileri yerel depolamaya kaydedin
+    await saveDataToLocal(docs);
 
-      saveDataToLocal(snapshot.data!.docs);
-      return buildListViewFromFirebase(snapshot.data!.docs);
-    },
-  );
+    setState(() {
+      localData = docs;
+    });
+
+    return docs;
+  } else {
+    // Yerel depolamadan verileri alın
+    final data = prefs.getString('sma_data');
+    if (data != null) {
+      List<Map<String, dynamic>> decodedData = List<Map<String, dynamic>>.from(jsonDecode(data));
+      return decodedData;
+    }
+  }
+  return [];
 }
-
   Widget buildListViewFromLocalData(List<Map<String, dynamic>> data) {
     return ListView.builder(
       itemCount: data.length,
@@ -121,22 +198,6 @@ void initState() {
         }
 
         return buildCard(data[index], index);
-      },
-    );
-  }
-
-  Widget buildListViewFromFirebase(List<DocumentSnapshot> documents) {
-    return ListView.builder(
-      itemCount: documents.length,
-      itemBuilder: (context, index) {
-        if (showDetails.length <= index) {
-          showDetails.add(false);
-        }
-
-        DocumentSnapshot document = documents[index];
-        Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-        return buildCard(data, index);
       },
     );
   }

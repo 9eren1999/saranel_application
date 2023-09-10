@@ -38,9 +38,9 @@ class _MainPageState extends State<MainPage> {
           textSize: 15,
           activeColor: Colors.blue.shade800,
           tabs: const [
-            GButton(icon: Icons.add, text: "İlan Ekle"),
+            GButton(icon: Icons.add_box, text: "İlan Ekle"),
             GButton(icon: Icons.home, text: "AnaSayfa"),
-            GButton(icon: Icons.info_outline, text: "Bilgi"),
+            GButton(icon: Icons.info, text: "Bilgi"),
           ],
           selectedIndex: _selectedIndex,
           onTabChange: (index) {

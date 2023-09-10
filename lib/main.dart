@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saranel_application/main_screens/main_page.dart';
+import 'package:saranel_application/main_screens/anasayfa.dart';
 
 import 'firebase_options.dart';
 
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white),
         useMaterial3: true,
       ),
-      home: MainPage(),
+      home: AnaSayfa(),
     );
   }
 }

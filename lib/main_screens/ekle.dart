@@ -17,6 +17,9 @@ class _IlanEkleState extends State<IlanEkle> {
   String? _uploadedImageUrl1;
   String? _uploadedImageUrl2;
 
+  bool isImage1Uploaded = false;
+  bool isImage2Uploaded = false;
+
   String adSoyad = '';
   String kampanyaTuru = 'SMA';
   String tamamlanmaOrani = '';
@@ -43,11 +46,13 @@ class _IlanEkleState extends State<IlanEkle> {
         TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
         String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-        setState(() {
+         setState(() {
           if (imageNumber == 1) {
             _uploadedImageUrl1 = downloadUrl;
+            isImage1Uploaded = true; // Görsel yüklendiğinde durumu güncelleyin
           } else if (imageNumber == 2) {
             _uploadedImageUrl2 = downloadUrl;
+            isImage2Uploaded = true; // Görsel yüklendiğinde durumu güncelleyin
           }
         });
       } catch (e) {
@@ -599,7 +604,7 @@ class _IlanEkleState extends State<IlanEkle> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                          ),
+                          ), 
                         ),
                       ),
                       Padding(
@@ -608,9 +613,13 @@ class _IlanEkleState extends State<IlanEkle> {
                           "Kampanya kimin için yapılıyorsa o kişinin görselini yükleyiniz. Kendi resminizi ya da reklam afişinizi yüklemeyiniz.",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white70),
-                        ),
-                      ),
-                    ],
+                        ), 
+                      ),if (isImage1Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 24,
+                  )],
                   ),
                 ),
               ),
@@ -635,8 +644,8 @@ class _IlanEkleState extends State<IlanEkle> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
-                          "İzin Belgesi Yükle",
-                          textAlign: TextAlign.center,
+                          "İzin Belgesi Yükle", 
+                          textAlign: TextAlign.center, 
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -650,8 +659,12 @@ class _IlanEkleState extends State<IlanEkle> {
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white70),
                         ),
-                      ),
-                    ],
+                      ),if (isImage2Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 24,
+                  )],
                   ),
                 ),
               ),
