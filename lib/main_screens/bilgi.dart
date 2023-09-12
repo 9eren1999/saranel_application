@@ -20,8 +20,17 @@ class _AyarlarState extends State<Ayarlar> {
       appBar: AppBar(
           title: Text(
         "Bilgi",
-        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
-      )),
+        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800), 
+      ), leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                color: Colors.blue.shade800,
+                size: 19,
+              )),
+        ),
       body: Container(
         child: ListView(children: [
           Padding(
@@ -65,7 +74,6 @@ class _AyarlarState extends State<Ayarlar> {
                         child: Text(
                           "Saranel'i Destekle!",
                           style: TextStyle(
-                            fontWeight: FontWeight.w700,
                             color: Colors.blue.shade600,
                           ),
                         ),

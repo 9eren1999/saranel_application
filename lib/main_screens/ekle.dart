@@ -185,7 +185,15 @@ class _IlanEkleState extends State<IlanEkle> {
       appBar: AppBar(
         title: Text("Yeni İlan ekle", 
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)), leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                color: Colors.blue.shade800,
+                size: 19,
+              )),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 25, left: 16, right: 16),
