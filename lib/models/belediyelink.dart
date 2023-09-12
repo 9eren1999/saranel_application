@@ -1,6 +1,6 @@
 import 'package:url_launcher/url_launcher.dart';
 
-final Uri url1 = Uri.parse('https://www.sitelinki.com');
+final Uri url1 = Uri.parse('https://www.google.com.tr/?hl=tr');
 final Uri url2 = Uri.parse('https://www.sitelinki.com');
 final Uri url3 = Uri.parse('https://www.sitelinki.com');
 final Uri url4 = Uri.parse('https://www.sitelinki.com');

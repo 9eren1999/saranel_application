@@ -72,65 +72,33 @@ class Sss extends StatelessWidget {
                 "Saranel uygulaması nedir?",
                 "Saranel, resmi kurumlarca onaylanmış SMA bağışlarını, resmi belgelere sahip vakıf, dernek ve sivil toplum kuruluşlarını ve acil ihtiyaç gerektiren duyuruları listeler. Bağış yapmak isteyen kullanıcılara güvenilir bir adres sunar.",
               ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
-              ),
               buildQuestionTile(
                 "Uygulama üzerinden bağış yapabilir miyim?",
                 "ayır, Saranel uygulaması bağışları kendine almaz. İlgili kurumların adreslerini paylaşır, böylece kullanıcılar doğrudan bu kurumlarla iletişime geçebilir.",
-              ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
               ),
               buildQuestionTile(
                 "Hesap oluşturmam gerekir mi?",
                 "Hayır, Saranel uygulamasında hesap oluşturmanız gerekmez. İlanları doğrudan görüntüleyebilir ya da ilan ekleme talebinde bulunabilirsiniz.",
               ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
-              ),
               buildQuestionTile(
                 "İlan eklemek istiyorum, nasıl ekleyebilirim?",
                 "İlan eklemek için uygulama içindeki ilan ekleme bölümünü kullanabilirsiniz. İlgili bilgileri doldurduktan kısa bir süre sonra ilanınız incelenip yayına alınacaktır.Şimdilik sadece SMA kampanyası için ilan ekleyebilirsiniz.",
-              ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
               ),
               buildQuestionTile(
                 "Uygulamada listelenen kurumlar nasıl seçiliyor?",
                 "Saranel, yalnızca resmi kurumlar tarafından onaylanmış ve güvenilir olduğu kanıtlanmış kurumları listeler.",
               ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
-              ),
               buildQuestionTile(
                 "Uygulama içindeki bilgilerin doğruluğu nasıl sağlanıyor?",
                 "Saranel, listelenen kurumların resmi belgelerini ve bilgilerini dikkatlice inceler ve yalnızca doğrulanmış bilgileri yayınlar.",
-              ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
               ),
               buildQuestionTile(
                 "Uygulama içindeki bağış linkleri güvenli mi?",
                 "Evet, Saranel yalnızca resmi ve güvenilir bağış linklerini paylaşır.",
               ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
-              ),
               buildQuestionTile(
                 "Uygulama giderleri nasıl karşılanıyor?",
                 "Uygulama giderleri yalnızca bilgi sekmesinde bulunan saraneli destekle bölümünden sağlanan maddi gelirler ile sağlanmaktadır.",
-              ),
-              Divider(
-                indent: 1,
-                color: Colors.blue.shade800,
               ),
               buildQuestionTile(
                 "Vakıf,dernek ya da kuruluşumu listeletmek istiyorum, bunu nasıl yapabilirim?",
