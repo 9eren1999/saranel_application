@@ -1,30 +1,44 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saranel_application/bakimmodu_screen/bakimmodu.dart';
+import 'package:saranel_application/firebase_options.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
-
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+
+  final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+
+  await remoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: Duration(seconds: 1),
+    minimumFetchInterval: Duration(seconds: 1),
+  ));
+
+  await remoteConfig.fetchAndActivate();
+
+  bool bakimModu = remoteConfig.getBool('bakim_modu');
+
+  print('Bakım Modu: $bakimModu');
+
+  runApp(MyApp(bakimModu: bakimModu));
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.white, // Gezinme çubuğu rengi
-      statusBarIconBrightness:
-          Brightness.dark, // Durum çubuğu simgeleri için dark
-      systemNavigationBarIconBrightness:
-          Brightness.dark)); // Gezinme çubuğu simgeleri için dark
+      systemNavigationBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool bakimModu;
 
-  // This widget is the root of your application.
+  MyApp({required this.bakimModu});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,7 +66,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white),
         useMaterial3: true,
       ),
-      home: AnaSayfa(),
+      home: bakimModu ? BakimModuPage() : AnaSayfa(),
     );
   }
 }
