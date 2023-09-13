@@ -26,14 +26,14 @@ class _derneklerState extends State<dernekler> {
   bool showDetails14 = false;
   bool showDetails15 = false;
   bool showDetails16 = false;
-   bool showDetails17 = false;
+  bool showDetails17 = false;
   bool showDetails18 = false;
   bool showDetails19 = false;
   bool showDetails20 = false;
   bool showDetails21 = false;
   bool showDetails22 = false;
   bool showDetails23 = false;
-   bool showDetails24 = false;
+  bool showDetails24 = false;
   bool showDetails25 = false;
   bool showDetails26 = false;
   bool showDetails27 = false;
@@ -46,7 +46,6 @@ class _derneklerState extends State<dernekler> {
   bool showDetails34 = false;
   bool showDetails35 = false;
   bool showDetails36 = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +63,15 @@ class _derneklerState extends State<dernekler> {
                 size: 19,
               )),
         ),
-        body: SingleChildScrollView( 
+        body: SingleChildScrollView(
             child: Column(children: [
           Card( 
-            margin: EdgeInsets.only(bottom: 15, top: 110, right: 15, left: 15),
+            margin: EdgeInsets.only(bottom: 15, top: 100, right: 15, left: 15),
             color: Colors.blue.shade600,
-            child: Padding(  
+            child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, right: 25, left: 15),
-              child: Column( 
+              child: Column(
                 children: [
                   Row(
                     children: [
@@ -153,9 +152,12 @@ class _derneklerState extends State<dernekler> {
                           ),
                           SizedBox(height: 10),
                           Center(
-                            child: ElevatedButton( 
+                            child: ElevatedButton(
                               onPressed: launchUrl1,
-                              child: Text("Bağış Yap", style: TextStyle(color: Colors.blue.shade600),),
+                              child: Text(
+                                "Bağış Yap",
+                                style: TextStyle(color: Colors.blue.shade600),
+                              ),
                             ),
                           ),
                         ],
@@ -256,7 +258,9 @@ class _derneklerState extends State<dernekler> {
                             Center(
                               child: ElevatedButton(
                                 onPressed: launchUrl2,
-                                child: Text("Bağış Yap" ,style: TextStyle(color: Colors.blue.shade600)),
+                                child: Text("Bağış Yap",
+                                    style:
+                                        TextStyle(color: Colors.blue.shade600)),
                               ),
                             ),
                           ],
@@ -357,7 +361,9 @@ class _derneklerState extends State<dernekler> {
                               Center(
                                 child: ElevatedButton(
                                   onPressed: launchUrl3,
-                                  child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                  child: Text("Bağış Yap",
+                                      style: TextStyle(
+                                          color: Colors.blue.shade600)),
                                 ),
                               ),
                             ],
@@ -458,7 +464,9 @@ class _derneklerState extends State<dernekler> {
                                 Center(
                                   child: ElevatedButton(
                                     onPressed: launchUrl4,
-                                    child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                    child: Text("Bağış Yap",
+                                        style: TextStyle(
+                                            color: Colors.blue.shade600)),
                                   ),
                                 ),
                               ],
@@ -559,7 +567,9 @@ class _derneklerState extends State<dernekler> {
                                   Center(
                                     child: ElevatedButton(
                                       onPressed: launchUrl5,
-                                      child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                      child: Text("Bağış Yap",
+                                          style: TextStyle(
+                                              color: Colors.blue.shade600)),
                                     ),
                                   ),
                                 ],
@@ -661,7 +671,9 @@ class _derneklerState extends State<dernekler> {
                                     Center(
                                       child: ElevatedButton(
                                         onPressed: launchUrl6,
-                                        child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                        child: Text("Bağış Yap",
+                                            style: TextStyle(
+                                                color: Colors.blue.shade600)),
                                       ),
                                     ),
                                   ],
@@ -764,7 +776,9 @@ class _derneklerState extends State<dernekler> {
                                       Center(
                                         child: ElevatedButton(
                                           onPressed: launchUrl7,
-                                          child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                          child: Text("Bağış Yap",
+                                              style: TextStyle(
+                                                  color: Colors.blue.shade600)),
                                         ),
                                       ),
                                     ],
@@ -867,7 +881,10 @@ class _derneklerState extends State<dernekler> {
                                         Center(
                                           child: ElevatedButton(
                                             onPressed: launchUrl8,
-                                            child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                            child: Text("Bağış Yap",
+                                                style: TextStyle(
+                                                    color:
+                                                        Colors.blue.shade600)),
                                           ),
                                         ),
                                       ],
@@ -957,10 +974,9 @@ class _derneklerState extends State<dernekler> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 25,
-                                                right: 5,
-                                                left: 5),
-                                            child: Text( textAlign: TextAlign.center,
+                                                bottom: 25, right: 5, left: 5),
+                                            child: Text(
+                                              textAlign: TextAlign.center,
                                               "Kuruluş Tarihi: 1998 \nGenel Merkez: Ankara, Türkiye \n\nLösev, lösemi ve kanser hastası çocuklar ile ailelerine yönelik destek sağlayan bir sivil toplum kuruluşudur. Hastaların tedavi süreçlerini daha iyi koşullarda geçirebilmeleri için gerekli maddi ve manevi desteği sağlar. Aynı zamanda, hastalıkla ilgili farkındalık yaratma ve erken tanı konularında toplumu bilinçlendirmeye yönelik çalışmalar yapar. Lösev, hastalar için sosyal rehabilitasyon programları düzenler ve eğitim destekleri sunar, böylece hastaların yaşam kalitelerini artırmayı hedefler.",
                                               style: TextStyle(
                                                 color: Colors.white,
@@ -971,7 +987,10 @@ class _derneklerState extends State<dernekler> {
                                           Center(
                                             child: ElevatedButton(
                                               onPressed: launchUrl9,
-                                              child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                              child: Text("Bağış Yap",
+                                                  style: TextStyle(
+                                                      color: Colors
+                                                          .blue.shade600)),
                                             ),
                                           ),
                                         ],
@@ -1064,8 +1083,9 @@ class _derneklerState extends State<dernekler> {
                                                   bottom: 25,
                                                   right: 5,
                                                   left: 5),
-                                              child: Text(textAlign: TextAlign.center,
-                                              "Kuruluş Tarihi: 1980 \nGenel Merkez: İstanbul, Türkiye \n\nTürk Böbrek Vakfı, böbrek hastalıkları ve böbrek yetmezliği konularında toplumu bilinçlendirmek ve hastalara destek olmak amacıyla faaliyet gösteren bir sivil toplum kuruluşudur. Böbrek hastalıklarının önlenmesi, erken tanı ve tedavisi konularında çalışmalar yapar. Aynı zamanda, böbrek nakli ve diyaliz tedavisi gören hastalara maddi ve manevi destek sağlar. Türk Böbrek Vakfı, böbrek sağlığını korumak ve hastalıkların yayılmasını önlemek için çeşitli eğitim ve farkındalık programları düzenler.",
+                                              child: Text(
+                                                textAlign: TextAlign.center,
+                                                "Kuruluş Tarihi: 1980 \nGenel Merkez: İstanbul, Türkiye \n\nTürk Böbrek Vakfı, böbrek hastalıkları ve böbrek yetmezliği konularında toplumu bilinçlendirmek ve hastalara destek olmak amacıyla faaliyet gösteren bir sivil toplum kuruluşudur. Böbrek hastalıklarının önlenmesi, erken tanı ve tedavisi konularında çalışmalar yapar. Aynı zamanda, böbrek nakli ve diyaliz tedavisi gören hastalara maddi ve manevi destek sağlar. Türk Böbrek Vakfı, böbrek sağlığını korumak ve hastalıkların yayılmasını önlemek için çeşitli eğitim ve farkındalık programları düzenler.",
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                 ),
@@ -1075,7 +1095,10 @@ class _derneklerState extends State<dernekler> {
                                             Center(
                                               child: ElevatedButton(
                                                 onPressed: launchUrl10,
-                                                child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                                child: Text("Bağış Yap",
+                                                    style: TextStyle(
+                                                        color: Colors
+                                                            .blue.shade600)),
                                               ),
                                             ),
                                           ],
@@ -1168,8 +1191,9 @@ class _derneklerState extends State<dernekler> {
                                                     bottom: 25,
                                                     right: 5,
                                                     left: 5),
-                                                child: Text(textAlign: TextAlign.center,
-                                              "Kuruluş Tarihi: 1986 \nGenel Merkez: İstanbul, Türkiye \n\nKEDV, kadınların ekonomik bağımsızlıklarını kazanmalarını ve sosyal yaşama eşit katılımlarını destekleyen bir sivil toplum kuruluşudur. Kadınların kendi işlerini kurmalarını ve yönetmelerini destekleyerek, ekonomik kalkınmaya katkıda bulunmayı hedefler. Aynı zamanda, kadınların liderlik ve karar alma mekanizmalarında daha fazla yer alabilmeleri için eğitim ve destek programları düzenler. KEDV, kadınların ve çocukların yaşam kalitelerini artırmak için çeşitli projeler ve atölye çalışmaları yürütür.",
+                                                child: Text(
+                                                  textAlign: TextAlign.center,
+                                                  "Kuruluş Tarihi: 1986 \nGenel Merkez: İstanbul, Türkiye \n\nKEDV, kadınların ekonomik bağımsızlıklarını kazanmalarını ve sosyal yaşama eşit katılımlarını destekleyen bir sivil toplum kuruluşudur. Kadınların kendi işlerini kurmalarını ve yönetmelerini destekleyerek, ekonomik kalkınmaya katkıda bulunmayı hedefler. Aynı zamanda, kadınların liderlik ve karar alma mekanizmalarında daha fazla yer alabilmeleri için eğitim ve destek programları düzenler. KEDV, kadınların ve çocukların yaşam kalitelerini artırmak için çeşitli projeler ve atölye çalışmaları yürütür.",
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                   ),
@@ -1179,7 +1203,10 @@ class _derneklerState extends State<dernekler> {
                                               Center(
                                                 child: ElevatedButton(
                                                   onPressed: launchUrl11,
-                                                  child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                                  child: Text("Bağış Yap",
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .blue.shade600)),
                                                 ),
                                               ),
                                             ],
@@ -1239,7 +1266,8 @@ class _derneklerState extends State<dernekler> {
                                             GestureDetector(
                                               onTap: () {
                                                 setState(() {
-                                                  showDetails12 = !showDetails12;
+                                                  showDetails12 =
+                                                      !showDetails12;
                                                 });
                                               },
                                               child: Icon(
@@ -1279,8 +1307,9 @@ class _derneklerState extends State<dernekler> {
                                                           bottom: 25,
                                                           right: 5,
                                                           left: 5),
-                                                  child: Text(textAlign: TextAlign.center,
-                                              "Kuruluş Tarihi: 1979 \nGenel Merkez: İstanbul, Türkiye \n\nKoruncuk Vakfı, risk altındaki çocuklara ve gençlere yönelik koruyucu ve önleyici hizmetler sunan bir sivil toplum kuruluşudur. Vakıf, çocukların fiziksel, duygusal ve zihinsel gelişimlerini destekleyerek, sağlıklı bireyler olarak yetişmelerini sağlamayı amaçlar. Koruncuk Vakfı, çocuklara güvende, sevgi dolu ve eğitimli bir ortam sunarak, onların topluma faydalı bireyler olarak yetişmelerini destekler. Aynı zamanda, çocuk hakları konusunda toplumsal farkındalığı artırmak için çeşitli kampanyalar ve eğitim programları düzenler.",
+                                                  child: Text(
+                                                    textAlign: TextAlign.center,
+                                                    "Kuruluş Tarihi: 1979 \nGenel Merkez: İstanbul, Türkiye \n\nKoruncuk Vakfı, risk altındaki çocuklara ve gençlere yönelik koruyucu ve önleyici hizmetler sunan bir sivil toplum kuruluşudur. Vakıf, çocukların fiziksel, duygusal ve zihinsel gelişimlerini destekleyerek, sağlıklı bireyler olarak yetişmelerini sağlamayı amaçlar. Koruncuk Vakfı, çocuklara güvende, sevgi dolu ve eğitimli bir ortam sunarak, onların topluma faydalı bireyler olarak yetişmelerini destekler. Aynı zamanda, çocuk hakları konusunda toplumsal farkındalığı artırmak için çeşitli kampanyalar ve eğitim programları düzenler.",
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                     ),
@@ -1290,7 +1319,10 @@ class _derneklerState extends State<dernekler> {
                                                 Center(
                                                   child: ElevatedButton(
                                                     onPressed: launchUrl12,
-                                                    child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                                    child: Text("Bağış Yap",
+                                                        style: TextStyle(
+                                                            color: Colors.blue
+                                                                .shade600)),
                                                   ),
                                                 ),
                                               ],
@@ -1393,8 +1425,10 @@ class _derneklerState extends State<dernekler> {
                                                             bottom: 25,
                                                             right: 5,
                                                             left: 5),
-                                                    child: Text(textAlign: TextAlign.center,
-                                              "Kuruluş Tarihi: 1992 \nGenel Merkez: İstanbul, Türkiye \n\nTEMA Vakfı, Türkiye'nin doğal varlıklarını korumak ve erozyonla mücadele etmek amacıyla kurulmuş bir sivil toplum kuruluşudur. Vakıf, ağaçlandırma projeleri, çevre eğitimi ve farkındalık yaratma kampanyaları yürütür. Aynı zamanda, sürdürülebilir tarım uygulamalarını destekler ve çevresel sorunlar konusunda politika önerileri geliştirir. TEMA, doğal kaynakların korunması ve sürdürülebilir kullanımı için toplumu bilinçlendirmeye yönelik çeşitli etkinlikler ve projeler düzenler.",
+                                                    child: Text(
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      "Kuruluş Tarihi: 1992 \nGenel Merkez: İstanbul, Türkiye \n\nTEMA Vakfı, Türkiye'nin doğal varlıklarını korumak ve erozyonla mücadele etmek amacıyla kurulmuş bir sivil toplum kuruluşudur. Vakıf, ağaçlandırma projeleri, çevre eğitimi ve farkındalık yaratma kampanyaları yürütür. Aynı zamanda, sürdürülebilir tarım uygulamalarını destekler ve çevresel sorunlar konusunda politika önerileri geliştirir. TEMA, doğal kaynakların korunması ve sürdürülebilir kullanımı için toplumu bilinçlendirmeye yönelik çeşitli etkinlikler ve projeler düzenler.",
                                                       style: TextStyle(
                                                         color: Colors.white,
                                                       ),
@@ -1404,7 +1438,10 @@ class _derneklerState extends State<dernekler> {
                                                   Center(
                                                     child: ElevatedButton(
                                                       onPressed: launchUrl13,
-                                                      child: Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                                      child: Text("Bağış Yap",
+                                                          style: TextStyle(
+                                                              color: Colors.blue
+                                                                  .shade600)),
                                                     ),
                                                   ),
                                                 ],
@@ -1508,8 +1545,10 @@ class _derneklerState extends State<dernekler> {
                                                               bottom: 25,
                                                               right: 5,
                                                               left: 5),
-                                                      child: Text(textAlign: TextAlign.center,
-                                              "Kuruluş Tarihi: 1972 \nGenel Merkez: İstanbul, Türkiye \n\nTürkiye Milli Kültür Vakfı, Türk kültürünün ve sanatının tanıtılması ve yaşatılması amacıyla kurulmuş bir sivil toplum kuruluşudur. Vakıf, kültürel mirasın korunması, geleneksel sanatların desteklenmesi ve genç sanatçıların yetiştirilmesi için çeşitli projeler ve etkinlikler düzenler. Aynı zamanda, kültürel araştırmalar yapar ve kültürel yayınlar gerçekleştirir. Türkiye Milli Kültür Vakfı, Türk kültürünün ve sanatının dünya çapında tanıtılması için uluslararası işbirlikleri de yapar.",
+                                                      child: Text(
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        "Kuruluş Tarihi: 1972 \nGenel Merkez: İstanbul, Türkiye \n\nTürkiye Milli Kültür Vakfı, Türk kültürünün ve sanatının tanıtılması ve yaşatılması amacıyla kurulmuş bir sivil toplum kuruluşudur. Vakıf, kültürel mirasın korunması, geleneksel sanatların desteklenmesi ve genç sanatçıların yetiştirilmesi için çeşitli projeler ve etkinlikler düzenler. Aynı zamanda, kültürel araştırmalar yapar ve kültürel yayınlar gerçekleştirir. Türkiye Milli Kültür Vakfı, Türk kültürünün ve sanatının dünya çapında tanıtılması için uluslararası işbirlikleri de yapar.",
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -1519,8 +1558,11 @@ class _derneklerState extends State<dernekler> {
                                                     Center(
                                                       child: ElevatedButton(
                                                         onPressed: launchUrl14,
-                                                        child:
-                                                            Text("Bağış Yap",style: TextStyle(color: Colors.blue.shade600)),
+                                                        child: Text("Bağış Yap",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .blue
+                                                                    .shade600)),
                                                       ),
                                                     ),
                                                   ],
@@ -1647,8 +1689,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.asset(
-                                      'assets/images/ted.jpg',
+                                            child: Image.network(
+                                              'https://www.diyadinnet.com/d/etiket/turk-egitim-dernegi-1277.jpg',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -1754,8 +1796,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.asset(
-                                      'assets/images/tog.jpg',
+                                              child: Image.network(
+                                                'https://www.tog.org.tr/wp-content/uploads/2023/01/Web-Site-Logo.png',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -1865,8 +1907,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.asset(
-                                      'assets/images/tohumot.jpg',
+                                                child: Image.network(
+                                                  'https://s.solida.app/cache/ngo/tohum-otizm-vakfi-logo.png?w=200&fit=max&s=c68fe4d113f6b1c1f7a55e4ea18e000a',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -1979,8 +2021,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/spastik.jpg',
+                                                  child: Image.network(
+                                                    'https://mir-s3-cdn-cf.behance.net/projects/max_808/22fff5142829283.Y3JvcCw4MDgsNjMyLDAsMTQ.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -2094,8 +2136,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.asset(
-                                      'assets/images/unicef.jpg',
+                                                child: Image.network(
+                                                  'https://www.diplomasi.net/wp-content/uploads/2018/11/unicef.png',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -2208,8 +2250,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/ahbap.jpg',
+                                                  child: Image.network(
+                                                    'https://www.girisimhaberleri.com/wp-content/uploads/2023/02/Calisma-Yuzeyi-1-1-scaled.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -2321,8 +2363,8 @@ class _derneklerState extends State<dernekler> {
                                     Row(
                                       children: [
                                         ClipOval(
-                                          child: Image.asset(
-                                      'assets/images/akut.jpg',
+                                          child: Image.network(
+                                            'https://www.akut.org.tr/images/AKUT-logo-400x400.png',
                                             height: 45,
                                             width: 45,
                                             fit: BoxFit.cover,
@@ -2425,8 +2467,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.asset(
-                                      'assets/images/drsfka.jpg',
+                                            child: Image.network(
+                                              'https://yt3.googleusercontent.com/7iRIziKVfTrhxCchikusLcQqwNpT6it3wkQSbiPYL4loUPlUbSz089NavnVS5dOOzfOJq-d09w=s900-c-k-c0x00ffffff-no-rj',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -2532,8 +2574,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.asset(
-                                      'assets/images/kacuv.jpg',
+                                              child: Image.network(
+                                                'https://cdn.fonzip.com/public/kacuv/img/fundraising/kacuv_logo_1486383953039.jpg',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -2643,8 +2685,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.asset(
-                                      'assets/images/ihh.jpg',
+                                                child: Image.network(
+                                                  'https://logowik.com/content/uploads/images/553_ihh_logo.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -2757,8 +2799,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/acev.jpg',
+                                                  child: Image.network(
+                                                    'https://www.sivilsayfalar.org/wp-content/uploads/2022/03/acev-babalik-calismalari-uzmani-ariyor.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -2872,8 +2914,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.asset(
-                                      'assets/images/tdwnsd.jpg',
+                                                child: Image.network(
+                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLu1ITeQePgzxe6EmX62qj0KIp0O8LNoUO0gLPqPKYzMo8h3GIVXnSBXtG13CzUP57v8&usqp=CAU',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -2986,8 +3028,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/tdv.jpg',
+                                                  child: Image.network(
+                                                    'https://cdnuploads.aa.com.tr/uploads/Contents/2014/09/04/thumbs_b_c_cc9235176ab33a3e4b5db31c2ebbd3f1.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -3098,8 +3140,8 @@ class _derneklerState extends State<dernekler> {
                                     Row(
                                       children: [
                                         ClipOval(
-                                          child: Image.asset(
-                                      'assets/images/tugsav.jpg',
+                                          child: Image.network(
+                                            'https://www.akut.org.tr/images/AKUT-logo-400x400.png',
                                             height: 45,
                                             width: 45,
                                             fit: BoxFit.cover,
@@ -3202,8 +3244,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.asset(
-                                      'assets/images/tider.jpg',
+                                            child: Image.network(
+                                              'https://yt3.googleusercontent.com/7iRIziKVfTrhxCchikusLcQqwNpT6it3wkQSbiPYL4loUPlUbSz089NavnVS5dOOzfOJq-d09w=s900-c-k-c0x00ffffff-no-rj',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -3309,8 +3351,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.asset(
-                                      'assets/images/pi.jpg',
+                                              child: Image.network(
+                                                'https://cdn.fonzip.com/public/kacuv/img/fundraising/kacuv_logo_1486383953039.jpg',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -3420,8 +3462,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.asset(
-                                      'assets/images/maya.jpg',
+                                                child: Image.network(
+                                                  'https://logowik.com/content/uploads/images/553_ihh_logo.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -3534,8 +3576,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/nesin.jpg',
+                                                  child: Image.network(
+                                                    'https://www.sivilsayfalar.org/wp-content/uploads/2022/03/acev-babalik-calismalari-uzmani-ariyor.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -3649,8 +3691,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.asset(
-                                      'assets/images/akd.jpg',
+                                                child: Image.network(
+                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLu1ITeQePgzxe6EmX62qj0KIp0O8LNoUO0gLPqPKYzMo8h3GIVXnSBXtG13CzUP57v8&usqp=CAU',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -3763,8 +3805,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/makeaw.jpg',
+                                                  child: Image.network(
+                                                    'https://cdnuploads.aa.com.tr/uploads/Contents/2014/09/04/thumbs_b_c_cc9235176ab33a3e4b5db31c2ebbd3f1.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -3879,8 +3921,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.asset(
-                                      'assets/images/tarihv.jpg',
+                                                  child: Image.network(
+                                                    'https://cdnuploads.aa.com.tr/uploads/Contents/2014/09/04/thumbs_b_c_cc9235176ab33a3e4b5db31c2ebbd3f1.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
