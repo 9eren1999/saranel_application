@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
+import 'package:saranel_application/settings_screens/splash_screen.dart';
 
 import 'firebase_options.dart';
 

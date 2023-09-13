@@ -45,10 +45,14 @@ dependencies:
   shared_preferences: ^2.2.0
   firebase_storage: ^11.2.6
   image_picker: ^1.0.2
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+
+    
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -97,3 +101,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  
+
+flutter_icons:
+   android: true
+   ios: true
+   image_path: "assets/images/appsaranellogo.png"  # Iconunuzun yolu

@@ -152,8 +152,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         padding: EdgeInsets.only(
                           top: 20,
                           bottom: 20,
-                          left: 32,
-                          right: 32,
+                          left: 20,
+                          right: 20,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade600,
@@ -177,7 +177,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -200,8 +200,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                           child: Container(
                             width: 185,
                             padding: EdgeInsets.only(
-                              left: 32,
-                              right: 32,
+                              left: 20,
+                              right: 20,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade600,
@@ -226,7 +226,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                               ),
@@ -277,8 +277,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         padding: EdgeInsets.only(
                           top: 20,
                           bottom: 20,
-                          left: 32,
-                          right: 32,
+                          left: 20,
+                          right: 20,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade600,
@@ -302,7 +302,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -325,8 +325,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                           child: Container(
                             width: 185,
                             padding: EdgeInsets.only(
-                              left: 32,
-                              right: 32,
+                              left: 20,
+                              right: 20,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade600,
@@ -351,7 +351,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                               ),
@@ -392,8 +392,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         padding: EdgeInsets.only(
                           top: 20,
                           bottom: 20,
-                          left: 32,
-                          right: 32,
+                          left: 20,
+                          right: 20,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade600,
@@ -417,7 +417,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -440,8 +440,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                           child: Container(
                             width: 185,
                             padding: EdgeInsets.only(
-                              left: 32,
-                              right: 32,
+                              left: 20,
+                              right: 20,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade600,
@@ -466,7 +466,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                               ),
@@ -712,12 +712,12 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   borderRadius: BorderRadius.all(Radius.circular(25)),
                 ),
                 child: ListTile(
-                  contentPadding: EdgeInsets.all(15),
+                  contentPadding: EdgeInsets.all(12),
                   title: Text(
                     "Saranel, bağış kampanyaları için ödeme aracılığı yapmaz veya herhangi bir komisyon almaz. Bağış işlemleri, ilgili organizasyonlar tarafından doğrudan yürütülür. Platform, yalnızca resmi kurumlar tarafından onaylanmış vakıf, dernek, topluluk ve kampanyalar hakkında bilgi sunar. Bağış yapılan yerlerle ilgili yaşanabilecek sorunlardan Saranel sorumlu değildir. \n\nGörüş, öneri ve talepleriniz için iletisim@saranel.com.tr mail adresi üzerinden bize ulaşabilirsiniz.",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                     textAlign: TextAlign.start,
                   ),

@@ -67,7 +67,7 @@ class _derneklerState extends State<dernekler> {
         body: SingleChildScrollView( 
             child: Column(children: [
           Card( 
-            margin: EdgeInsets.only(bottom: 15, top: 100, right: 15, left: 15),
+            margin: EdgeInsets.only(bottom: 15, top: 110, right: 15, left: 15),
             color: Colors.blue.shade600,
             child: Padding(  
               padding: const EdgeInsets.only(
@@ -77,8 +77,8 @@ class _derneklerState extends State<dernekler> {
                   Row(
                     children: [
                       ClipOval(
-                        child: Image.network(
-                          'https://stsprefabrik.com.tr/images/speasyimagegallery/albums/1/images/turk-kizilayi-logo.png',
+                        child: Image.asset(
+                                      'assets/images/kizilay.jpg',
                           height: 45,
                           width: 45,
                           fit: BoxFit.cover,
@@ -177,8 +177,8 @@ class _derneklerState extends State<dernekler> {
                     Row(
                       children: [
                         ClipOval(
-                          child: Image.network(
-                            'https://gelbasla.com/uploads/files/tr/388/thumb-816x460-eefbccb8af9f35e677cfa920e8db5731.jpg',
+                          child: Image.asset(
+                                      'assets/images/yesilay.jpg',
                             height: 45,
                             width: 45,
                             fit: BoxFit.cover,
@@ -278,8 +278,8 @@ class _derneklerState extends State<dernekler> {
                       Row(
                         children: [
                           ClipOval(
-                            child: Image.network(
-                              'https://ab-ilan.com/wp-content/uploads/2021/09/CYDD.jpg',
+                            child: Image.asset(
+                                      'assets/images/cydd.jpg',
                               height: 45,
                               width: 45,
                               fit: BoxFit.cover,
@@ -379,8 +379,8 @@ class _derneklerState extends State<dernekler> {
                         Row(
                           children: [
                             ClipOval(
-                              child: Image.network(
-                                'https://trthaberstatic.cdn.wp.trt.com.tr/resimler/586000/586402.jpg',
+                              child: Image.asset(
+                                      'assets/images/thk.jpg',
                                 height: 45,
                                 width: 45,
                                 fit: BoxFit.cover,
@@ -480,8 +480,8 @@ class _derneklerState extends State<dernekler> {
                           Row(
                             children: [
                               ClipOval(
-                                child: Image.network(
-                                  'https://www.tpfund.org/wp-content/uploads/2018/07/TMP-Partners@TURGOK-600x300.jpg',
+                                child: Image.asset(
+                                      'assets/images/tgok.jpg',
                                   height: 45,
                                   width: 45,
                                   fit: BoxFit.cover,
@@ -581,8 +581,8 @@ class _derneklerState extends State<dernekler> {
                             Row(
                               children: [
                                 ClipOval(
-                                  child: Image.network(
-                                    'https://yt3.googleusercontent.com/kueiFLOBoZZvP2eKQSpqprHsKmrwlyVIIOSB2Ae3lf_A8wlf921p7yAFzR4ugj0OjyxxrydG=s900-c-k-c0x00ffffff-no-rj',
+                                  child: Image.asset(
+                                      'assets/images/tev.jpg',
                                     height: 45,
                                     width: 45,
                                     fit: BoxFit.cover,
@@ -684,8 +684,8 @@ class _derneklerState extends State<dernekler> {
                               Row(
                                 children: [
                                   ClipOval(
-                                    child: Image.network(
-                                      'https://logowik.com/content/uploads/images/753_wwf.jpg',
+                                    child: Image.asset(
+                                      'assets/images/wwf.jpg',
                                       height: 45,
                                       width: 45,
                                       fit: BoxFit.cover,
@@ -787,8 +787,8 @@ class _derneklerState extends State<dernekler> {
                                 Row(
                                   children: [
                                     ClipOval(
-                                      child: Image.network(
-                                        'https://www.turkkanserdernegi.org/img/15011962018__1997033954b.jpg',
+                                      child: Image.asset(
+                                      'assets/images/kanser.jpg',
                                         height: 45,
                                         width: 45,
                                         fit: BoxFit.cover,
@@ -890,8 +890,8 @@ class _derneklerState extends State<dernekler> {
                                   Row(
                                     children: [
                                       ClipOval(
-                                        child: Image.network(
-                                          'https://www.gazeteipekyol.com/upload//losev-1616-1693151530.jpg',
+                                        child: Image.asset(
+                                      'assets/images/losev.jpg',
                                           height: 45,
                                           width: 45,
                                           fit: BoxFit.cover,
@@ -994,8 +994,8 @@ class _derneklerState extends State<dernekler> {
                                     Row(
                                       children: [
                                         ClipOval(
-                                          child: Image.network(
-                                            'https://www.akdenizorgannakli.net/images/turk-bobrek-vakfi.jpg',
+                                          child: Image.asset(
+                                      'assets/images/tbobrekv.jpg',
                                             height: 45,
                                             width: 45,
                                             fit: BoxFit.cover,
@@ -1098,8 +1098,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.network(
-                                              'https://www.sivilsayfalar.org/wp-content/uploads/2023/01/kadin-emegini-degerlendirme-vakfi-kedv-saha-koordinatoru-ariyor-1200x675.jpg',
+                                            child: Image.asset(
+                                      'assets/images/kedv.jpg',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -1205,8 +1205,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.network(
-                                                'https://koruncuk.org/images/koruncuk-og-2.jpg',
+                                              child: Image.asset(
+                                      'assets/images/koruncuk.jpg',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -1316,8 +1316,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://cdn-tema.mncdn.com/Uploads/Cms/tema-logomuz_45.jpg',
+                                                child: Image.asset(
+                                      'assets/images/tema.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -1430,8 +1430,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://ogrencimerkezi.org/wp-content/uploads/2023/06/turkiye-milli-kultur-vakfi-bursu.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/millikv.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -1647,8 +1647,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.network(
-                                              'https://www.diyadinnet.com/d/etiket/turk-egitim-dernegi-1277.jpg',
+                                            child: Image.asset(
+                                      'assets/images/ted.jpg',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -1754,8 +1754,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.network(
-                                                'https://www.tog.org.tr/wp-content/uploads/2023/01/Web-Site-Logo.png',
+                                              child: Image.asset(
+                                      'assets/images/tog.jpg',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -1865,8 +1865,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://s.solida.app/cache/ngo/tohum-otizm-vakfi-logo.png?w=200&fit=max&s=c68fe4d113f6b1c1f7a55e4ea18e000a',
+                                                child: Image.asset(
+                                      'assets/images/tohumot.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -1979,8 +1979,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://mir-s3-cdn-cf.behance.net/projects/max_808/22fff5142829283.Y3JvcCw4MDgsNjMyLDAsMTQ.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/spastik.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -2094,8 +2094,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://www.diplomasi.net/wp-content/uploads/2018/11/unicef.png',
+                                                child: Image.asset(
+                                      'assets/images/unicef.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -2208,8 +2208,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://www.girisimhaberleri.com/wp-content/uploads/2023/02/Calisma-Yuzeyi-1-1-scaled.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/ahbap.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -2321,8 +2321,8 @@ class _derneklerState extends State<dernekler> {
                                     Row(
                                       children: [
                                         ClipOval(
-                                          child: Image.network(
-                                            'https://www.akut.org.tr/images/AKUT-logo-400x400.png',
+                                          child: Image.asset(
+                                      'assets/images/akut.jpg',
                                             height: 45,
                                             width: 45,
                                             fit: BoxFit.cover,
@@ -2425,8 +2425,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.network(
-                                              'https://yt3.googleusercontent.com/7iRIziKVfTrhxCchikusLcQqwNpT6it3wkQSbiPYL4loUPlUbSz089NavnVS5dOOzfOJq-d09w=s900-c-k-c0x00ffffff-no-rj',
+                                            child: Image.asset(
+                                      'assets/images/drsfka.jpg',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -2532,8 +2532,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.network(
-                                                'https://cdn.fonzip.com/public/kacuv/img/fundraising/kacuv_logo_1486383953039.jpg',
+                                              child: Image.asset(
+                                      'assets/images/kacuv.jpg',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -2643,8 +2643,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://logowik.com/content/uploads/images/553_ihh_logo.jpg',
+                                                child: Image.asset(
+                                      'assets/images/ihh.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -2757,8 +2757,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://www.sivilsayfalar.org/wp-content/uploads/2022/03/acev-babalik-calismalari-uzmani-ariyor.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/acev.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -2872,8 +2872,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLu1ITeQePgzxe6EmX62qj0KIp0O8LNoUO0gLPqPKYzMo8h3GIVXnSBXtG13CzUP57v8&usqp=CAU',
+                                                child: Image.asset(
+                                      'assets/images/tdwnsd.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -2986,8 +2986,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://cdnuploads.aa.com.tr/uploads/Contents/2014/09/04/thumbs_b_c_cc9235176ab33a3e4b5db31c2ebbd3f1.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/tdv.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -3098,8 +3098,8 @@ class _derneklerState extends State<dernekler> {
                                     Row(
                                       children: [
                                         ClipOval(
-                                          child: Image.network(
-                                            'https://www.akut.org.tr/images/AKUT-logo-400x400.png',
+                                          child: Image.asset(
+                                      'assets/images/tugsav.jpg',
                                             height: 45,
                                             width: 45,
                                             fit: BoxFit.cover,
@@ -3202,8 +3202,8 @@ class _derneklerState extends State<dernekler> {
                                       Row(
                                         children: [
                                           ClipOval(
-                                            child: Image.network(
-                                              'https://yt3.googleusercontent.com/7iRIziKVfTrhxCchikusLcQqwNpT6it3wkQSbiPYL4loUPlUbSz089NavnVS5dOOzfOJq-d09w=s900-c-k-c0x00ffffff-no-rj',
+                                            child: Image.asset(
+                                      'assets/images/tider.jpg',
                                               height: 45,
                                               width: 45,
                                               fit: BoxFit.cover,
@@ -3309,8 +3309,8 @@ class _derneklerState extends State<dernekler> {
                                         Row(
                                           children: [
                                             ClipOval(
-                                              child: Image.network(
-                                                'https://cdn.fonzip.com/public/kacuv/img/fundraising/kacuv_logo_1486383953039.jpg',
+                                              child: Image.asset(
+                                      'assets/images/pi.jpg',
                                                 height: 45,
                                                 width: 45,
                                                 fit: BoxFit.cover,
@@ -3420,8 +3420,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://logowik.com/content/uploads/images/553_ihh_logo.jpg',
+                                                child: Image.asset(
+                                      'assets/images/maya.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -3534,8 +3534,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://www.sivilsayfalar.org/wp-content/uploads/2022/03/acev-babalik-calismalari-uzmani-ariyor.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/nesin.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -3649,8 +3649,8 @@ class _derneklerState extends State<dernekler> {
                                           Row(
                                             children: [
                                               ClipOval(
-                                                child: Image.network(
-                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLu1ITeQePgzxe6EmX62qj0KIp0O8LNoUO0gLPqPKYzMo8h3GIVXnSBXtG13CzUP57v8&usqp=CAU',
+                                                child: Image.asset(
+                                      'assets/images/akd.jpg',
                                                   height: 45,
                                                   width: 45,
                                                   fit: BoxFit.cover,
@@ -3763,8 +3763,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://cdnuploads.aa.com.tr/uploads/Contents/2014/09/04/thumbs_b_c_cc9235176ab33a3e4b5db31c2ebbd3f1.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/makeaw.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
@@ -3879,8 +3879,8 @@ class _derneklerState extends State<dernekler> {
                                             Row(
                                               children: [
                                                 ClipOval(
-                                                  child: Image.network(
-                                                    'https://cdnuploads.aa.com.tr/uploads/Contents/2014/09/04/thumbs_b_c_cc9235176ab33a3e4b5db31c2ebbd3f1.jpg',
+                                                  child: Image.asset(
+                                      'assets/images/tarihv.jpg',
                                                     height: 45,
                                                     width: 45,
                                                     fit: BoxFit.cover,
