@@ -274,7 +274,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  IlanEkle(),
+                              builder: (context) =>  belediyepage(),
                             ));
                       },
                       child: Container(
@@ -324,7 +324,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             Navigator.push( 
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Ayarlar(),
+                                  builder: (context) => resmikurumpage(),
                                 ));
                           },
                           child: Container(
