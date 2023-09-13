@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/bakimmodu_screen/bakimmodu.dart';
 import 'package:saranel_application/firebase_options.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
-import 'package:saranel_application/settings_screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
