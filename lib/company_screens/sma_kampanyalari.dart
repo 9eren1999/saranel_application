@@ -154,10 +154,9 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                           } else if (snapshot.hasError) {
                             return Text('Bir hata oluştu');
                           } else {
-                            List<DocumentSnapshot> data =
-                                snapshot.data as List<DocumentSnapshot>;
-                            return buildListViewFromFirebaseData(
-                                data); // Bu fonksiyonu tanımlamanız gerekmekte
+                            List<Map<String, dynamic>> data =
+                                snapshot.data as List<Map<String, dynamic>>;
+                            return buildListViewFromMapData(data);
                           }
                         },
                       )
@@ -188,6 +187,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
         localData = docs;
       });
 
+      print("fetchDataFromFirebaseOnce metodunun il ifinden dönen : ${docs}");
       return docs;
     } else {
       // Yerel depolamadan verileri alın
@@ -195,9 +195,13 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
       if (data != null) {
         List<Map<String, dynamic>> decodedData =
             List<Map<String, dynamic>>.from(jsonDecode(data));
+        print(
+            "fetchDataFromFirebaseOnce metodunun ilk elsinde dönen : ${decodedData}");
         return decodedData;
       }
     }
+
+    print("boş liste döndürüyor");
     return [];
   }
 
@@ -582,5 +586,19 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
             ),
           Padding(padding: EdgeInsets.only(bottom: 15)),
         ]));
+  }
+
+  Widget buildListViewFromMapData(List<Map<String, dynamic>> data) {
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        if (showDetails.length <= index) {
+          showDetails.add(false);
+        }
+
+        Map<String, dynamic> dataMap = data[index];
+        return buildCard(dataMap, index);
+      },
+    );
   }
 }
