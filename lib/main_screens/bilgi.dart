@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saranel_application/settings_screens/bagisyap.dart';
 import 'package:saranel_application/settings_screens/iletisim.dart';
 import 'package:saranel_application/settings_screens/kosullar.dart';
 import 'package:saranel_application/settings_screens/lisanslar.dart';
@@ -18,19 +19,20 @@ class _AyarlarState extends State<Ayarlar> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-          title: Text(
-        "Bilgi",
-        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800), 
-      ), leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_sharp,
-                color: Colors.blue.shade800,
-                size: 19,
-              )),
+        title: Text(
+          "Bilgi",
+          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
         ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_sharp,
+              color: Colors.blue.shade800,
+              size: 19,
+            )),
+      ),
       body: Container(
         child: ListView(children: [
           Padding(
@@ -70,7 +72,13 @@ class _AyarlarState extends State<Ayarlar> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DonationPage()),
+                          );
+                        },
                         child: Text(
                           "Saranel'i Destekle!",
                           style: TextStyle(
