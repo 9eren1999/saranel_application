@@ -20,17 +20,13 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
     super.initState();
     dataListFuture = fetchData();
   }
-
   Future<void> saveDataToLocal(List<Map<String, dynamic>> dataList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<Map<String, dynamic>> modifiedDataList = dataList.map((data) {
       Map<String, dynamic> newData = Map<String, dynamic>.from(data);
-      newData.forEach((key, value) {
-        if (value is Timestamp) {
-          newData[key] = value.toDate().toIso8601String();
-        }
-      });
+  
+
       return newData;
     }).toList();
 
@@ -47,17 +43,12 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
       List<dynamic> jsonList = jsonDecode(jsonString);
       List<Map<String, dynamic>> dataList = jsonList.map((json) {
         Map<String, dynamic> data = Map<String, dynamic>.from(json);
-        data.forEach((key, value) {
-          if (value is String && DateTime.tryParse(value) != null) {
-            data[key] = Timestamp.fromDate(DateTime.parse(value));
-          }
-        });
         return data;
       }).toList();
 
       int? timestamp = prefs.getInt('dataListTimestamp');
       final currentTime = DateTime.now().millisecondsSinceEpoch;
-      final oneMinute = 60000;
+      final oneMinute = 10000; //1dakika kontrolü
 
       if (timestamp != null && currentTime - timestamp < oneMinute) {
         return dataList;
@@ -80,13 +71,6 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
     for (var doc in querySnapshot.docs) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-      // Timestamp nesnelerini DateTime nesnelerine dönüştürme
-      data.forEach((key, value) {
-        if (value is Timestamp) {
-          data[key] = value.toDate().toIso8601String();
-        }
-      });
-
       dataList.add(data);
     }
 
@@ -94,7 +78,6 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
     await saveDataToLocal(dataList);
 
     setState(() {
-      Map<int, bool> showDetails = {};
 
     });
 
@@ -151,7 +134,11 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   future: dataListFuture,
   builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      return Text("Loading");
+      return SizedBox(height: 250,
+        child: Center(
+          child: CircularProgressIndicator(
+            color: Colors.white)),
+      );
     }
 
     if (snapshot.hasError) {
@@ -180,114 +167,133 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   }
 
           
-            Widget buildCard(Map<String, dynamic> data, int index) {
-  final DateTime currentTime = DateTime.now();
-final Timestamp? timestamp = data['eklenme_tarihi'];
-
-String timeDifferenceInWords = "Bilinmiyor"; // Varsayılan değeri buraya taşıdık
-
-if (timestamp != null) {
-  final DateTime addedTime = timestamp.toDate(); 
-  final Duration timeDifference = currentTime.difference(addedTime);
-  if (timeDifference.inDays >= 1) {
-  timeDifferenceInWords = '${timeDifference.inDays} gün önce';
-} else if (timeDifference.inHours >= 1) {
-  timeDifferenceInWords = '${timeDifference.inHours} saat önce';
-} else {
-  timeDifferenceInWords = '${timeDifference.inMinutes} dakika önce';
-}
-
-} 
-
-// Daha sonra timeDifferenceInWords değişkenini kullanabilirsiniz.
-
-
+           Widget buildCard(Map<String, dynamic> data, int index) {
   return Card(
-      margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 12),
-      color: Colors.blue.shade600,
-      shadowColor: Color.fromARGB(110, 0, 0, 0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15, top: 20, bottom: 15, right: 15),
-          child: Row(
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${data['adsoyad']}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 253, 253, 253)),
+    margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 12),
+    color: Colors.blue.shade600,
+    shadowColor: Color.fromARGB(110, 0, 0, 0),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 1),
+        child: Row(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible( flex: 0,
+                        child: Text(
+                          "${data['adsoyad']}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 253, 253, 253),
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 25),
+                        child: Flexible(
+                          child: Text(
+                            "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // Tarih ve saat manuel olarak girilmiştir
+                            textAlign: TextAlign.end,
+                            style: TextStyle( fontSize: 10,
+                              color: const Color.fromARGB(255, 253, 253, 253),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ), 
+                  SizedBox(height: 2),
+                  Text(
+                    data['aciklama'],
+                    style: TextStyle(
+                        fontWeight: FontWeight.w100,
+                        fontSize: 14,
+                        color: const Color.fromARGB(255, 255, 255, 255)),
+                  ),
+                  Divider(thickness: 0.5, color: Colors.blue.shade100),
+                  SizedBox(height: 5),
+Row(
+  children: [
+    Icon(
+      Icons.location_on, // Konum simgesi
+      color: Color.fromARGB(255, 255, 255, 255),
+    ),
+    SizedBox(width: 8),
+    Text(
+      "${data['il'] ?? 'Bilgi yok'}",
+      style: TextStyle(
+        fontWeight: FontWeight.w100,
+        fontSize: 14,
+        color: const Color.fromARGB(255, 255, 255, 255),
+      ),
+    ),
+  ],
+),
+                  SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.visibility,
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      SizedBox(width: 8),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            showDetails[index] = !(showDetails[index] ?? false);
+                          });
+                        },
+                        child: Text(
+                          showDetails[index] ?? false
+                              ? "İletişim bilgisini gizle"
+                              : "İletişim bilgisini görüntülemek için tıklayınız",
+                          style: TextStyle( decoration: TextDecoration.underline,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (showDetails[index] ?? false)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 255, 255, 255), // beyaz renk
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'İletişim Adresi: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${data['iletisimadres']}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      data['aciklama'],
-                      style: TextStyle(
-                          fontWeight: FontWeight.w100,
-                          fontSize: 14,
-                          color: const Color.fromARGB(255, 255, 255, 255)),
-                    ), Divider(thickness: 0.5, color: Colors.blue.shade100),
-                    SizedBox(height: 5),
-                    Text(
-                      "$timeDifferenceInWords",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w100,
-                          fontSize: 14,
-                          color: const Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                    SizedBox(height: 5),
-                     Row(
-      children: [
-        Text(
-          "Konum: ${data['il'] ?? 'Bilgi yok'}",
-          style: TextStyle(
-            fontWeight: FontWeight.w100,
-            fontSize: 14,
-            color: const Color.fromARGB(255, 255, 255, 255),
-          ),
-        ),
-          Spacer(),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  showDetails[index] = !(showDetails[index] ?? false);
-                });
-              },
-              child: Text(
-                showDetails[index] ?? false
-                    ? "İletişim bilgisini gizle"
-                    : "İletişim bilgisini görüntülemek için tıklayınız",
-                style: TextStyle(
-                  //... stil ayarları
-                ),
+                ],
               ),
             ),
           ],
         ),
-        if (showDetails[index] ?? false)
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 15,
-              left: 15,
-              top: 5,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  "İletişim Adresi: ${data['iletisimadres']}",
-                  style: TextStyle(
-                    //... stil ayarları
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
-    ),
-  )]))]));
+      ),
+    ]),
+  );
 }
-  TextStyle appbarStyle() =>
-      GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
+
+  TextStyle appbarStyle() => GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
 }
