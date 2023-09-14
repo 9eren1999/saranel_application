@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/company_screens/belediye.dart';
+import 'package:saranel_application/main_screens/bireyselYardimBasvuru.dart';
 import 'package:saranel_application/company_screens/bireyselyardim.dart';
 import 'package:saranel_application/company_screens/kayipilanlari.dart';
 import 'package:saranel_application/company_screens/resmikurum.dart';
@@ -137,540 +138,552 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   fontWeight: FontWeight.w400,
                   color: Colors.white)),
         ),
-         Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: InkWell(splashColor: Colors.blue.shade800,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BireyselYardimPage(),
-                            ));
-                      },
-                      child: Container(
-                        width: 185,
-                        padding: EdgeInsets.only(
-                          top: 15,
-                          bottom: 15,
-                          left: 5,
-                          right: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade600,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(8, 0, 0, 1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BireyselYardimPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.volunteer_activism_rounded,
+                              size: 30, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Bireysel Yardım \nTalepleri',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.volunteer_activism_rounded,
-                                size: 30, color: Colors.white),
-                            SizedBox(height: 10),
-                            Text(
-                              'Bireysel Yardım \nTalepleri',
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(width: 20), // İki Container arasında boşluk bırakır
-                  Expanded(
-                        child: InkWell( splashColor: Colors.blue.shade800,
-                          onTap: () {
-                            Navigator.push( 
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => KayipIlaniPage(),
-                                ));
-                          },
-                          child: Container(
-                            width: 185,
-                            padding: EdgeInsets.only(
-                              left: 5,
-                              right: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade600,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(8, 0, 0, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.location_history_sharp,
-                                    size: 32, color: Colors.white),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Kayıp İlanları',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ), 
-            ), 
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: InkWell(splashColor: Colors.blue.shade800,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => dernekler(),
-                            ));
-                      },
-                      child: Container(
-                        width: 185,
-                        padding: EdgeInsets.only(
-                          top: 15,
-                          bottom: 15,
-                          left: 5,
-                          right: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade600,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(8, 0, 0, 1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.account_balance_rounded,
-                                size: 32, color: Colors.white),
-                            SizedBox(height: 10),
-                            Text(
-                              'Sivil Toplum \nKuruluşları',
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20), // İki Container arasında boşluk bırakır
-                  Expanded(
-                        child: InkWell( splashColor: Colors.blue.shade800,
-                          onTap: () {
-                            Navigator.push( 
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SmaKampanyalari(),
-                                ));
-                          },
-                          child: Container(
-                            width: 185,
-                            padding: EdgeInsets.only(
-                              left: 5,
-                              right: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade600,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(8, 0, 0, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.stream_rounded,
-                                    size: 32, color: Colors.white),
-                                SizedBox(height: 10),
-                                Text(
-                                  'SMA \nKampanyaları',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ), 
-            ), 
-          ), Padding(
-            padding: const EdgeInsets.only(top: 25, ),
-            child: Text("Yardıma mı ihtiyacın var?",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white)), 
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 12, left: 12, top:3 , bottom: 4),
-            child: Text("Aşağıdaki kategorilerden ihtiyacın olan yardım talebini hızlıca oluşturabilirsin.",textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white)),
-          ),
-          
-           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: InkWell(splashColor: Colors.blue.shade800,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>  belediyepage(),
-                            ));
-                      },
-                      child: Container(
-                        width: 185,
-                        padding: EdgeInsets.only(
-                          top: 15,
-                          bottom: 15,
-                          left: 5,
-                          right: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade600,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(8, 0, 0, 1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.add_box_rounded,
-                                size: 30, color: Colors.white),
-                            SizedBox(height: 10),
-                            Text(
-                              'Yardım Talebi \nOluştur',
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10), // İki Container arasında boşluk bırakır
-                  Expanded(
-                        child: InkWell( splashColor: Colors.blue.shade800,
-                          onTap: () {
-                            Navigator.push( 
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SMAIlanEkle(),
-                                ));
-                          },
-                          child: Container(
-                            width: 185,
-                            padding: EdgeInsets.only(
-                              left: 5,
-                              right: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade600,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(8, 0, 0, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add_box_rounded,
-                                    size: 30, color: Colors.white),
-                                SizedBox(height: 10),
-                                Text(
-                                  'SMA İlanı \nEkle',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),SizedBox(width: 10), // İki Container arasında boşluk bırakır
-                  Expanded(
-                        child: InkWell( splashColor: Colors.blue.shade800,
-                          onTap: () {
-                            Navigator.push( 
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => resmikurumpage(),
-                                ));
-                          },
-                          child: Container(
-                            width: 185,
-                            padding: EdgeInsets.only(
-                              left: 5,
-                              right: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade600,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(8, 0, 0, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add_box_rounded,
-                                    size: 30, color: Colors.white),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Kayıp İlanı \nOluştur',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ), Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: Text("Diğer Alanlara Göz At",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white)),
-          ), Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: InkWell(splashColor: Colors.blue.shade800,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>  resmikurumpage(),
-                            ));
-                      },
-                      child: Container(
-                        width: 185,
-                        padding: EdgeInsets.only(
-                          top: 15,
-                          bottom: 15,
-                          left: 5,
-                          right: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade600,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(8, 0, 0, 1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.verified_rounded,
-                                size: 32, color: Colors.white),
-                            SizedBox(height: 10),
-                            Text(
-                              'Sosyal Destek \nProgramları',
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20), // İki Container arasında boşluk bırakır
-                  Expanded(
-                        child: InkWell( splashColor: Colors.blue.shade800,
-                          onTap: () {
-                            Navigator.push( 
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Ayarlar(),
-                                ));
-                          },
-                          child: Container(
-                            width: 185,
-                            padding: EdgeInsets.only(
-                              left: 5,
-                              right: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade600,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(8, 0, 0, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.info,
-                                    size: 32, color: Colors.white),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Bilgi',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ), 
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-              ),
-              margin: EdgeInsets.all(15),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.amber.shade700,
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                ),
-                child: ListTile(
-                  contentPadding: EdgeInsets.only(right: 12, left: 12, top: 7, bottom: 7),
-                  title: Text(
-                    "Saranel, bağış kampanyaları için ödeme aracılığı yapmaz veya herhangi bir komisyon almaz. Bağış işlemleri, ilgili organizasyonlar tarafından doğrudan yürütülür. Platform, yalnızca resmi kurumlar tarafından onaylanmış vakıf, dernek, topluluk ve kampanyalar hakkında bilgi sunar. Bağış yapılan yerlerle ilgili yaşanabilecek sorunlardan Saranel sorumlu değildir.",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                  leading: Icon(
-                    Icons.warning, // Ünlem simgesi
-                    size: 26, // İkon boyutu
-                    color: Colors.white, // İkon rengi
                   ),
                 ),
+                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => KayipIlaniPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.location_history_sharp,
+                              size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Kayıp İlanları',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => dernekler(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.account_balance_rounded,
+                              size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Sivil Toplum \nKuruluşları',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SmaKampanyalari(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.stream_rounded,
+                              size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'SMA \nKampanyaları',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 25,
+          ),
+          child: Text("Yardıma mı ihtiyacın var?",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white)),
+        ),
+        Padding(
+          padding:
+              const EdgeInsets.only(right: 12, left: 12, top: 3, bottom: 4),
+          child: Text(
+              "Aşağıdaki kategorilerden ihtiyacın olan yardım talebini hızlıca oluşturabilirsin.",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white)),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => bireyselbasvuruekle(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add_box_rounded,
+                              size: 30, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Yardım Talebi \nOluştur',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10), // İki Container arasında boşluk bırakır
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SMAIlanEkle(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add_box_rounded,
+                              size: 30, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'SMA İlanı \nEkle',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10), // İki Container arasında boşluk bırakır
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => resmikurumpage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add_box_rounded,
+                              size: 30, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Kayıp İlanı \nOluştur',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 25),
+          child: Text("Diğer Alanlara Göz At",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white)),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => resmikurumpage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.verified_rounded,
+                              size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Sosyal Destek \nProgramları',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Ayarlar(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.info, size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Bilgi',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          margin: EdgeInsets.all(15),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.amber.shade700,
+              borderRadius: BorderRadius.all(Radius.circular(25)),
+            ),
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.only(right: 12, left: 12, top: 7, bottom: 7),
+              title: Text(
+                "Saranel, bağış kampanyaları için ödeme aracılığı yapmaz veya herhangi bir komisyon almaz. Bağış işlemleri, ilgili organizasyonlar tarafından doğrudan yürütülür. Platform, yalnızca resmi kurumlar tarafından onaylanmış vakıf, dernek, topluluk ve kampanyalar hakkında bilgi sunar. Bağış yapılan yerlerle ilgili yaşanabilecek sorunlardan Saranel sorumlu değildir.",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                ),
+                textAlign: TextAlign.start,
               ),
-            )
-          ]),
-        );
+              leading: Icon(
+                Icons.warning, // Ünlem simgesi
+                size: 26, // İkon boyutu
+                color: Colors.white, // İkon rengi
+              ),
+            ),
+          ),
+        )
+      ]),
+    );
   }
 }
 
