@@ -17,6 +17,58 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
+  /* @override                   Burası pop up ekran kısmı!!!!!!!!!!!!!
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showImagePopup();
+    });
+  } 
+
+  Future<void> _showImagePopup() async {
+    String url =
+        'https://firebasestorage.googleapis.com/v0/b/saranelapp.appspot.com/o/mesajjpopup.jpg?alt=media&token=414d0a12-a419-4567-a7cd-0a7f02863090';
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          insetPadding: EdgeInsets.all(10), // Ekran boyutuna göre ayarlama
+          backgroundColor: Colors.transparent, // Şeffaf arka plan
+          elevation: 0, // Çerçevesiz
+          child: Stack(
+            children: [
+              Center(
+                child: AspectRatio(
+                  aspectRatio: 0.7, // Oranı ayarlarsınız
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.white, // Çerçeve arka planı
+                      image: DecorationImage(
+                        image: NetworkImage(url),
+                        fit: BoxFit.cover, // Resmi kaplama modu
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 80,
+                right: 5,
+                child: IconButton(
+                  icon: Icon(Icons.close, color: Colors.blue.shade800),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  } */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
