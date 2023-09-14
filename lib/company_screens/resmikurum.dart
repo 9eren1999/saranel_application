@@ -121,9 +121,9 @@ class _resmikurumpageState extends State<resmikurumpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        title: Text("Resmi Kurum Kampanyaları", style: appbarStyle()),
+      extendBodyBehindAppBar: false, 
+      appBar: AppBar( 
+        title: Text("Sosyal Destek Programları", style: appbarStyle()),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -133,7 +133,7 @@ class _resmikurumpageState extends State<resmikurumpage> {
               color: Colors.blue.shade800,
               size: 19,
             )),
-      ),
+      ), 
       body: SingleChildScrollView(
         child: Column(
           children: [

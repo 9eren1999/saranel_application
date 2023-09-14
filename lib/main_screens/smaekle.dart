@@ -4,14 +4,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:saranel_application/main_screens/main_page.dart';
 
-class IlanEkle extends StatefulWidget {
+import 'package:saranel_application/main_screens/anasayfa.dart';
+
+class SMAIlanEkle extends StatefulWidget {
   @override
-  _IlanEkleState createState() => _IlanEkleState();
+  _SMAIlanEkleState createState() => _SMAIlanEkleState();
 }
 
-class _IlanEkleState extends State<IlanEkle> {
+class _SMAIlanEkleState extends State<SMAIlanEkle> {
   final _formKey = GlobalKey<FormState>();
   final picker = ImagePicker();
   String? _uploadedImageUrl1;
@@ -158,7 +159,7 @@ class _IlanEkleState extends State<IlanEkle> {
                   child: Text('Kapat', style: TextStyle(color: Colors.white)),
                   onPressed: () {
                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => MainPage(),
+      builder: (context) => AnaSayfa(),
        ));
                   },
                 ),

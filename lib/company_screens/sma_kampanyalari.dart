@@ -17,6 +17,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   List<Map<String, dynamic>>? localData;
   Stream<QuerySnapshot>? smaStream;
   bool shouldFetchFromFirestore = false;
+  bool dataFetched = false;
 
   late Future<void> _initializationFuture;
 
@@ -173,7 +174,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
     final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
     final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-    if (currentTime - lastFetchTime >= 60000) {
+    if (!dataFetched && currentTime - lastFetchTime >= 60000) {
       // 1 dakika kontrolü
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('sma').get();
@@ -186,6 +187,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
 
       setState(() {
         localData = docs;
+        dataFetched = true; // Veriler çekildi, flag'i true olarak ayarlayın
       });
 
       return docs;
