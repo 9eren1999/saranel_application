@@ -43,7 +43,8 @@ class iletisim extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  leading: Icon(Icons.mail_outlined, color: Colors.blue.shade800),
+                  leading:
+                      Icon(Icons.mail_outlined, color: Colors.blue.shade800),
                 ),
                 Divider(color: Color.fromARGB(255, 236, 234, 234), height: 0.1),
                 ListTile(
