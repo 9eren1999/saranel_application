@@ -319,17 +319,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   color: Colors.white)),
         ),
         Padding(
-          padding:
-              const EdgeInsets.only(right: 12, left: 12, top: 3, bottom: 4),
-          child: Text(
-              "Aşağıdaki kategorilerden ihtiyacın olan yardım talebini hızlıca oluşturabilirsin.",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white)),
-        ),
-        Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: IntrinsicHeight(
             child: Row(
