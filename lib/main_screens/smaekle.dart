@@ -47,7 +47,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
         TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
         String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-         setState(() {
+        setState(() {
           if (imageNumber == 1) {
             _uploadedImageUrl1 = downloadUrl;
             isImage1Uploaded = true; // Görsel yüklendiğinde durumu güncelleyin
@@ -158,9 +158,9 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                 TextButton(
                   child: Text('Kapat', style: TextStyle(color: Colors.white)),
                   onPressed: () {
-                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => AnaSayfa(),
-       ));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => AnaSayfa(),
+                    ));
                   },
                 ),
               ],
@@ -182,19 +182,21 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(extendBodyBehindAppBar: true,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Yeni İlan ekle", 
+        title: Text("SMA Yeni İlan ekle",
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)), leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_sharp,
-                color: Colors.blue.shade800,
-                size: 19,
-              )),
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_sharp,
+              color: Colors.blue.shade800,
+              size: 19,
+            )),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 25, left: 16, right: 16),
@@ -613,7 +615,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                          ), 
+                          ),
                         ),
                       ),
                       Padding(
@@ -622,13 +624,15 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                           "Kampanya kimin için yapılıyorsa o kişinin görselini yükleyiniz. Kendi resminizi ya da reklam afişinizi yüklemeyiniz.",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white70),
-                        ), 
-                      ),if (isImage1Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
-                Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
-                  size: 24,
-                  )],
+                        ),
+                      ),
+                      if (isImage1Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: 24,
+                        )
+                    ],
                   ),
                 ),
               ),
@@ -653,8 +657,8 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
-                          "İzin Belgesi Yükle", 
-                          textAlign: TextAlign.center, 
+                          "İzin Belgesi Yükle",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -668,12 +672,14 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white70),
                         ),
-                      ),if (isImage2Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
-                Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
-                  size: 24,
-                  )],
+                      ),
+                      if (isImage2Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: 24,
+                        )
+                    ],
                   ),
                 ),
               ),
