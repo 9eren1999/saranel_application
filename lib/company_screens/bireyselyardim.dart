@@ -15,6 +15,8 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   Map<int, bool> showDetails = {};
   late Future<List<Map<String, dynamic>>> dataListFuture;
 
+  // Verileri yerel depodan almanın ve API'dan almanın zaman aşımı süresi
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +50,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
 
       int? timestamp = prefs.getInt('dataListTimestamp');
       final currentTime = DateTime.now().millisecondsSinceEpoch;
-      final oneMinute = 10000; //1dakika kontrolü
+      final oneMinute = 60000; //1dakika kontrolü
 
       if (timestamp != null && currentTime - timestamp < oneMinute) {
         return dataList;
@@ -59,30 +61,34 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   }
 
   Future<List<Map<String, dynamic>>> fetchData() async {
+  try {
     List<Map<String, dynamic>>? dataListFromLocal = await getDataFromLocal();
 
     if (dataListFromLocal != null) {
       return dataListFromLocal;
     }
 
-    // API'den verileri çekme
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('yardimtalepleri').get();
-    List<Map<String, dynamic>> dataList = [];
-    for (var doc in querySnapshot.docs) {
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return await getDataFromApi();
+  } catch (e) {
+    // Hata yakalama ve kullanıcıya gösterilecek bir hata mesajı oluşturma
+    print("An error occurred while fetching data: $e");
+    throw Exception('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.');
+  }
+}
 
-      dataList.add(data);
-    }
+
+  Future<List<Map<String, dynamic>>> getDataFromApi() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('yardimtalepleri').get();
+    List<Map<String, dynamic>> dataList = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
 
     // Yeni çekilen verileri yerelde kaydet
     await saveDataToLocal(dataList);
 
-    setState(() {
-
-    });
+    setState(() {});
 
     return dataList;
   }
+
 
   @override
   Widget build(BuildContext context) {

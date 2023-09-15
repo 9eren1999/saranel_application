@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saranel_application/company_screens/belediye.dart';
 import 'package:saranel_application/main_screens/bireyselYardimBasvuru.dart';
 import 'package:saranel_application/company_screens/bireyselyardim.dart';
-import 'package:saranel_application/company_screens/kayipilanlari.dart';
 import 'package:saranel_application/company_screens/resmikurum.dart';
 import 'package:saranel_application/company_screens/stk.dart';
 import 'package:saranel_application/company_screens/sma_kampanyalari.dart';
@@ -97,7 +95,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     Text(
                       "Saranel'e Hoşgeldin!",
                       style: GoogleFonts.poppins(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w800,
                           color: Colors.blue.shade800),
                     ),
@@ -107,7 +105,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       child: Text(
                         " Saranel'de resmi kurumlar tarafından onaylanmış vakıf, dernek ve kampanyalara ulaşabilirsin..",
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.w500,
                           color: Colors.blue.shade600,
                         ),
@@ -195,116 +193,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                 ),
                 SizedBox(width: 20), // İki Container arasında boşluk bırakır
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.blue.shade800,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => KayipIlaniPage(),
-                          ));
-                    },
-                    child: Container(
-                      width: 185,
-                      padding: EdgeInsets.only(
-                        left: 5,
-                        right: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade600,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(8, 0, 0, 1),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.location_history_sharp,
-                              size: 32, color: Colors.white),
-                          SizedBox(height: 10),
-                          Text(
-                            'Kayıp İlanları',
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-          child: IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.blue.shade800,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => dernekler(),
-                          ));
-                    },
-                    child: Container(
-                      width: 185,
-                      padding: EdgeInsets.only(
-                        top: 15,
-                        bottom: 15,
-                        left: 5,
-                        right: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade600,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(8, 0, 0, 1),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.account_balance_rounded,
-                              size: 32, color: Colors.white),
-                          SizedBox(height: 10),
-                          Text(
-                            'Sivil Toplum \nKuruluşları',
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
-                Expanded(
+                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
                     onTap: () {
@@ -356,6 +245,68 @@ class _AnaSayfaState extends State<AnaSayfa> {
             ),
           ),
         ),
+       Padding(
+  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+  child: IntrinsicHeight(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: InkWell(
+            splashColor: Colors.blue.shade800,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => dernekler(),
+                  ));
+            },
+            child: Container(
+              width: 185,
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade600,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(8, 0, 0, 1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                  ),
+                ],
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center, 
+                    children: [
+                      Icon(Icons.account_balance_rounded, size: 32, color: Colors.white),
+                      SizedBox(width: 10),
+                      Text(
+                        'Sivil Toplum Kuruluşları',
+                        textAlign: TextAlign.center, 
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
+
+
+
         Padding(
           padding: const EdgeInsets.only(
             top: 25,
@@ -399,8 +350,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       padding: EdgeInsets.only(
                         top: 15,
                         bottom: 15,
-                        left: 5,
-                        right: 5,
+                        left: 2,
+                        right: 2,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.blue.shade600,
@@ -424,7 +375,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 11,
+                              fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -473,7 +424,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 11,
+                              fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -483,55 +434,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10), // İki Container arasında boşluk bırakır
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.blue.shade800,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => resmikurumpage(),
-                          ));
-                    },
-                    child: Container(
-                      width: 185,
-                      padding: EdgeInsets.only(
-                        left: 5,
-                        right: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade600,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(8, 0, 0, 1),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.add_box_rounded,
-                              size: 30, color: Colors.white),
-                          SizedBox(height: 10),
-                          Text(
-                            'Kayıp İlanı \nOluştur',
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+            
               ],
             ),
           ),
