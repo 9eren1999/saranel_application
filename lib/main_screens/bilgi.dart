@@ -92,7 +92,8 @@ class _AyarlarState extends State<Ayarlar> {
           //       ),
           //     ),
           //   ),
-          // ),
+          // ), 
+          SizedBox(height: 12,),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Padding(
@@ -122,7 +123,7 @@ class _AyarlarState extends State<Ayarlar> {
                               "İletişim",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                               textAlign: TextAlign.start,
@@ -189,7 +190,7 @@ class _AyarlarState extends State<Ayarlar> {
                               "Kullanım Koşulları",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w100,
                               ),
                               textAlign: TextAlign.start,
@@ -221,7 +222,7 @@ class _AyarlarState extends State<Ayarlar> {
                               "Uygulama Lisansları Hakkında",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w100,
                               ),
                               textAlign: TextAlign.start,

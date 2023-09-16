@@ -720,7 +720,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           margin: EdgeInsets.all(15),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.blue.shade900,
+              color: Colors.amber.shade600,
               borderRadius: BorderRadius.all(Radius.circular(25)),
             ),
             child: ListTile(

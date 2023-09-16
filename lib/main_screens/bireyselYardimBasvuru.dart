@@ -55,10 +55,10 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
           builder: (BuildContext context) {
             return AlertDialog(
               backgroundColor: Colors.blue.shade800,
-              title: Text('İlanınız İncelemeye Alındı!',
+              title: Text('Yardım Talebiniz İncelemeye Alındı!', 
                   style: TextStyle(color: Colors.white)),
               content: Text(
-                'Bilgiler 48 saat içinde incelenecektir. Herhangi bir eksik tespit edilmesi durumunda, vermiş olduğunuz iletişim adreslerinden bilgilendirme yapılacaktır.',
+                'Verdiğiniz bilgiler 24 saat içinde incelenip onaylanır. Herhangi bir eksik ya da hata tespit edilmesi durumunda ilanınızın onaylanmayacağını unutmayınız.',
                 style: TextStyle(color: Colors.white),
               ),
               actions: [

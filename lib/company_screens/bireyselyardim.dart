@@ -140,30 +140,57 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   future: dataListFuture,
   builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      return SizedBox(height: 250,
+      return SizedBox(
+        height: 250,
         child: Center(
           child: CircularProgressIndicator(
-            color: Colors.white)),
+            color: Colors.white
+          ),
+        ),
       );
     }
 
     if (snapshot.hasError) {
-      return Text('Something went wrong: ${snapshot.error}');
+      return Text('Bir hata oluştu: ${snapshot.error}');
     }
 
     if (snapshot.connectionState == ConnectionState.done) {
-          List<Map<String, dynamic>> dataList = snapshot.data as List<Map<String, dynamic>>;
-      
-      return Column(
-        children: dataList.asMap().entries.map((e) {
-          int index = e.key;
-          Map<String, dynamic> data = e.value;
-          return buildCard(data, index);
-        }).toList(),
-      );
+      if (snapshot.hasData) {
+        List<Map<String, dynamic>> dataList = snapshot.data as List<Map<String, dynamic>>;
+
+        if (dataList.isEmpty) {
+          return Center( heightFactor: 7,
+            child: Text(  textAlign: TextAlign.center,
+              'Bekleyen bireysel yardım talebi bulunamadı.',
+              style: TextStyle( 
+                color: Colors.white,
+                fontSize: 10,
+              ),
+            ),
+          );
+        }
+
+        return Column(
+          children: dataList.asMap().entries.map((e) {
+            int index = e.key;
+            Map<String, dynamic> data = e.value;
+            return buildCard(data, index);
+          }).toList(),
+        );
+      } else {
+        return Center( heightFactor: 5,
+          child: Text( 
+            'Aktif bir talep bulunamadı',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
+          ),
+        );
+      }
     }
 
-    return SizedBox.shrink(); // Bu kısım asla ulaşılmaması gereken bir durum için, yine de bir şey döndürmelisiniz.
+    return SizedBox.shrink();
   },
 )
   ]),
