@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saranel_application/settings_screens/bagisyap.dart';
 import 'package:saranel_application/settings_screens/iletisim.dart';
 import 'package:saranel_application/settings_screens/kosullar.dart';
 import 'package:saranel_application/settings_screens/lisanslar.dart';
-import 'package:saranel_application/settings_screens/sss.dart';
 
 class Ayarlar extends StatefulWidget {
   const Ayarlar({super.key});

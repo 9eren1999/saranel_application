@@ -7,6 +7,7 @@ import 'package:saranel_application/company_screens/resmikurum.dart';
 import 'package:saranel_application/company_screens/stk.dart';
 import 'package:saranel_application/company_screens/sma_kampanyalari.dart';
 import 'package:saranel_application/main_screens/bilgi.dart';
+import 'package:saranel_application/settings_screens/bagisyap.dart';
 import 'package:saranel_application/settings_screens/sss.dart';
 import 'package:saranel_application/main_screens/smaekle.dart';
 
@@ -654,6 +655,64 @@ class _AnaSayfaState extends State<AnaSayfa> {
             ),
           ),
         ),
+         Padding(
+  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+  child: IntrinsicHeight(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: InkWell(
+            splashColor: Colors.blue.shade800,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DonationPage(),
+                  ));
+            },
+            child: Container(
+              width: 185,
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+              decoration: BoxDecoration(
+                color: Colors.green,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(8, 0, 0, 1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                  ),
+                ],
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center, 
+                    children: [
+                      Icon(Icons.add_task_sharp, size: 30, color: Colors.white),
+                      SizedBox(width: 10),
+                      Text(
+                        'Saranel Platformuna Bağış Yap',
+                        textAlign: TextAlign.center, 
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
@@ -661,7 +720,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           margin: EdgeInsets.all(15),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.amber.shade700,
+              color: Colors.blue.shade900,
               borderRadius: BorderRadius.all(Radius.circular(25)),
             ),
             child: ListTile(
