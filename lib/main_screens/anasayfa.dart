@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saranel_application/company_screens/saranelhk.dart';
 import 'package:saranel_application/main_screens/bireyselYardimBasvuru.dart';
 import 'package:saranel_application/company_screens/bireyselyardim.dart';
 import 'package:saranel_application/company_screens/resmikurum.dart';
 import 'package:saranel_application/company_screens/stk.dart';
 import 'package:saranel_application/company_screens/sma_kampanyalari.dart';
 import 'package:saranel_application/main_screens/bilgi.dart';
+import 'package:saranel_application/settings_screens/sss.dart';
 import 'package:saranel_application/main_screens/smaekle.dart';
 
 class AnaSayfa extends StatefulWidget {
@@ -501,6 +503,113 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
+                            builder: (context) => Sss(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.question_mark, size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Sıkça Sorulan \nSorular',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SaranelPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.info,
+                              size: 32, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'Saranel Platformu \nHakkında',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => Ayarlar(),
                           ));
                     },
@@ -524,10 +633,10 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.info, size: 32, color: Colors.white),
+                          Icon(Icons.perm_device_information, size: 32, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
-                            'Bilgi',
+                            'Uygulama Bilgileri',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(

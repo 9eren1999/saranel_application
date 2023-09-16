@@ -9,7 +9,7 @@ class Kosullar extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Kullanım Şartları",
+          "Kullanım Koşulları",
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
         ),
         leading: IconButton(

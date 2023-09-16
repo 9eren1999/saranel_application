@@ -20,7 +20,7 @@ class _AyarlarState extends State<Ayarlar> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(
-          "Bilgi",
+          "Uygulama Bilgileri",
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
         ),
         leading: IconButton(
@@ -35,66 +35,66 @@ class _AyarlarState extends State<Ayarlar> {
       ),
       body: Container(
         child: ListView(children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 20, left: 12, right: 12, bottom: 20),
-            child: Card(
-              color: Colors.blue.shade600,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              child: Padding(
-                padding: EdgeInsets.only(top: 20, left: 22, right: 22),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Saraneli Desteklemek İster Misiniz?",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 248, 248, 248),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "Saranel, yardım ve bağışların etkin bir şekilde derlenip yönlendirilmesi amacıyla kurulmuş ücretsiz bir platformdur. Fakat, sunucu giderleri ve diğer operasyonel alanlarda faaliyetlerimizi sürdürebilmek için siz değerli bağışçılarımızın desteğine ihtiyaç duyuyoruz. Saranel'e yapacağınız destek, tüm bu önemli faaliyetlerin devamlılığını sağlayacaktır. Siz de Saranel'i destekleyerek, toplumsal dayanışma ve yardımlaşma misyonumuzun bir parçası olabilirsiniz.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w100),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 20),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DonationPage()),
-                          );
-                        },
-                        child: Text(
-                          "Saranel'i Destekle!",
-                          style: TextStyle(
-                            color: Colors.blue.shade600,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                                Color.fromARGB(255, 255, 255, 255))),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding:
+          //       const EdgeInsets.only(top: 20, left: 12, right: 12, bottom: 20),
+          //   child: Card(
+          //     color: Colors.blue.shade600,
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.all(Radius.circular(15))),
+          //     child: Padding(
+          //       padding: EdgeInsets.only(top: 20, left: 22, right: 22),
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: [
+          //           Text(
+          //             "Saraneli Desteklemek İster Misiniz?",
+          //             textAlign: TextAlign.center,
+          //             style: TextStyle(
+          //                 color: Color.fromARGB(255, 248, 248, 248),
+          //                 fontSize: 15,
+          //                 fontWeight: FontWeight.w600),
+          //           ),
+          //           SizedBox(
+          //             height: 8,
+          //           ),
+          //           Text(
+          //             "Saranel, yardım ve bağışların etkin bir şekilde derlenip yönlendirilmesi amacıyla kurulmuş ücretsiz bir platformdur. Fakat, sunucu giderleri ve diğer operasyonel alanlarda faaliyetlerimizi sürdürebilmek için siz değerli bağışçılarımızın desteğine ihtiyaç duyuyoruz. Saranel'e yapacağınız destek, tüm bu önemli faaliyetlerin devamlılığını sağlayacaktır. Siz de Saranel'i destekleyerek, toplumsal dayanışma ve yardımlaşma misyonumuzun bir parçası olabilirsiniz.",
+          //             textAlign: TextAlign.center,
+          //             style: TextStyle(
+          //                 color: Color.fromARGB(255, 255, 255, 255),
+          //                 fontSize: 14,
+          //                 fontWeight: FontWeight.w100),
+          //           ),
+          //           SizedBox(
+          //             height: 10,
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.only(top: 10, bottom: 20),
+          //             child: ElevatedButton(
+          //               onPressed: () {
+          //                 Navigator.push(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                       builder: (context) => DonationPage()),
+          //                 );
+          //               },
+          //               child: Text(
+          //                 "Saranel'i Destekle!",
+          //                 style: TextStyle(
+          //                   color: Colors.blue.shade600,
+          //                 ),
+          //               ),
+          //               style: ButtonStyle(
+          //                   backgroundColor: MaterialStatePropertyAll(
+          //                       Color.fromARGB(255, 255, 255, 255))),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Padding(
@@ -141,38 +141,38 @@ class _AyarlarState extends State<Ayarlar> {
                         ),
 
                         // Geliştiriciler
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 20,
-                            right: 20,
-                          ),
-                          child: Divider(
-                              color: Color.fromARGB(255, 236, 234, 234),
-                              height: 0.1),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 0, top: 0, left: 10, right: 10),
-                          child: ListTile(
-                            title: Text(
-                              "Sıkça Sorulan Sorular",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              textAlign: TextAlign.start,
-                            ),
-                            trailing: Icon(Icons.navigate_next_outlined,
-                                color: Colors.white),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Sss()));
-                            },
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(
+                        //     left: 20,
+                        //     right: 20,
+                        //   ),
+                        //   child: Divider(
+                        //       color: Color.fromARGB(255, 236, 234, 234),
+                        //       height: 0.1),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(
+                        //       bottom: 0, top: 0, left: 10, right: 10),
+                        //   child: ListTile(
+                        //     title: Text(
+                        //       "Sıkça Sorulan Sorular",
+                        //       style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.w400,
+                        //       ),
+                        //       textAlign: TextAlign.start,
+                        //     ),
+                        //     trailing: Icon(Icons.navigate_next_outlined,
+                        //         color: Colors.white),
+                        //     onTap: () {
+                        //       Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //               builder: (context) => Sss()));
+                        //     },
+                        //   ),
+                        // ),
 
                         Padding(
                           padding: const EdgeInsets.only(

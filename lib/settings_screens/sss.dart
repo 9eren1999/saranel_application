@@ -4,6 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 class Sss extends StatelessWidget {
   const Sss({super.key});
 
+  Future<void> get _loadData async {
+    await Future.delayed(Duration(milliseconds: 150));
+  }
+
   Widget buildQuestionTile(String soru, String cevap) {
     return ExpansionTile(
       tilePadding: EdgeInsets.all(0),
@@ -29,8 +33,18 @@ class Sss extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return FutureBuilder(
+      future: _loadData,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(color: const Color.fromARGB(255, 255, 255, 255)),
+            ),
+          );
+        } else {
+          return Scaffold(
+            appBar: AppBar(
         title: Text(
           "Sıkça Sorulan Sorular",
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
@@ -110,4 +124,4 @@ class Sss extends StatelessWidget {
       ),
     );
   }
-}
+  });}}
