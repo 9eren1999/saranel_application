@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:intl/intl.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
 
 class bireyselbasvuruekle extends StatefulWidget {
@@ -44,11 +44,16 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
       CollectionReference bekleyenleryt =
           FirebaseFirestore.instance.collection('bekleyenyt');
 
+      var now = DateTime.now();
+      var formatter = DateFormat('dd.MM.yyyy HH:mm');
+      String formattedDate = formatter.format(now);
+
       bekleyenleryt.add({
         'adsoyad': adsoyad,
         'aciklama': aciklama,
         'il': il,
         'iletisimadres': iletisimadres,
+        'eklenme_tarihi': formattedDate,
       }).then((_) {
         showDialog(
           context: context,
