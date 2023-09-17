@@ -60,7 +60,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
           builder: (BuildContext context) {
             return AlertDialog(
               backgroundColor: Colors.blue.shade800,
-              title: Text('Yardım Talebiniz İncelemeye Alındı!', 
+              title: Text('Yardım Talebiniz İncelemeye Alındı!',
                   style: TextStyle(color: Colors.white)),
               content: Text(
                 'Verdiğiniz bilgiler 24 saat içinde incelenip onaylanır. Herhangi bir eksik ya da hata tespit edilmesi durumunda ilanınızın onaylanmayacağını unutmayınız.',
@@ -165,10 +165,11 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                 padding: const EdgeInsets.only(top: 20),
                 child: TextFormField(
                   controller: controllers['aciklama'],
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 35.0),
-                    labelText: '   Açıklama',
+                    contentPadding:
+                        EdgeInsets.only(top: 10, left: 10, bottom: 50),
+                    labelText: 'Açıklama',
                     labelStyle: TextStyle(
                       color: Colors.blue.shade800,
                       fontSize: 12,
@@ -251,7 +252,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                     fillColor: Colors.white,
                   ),
                   onChanged: (value) {
-                    adsoyad = value;
+                    iletisimadres = value;
                   },
                   validator: (value) {
                     if (value!.isEmpty) {

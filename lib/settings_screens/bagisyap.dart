@@ -82,26 +82,26 @@ class _DonationPageState extends State<DonationPage> {
                       ),
                       SizedBox(height: 10),
                       Row(
-                        
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: amounts.sublist(0, 3).map((amount) {
                           return ChoiceChip(
-                            label: Text(
-                              '$amount TL',
-                              style: TextStyle(color: Colors.blue.shade900),
-                            ),
-                            selected: selectedAmount == amount.toString(),
-                            onSelected: (selected) {
-                              if (selected) {
-                                onAmountSelected(amount);
-                              }
-                            },
-                            backgroundColor: Colors.white,
-                            selectedColor: Colors.green,
-                            shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-    side: BorderSide(color: Colors.white, width: 0),)
-                          );
+                              side: BorderSide.none,
+                              label: Text(
+                                '$amount TL',
+                                style: TextStyle(color: Colors.blue.shade900),
+                              ),
+                              selected: selectedAmount == amount.toString(),
+                              onSelected: (selected) {
+                                if (selected) {
+                                  onAmountSelected(amount);
+                                }
+                              },
+                              backgroundColor: Colors.white,
+                              selectedColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(color: Colors.white, width: 0),
+                              ));
                         }).toList(),
                       ),
                       SizedBox(height: 10),
@@ -109,22 +109,23 @@ class _DonationPageState extends State<DonationPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: amounts.sublist(3, 6).map((amount) {
                           return ChoiceChip(
-                            label: Text(
-                              '$amount TL',
-                              style: TextStyle(color: Colors.blue.shade900),
-                            ),
-                            selected: selectedAmount == amount.toString(),
-                            onSelected: (selected) {
-                              if (selected) {
-                                onAmountSelected(amount);
-                              }
-                            },
-                            backgroundColor: Colors.white,
-                            selectedColor: Colors.green,
-                            shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-    side: BorderSide(color: Colors.white, width: 0),)
-                          );
+                              side: BorderSide.none,
+                              label: Text(
+                                '$amount TL',
+                                style: TextStyle(color: Colors.blue.shade900),
+                              ),
+                              selected: selectedAmount == amount.toString(),
+                              onSelected: (selected) {
+                                if (selected) {
+                                  onAmountSelected(amount);
+                                }
+                              },
+                              backgroundColor: Colors.white,
+                              selectedColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(color: Colors.white, width: 0),
+                              ));
                         }).toList(),
                       ),
                       SizedBox(height: 20),
@@ -139,10 +140,19 @@ class _DonationPageState extends State<DonationPage> {
                           },
                           child: Text(
                             "Bağış Yap",
-                            style: TextStyle(color: Colors.blue.shade900, fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                color: Colors.blue.shade900,
+                                fontWeight: FontWeight.w400),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.white), // Butonun arkaplan rengi
+                            shadowColor: MaterialStateProperty.all(Colors
+                                .transparent), // Gölge rengini transparan yapar
+                            elevation: MaterialStateProperty.all(
+                                0.0), // Gölgeyi kaldırır
+                            side: MaterialStateProperty.all(
+                                BorderSide.none), // Kenar çizgilerini kaldırır
                           ),
                         ),
                       SizedBox(height: 20),
