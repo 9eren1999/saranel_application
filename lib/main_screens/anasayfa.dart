@@ -375,7 +375,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), // İki Container arasında boşluk bırakır
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,

@@ -67,7 +67,7 @@ class _derneklerState extends State<dernekler> {
         body: SingleChildScrollView( 
             child: Column(children: [
           Card( 
-            margin: EdgeInsets.only(bottom: 15, top: 98, right: 15, left: 15),
+            margin: EdgeInsets.only(bottom: 15, top: 108, right: 15, left: 15),
             color: Colors.blue.shade600,
             child: Padding(  
               padding: const EdgeInsets.only(

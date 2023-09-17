@@ -37,7 +37,7 @@ class Kosullar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Kullanım Şartları",
+                      "Kullanım Şartları Sözleşmesi",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Color.fromARGB(255, 248, 248, 248),
@@ -48,7 +48,39 @@ class Kosullar extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      "1. Kabul ve Değişiklikler\nSaranel uygulamasını kullanarak, bu kullanım şartlarını kabul etmiş olursunuz.\n\n2. Hizmetler\nSaranel, kullanıcılarına bağış ve yardım kampanyaları hakkında bilgi sunar. Saranel, bağış işlemleri için aracılık yapmaz, komisyon almaz.\n\n3. Sorumluluklar\nKullanıcılar, bağış işlemleri konusunda dikkatli olmalı ve gerekli durumlarda bağımsız profesyonel bir görüş almalıdır. Saranel, bağış yapılan yerlerle ilgili herhangi bir sorun yaşanması durumunda sorumlu tutulamaz.\n\n4. Fikri Mülkiyet\nUygulama içeriği, Saranel'in fikri mülkiyetidir. İçeriğin izinsiz kullanımı yasaktır.\n\n5. Yasaklanmış Kullanım\nUygulamanın yasadışı, zararlı veya kötü niyetli kullanımı yasaktır.",
+                      """İşbu "Kullanım Şartları Sözleşmesi" ("Sözleşme"), Saranel Platformu ("Platform") üzerindeki tüm kullanıcıların ("Kullanıcı" veya "Siz"), Platformu kullanırken uymaları gereken hüküm ve koşulları içermektedir. Platformu kullanarak, işbu Sözleşmenin şartlarını kabul etmiş sayılmaktasınız.
+
+1. Genel Kullanım Koşulları
+Platform kullanıcıları, Platform üzerinde yürütülen tüm işlemler ve etkinlikler için işbu sözleşmedeki şartlara uymakla yükümlüdürler. Platform, hizmet şartlarını herhangi bir zaman değiştirme hakkını saklı tutar.
+
+2. Bilgi Toplama ve Kullanımı
+Platform, ilan verme aşamasında kullanıcılar tarafından sağlanan bilgileri toplayabilir ve işleyebilir. Bu bilgiler şunları içerebilir:
+
+İletişim bilgileri
+İban bilgileri
+Ad ve soyad
+Fotografik görüntüler
+Diğer ilgili kişisel detaylar
+
+Kullanıcılar, bu bilgileri Platform ile paylaşmayı kabul ederler.
+
+3. Bilgi Paylaşımı ve İşlenmesi
+Platform, kullanıcıların paylaştığı bilgileri, Platformda ilanın doğru bir şekilde görüntülenmesini sağlamak veya kullanıcı deneyimini geliştirmek amacıyla işleyebilir ve diğer kullanıcılara gösterebilir. Platform, üçüncü şahıslarla herhangi bir kişisel bilgi paylaşımı yapmaz, ancak ilanın amacına uygun olarak diğer kullanıcılara gösterilebilir.
+
+4. İçeriklerin Doğruluğu ve Sorumluluk Reddi
+Kullanıcılar, Platforma yükledikleri içeriklerin doğru ve güncel olduğunu beyan ederler. Platform, kullanıcılar tarafından sağlanan içeriklerin doğruluğunu garanti etmez ve bu bilgiler üzerinden gerçekleşebilecek herhangi bir işlem ya da olası zararlar için sorumluluk kabul etmez.
+
+5. Telif Hakları ve İçerik Kullanımı
+Kullanıcılar, Platforma yükledikleri içeriklerin telif haklarını ihlal etmediğini beyan ederler. Kullanıcılar aynı zamanda, yükledikleri içeriklerin Platform tarafından sergilenebilmesi için gerekli lisansları Platforma vermiş olurlar.
+
+6. Sorumluluk Limitleri
+Platform, herhangi bir zaman, hiçbir neden göstermeksizin bir ilanı kaldırma veya düzenleme hakkını saklı tutar. Platform, kullanıcıların ilanlarında sağladıkları bilgiler veya kullanıcıların diğer kullanıcılarla olan etkileşimleri üzerinden oluşabilecek herhangi bir problemde sorumlu tutulamaz.
+
+7. Gizlilik Politikası
+Kullanıcılar, Platformun gizlilik politikasını kabul ederler. Gizlilik politikası, Platformun kullanıcı bilgilerini nasıl topladığı, kullandığı ve paylaştığı hakkında detaylı bilgi içerir.
+
+8. Kabul ve Onay
+Platforma ilan verirken veya Platformu kullanırken, kullanıcılar yukarıda belirtilen şartları ve koşulları kabul etmiş sayılırlar.""",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Color.fromARGB(255, 255, 255, 255),
@@ -56,28 +88,9 @@ class Kosullar extends StatelessWidget {
                           fontWeight: FontWeight.w100),
                     ),
                     SizedBox(
-                      height: 50,
-                    ),Text(
-                      "Gizlilik Sözleşmesi",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 248, 248, 248),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "Bu Gizlilik Sözleşmesi, Saranel uygulamasının kullanıcılarına uygulanır. Bu Sözleşme, Uygulama tarafından toplanan, kullanılan, paylaşılan ve saklanan kişisel verilerin nasıl işlendiğini açıklar.\n\n1. Toplanan Bilgiler\nUygulama, işlevselliğini sağlamak ve kullanıcı deneyimini geliştirmek amacıyla belirli kişisel ve anonim bilgiler toplar. Bu bilgiler şunları içerebilir:\n-Cihaz Bilgileri: Cihaz modeli, işletim sistemi, tarayıcı türü, dil tercihleri vb.\n-Kullanım Bilgileri: Uygulamanın hangi bölümlerinin kullanıldığı, ne kadar süre geçirildiği vb.\n\n2. Bilgilerin Kullanımı\nToplanan bilgiler aşağıdaki amaçlarla kullanılabilir:\n-Uygulamanın işlevselliğini sağlamak ve geliştirmek.\n-Kullanıcı deneyimini kişiselleştirmek.\n-Hataları düzeltmek ve performansı optimize etmek.\n-Yasal yükümlülüklerin yerine getirilmesi.\n\n3. Bilgilerin Paylaşımı\nUygulama, kişisel bilgilerinizi üçüncü taraf şirketlerle paylaşmaz, satmaz veya kiralamaz. Ancak, yasal yükümlülükler veya yasal süreçler gerektirdiğinde bu bilgiler yetkili mercilerle paylaşılabilir.\n\n4. Güvenlik\nUygulama, kişisel bilgilerinizin güvenliğini sağlamak için endüstri standardı güvenlik önlemleri kullanır. Ancak, hiçbir iletim yönteminin veya elektronik depolama yönteminin %100 güvenli olmadığını unutmamanız önemlidir.\n\n5. İletişim\nBu Gizlilik Sözleşmesi hakkında sorularınız, yorumlarınız veya endişeleriniz varsa, lütfen iletisim@saranel.com.tr adresine e-posta gönderin.\n\n\nBu Gizlilik Sözleşmesi'nin son güncellenme tarihi: (23.08.2023)",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w100),
-                    ),SizedBox(height: 20,)
-                  
-                  
-                  ],
+                      height: 20,
+
+                )],
                 ),
               ),
             ),
