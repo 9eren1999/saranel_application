@@ -50,7 +50,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
 
       int? timestamp = prefs.getInt('dataListTimestamp');
       final currentTime = DateTime.now().millisecondsSinceEpoch;
-      final oneMinute = 60000; //1dakika kontrolü
+      final oneMinute = 86400000; //24 saatte bir çeksin
 
       if (timestamp != null && currentTime - timestamp < oneMinute) {
         return dataList;
@@ -151,7 +151,10 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
     }
 
     if (snapshot.hasError) {
-      return Text('Bir hata oluştu: ${snapshot.error}');
+      return Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Text('Bir hata oluştu: ${snapshot.error}',textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 12),),
+      );
     }
 
     if (snapshot.connectionState == ConnectionState.done) {

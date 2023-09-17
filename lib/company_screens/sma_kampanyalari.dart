@@ -55,7 +55,10 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
       );
     } else if (snapshot.hasError) {
       return Center(
-        child: Text('Bir hata oluştu'),
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Text('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.' ,textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 12),),
+        ),
       );
     } else {
       List<Map<String, dynamic>> data = snapshot.data as List<Map<String, dynamic>>;
@@ -73,7 +76,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   final currentTime = DateTime.now().millisecondsSinceEpoch;
 
   final data = prefs.getString('sma_data');
-  if (data != null && currentTime - lastFetchTime < 60000) {
+  if (data != null && currentTime - lastFetchTime < 86400000) { //24 saatte bir çeksin
     List<Map<String, dynamic>> decodedData = List<Map<String, dynamic>>.from(jsonDecode(data));
     decodedData.shuffle(); // Cached data shuffle
     return decodedData;
