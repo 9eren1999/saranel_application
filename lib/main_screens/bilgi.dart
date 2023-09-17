@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saranel_application/settings_screens/acikriza.dart';
+import 'package:saranel_application/settings_screens/gizlilik.dart';
 import 'package:saranel_application/settings_screens/iletisim.dart';
 import 'package:saranel_application/settings_screens/kosullar.dart';
 import 'package:saranel_application/settings_screens/lisanslar.dart';
@@ -137,41 +139,32 @@ class _AyarlarState extends State<Ayarlar> {
                                       builder: (context) => iletisim()));
                             },
                           ),
+                        ), Divider(
+                              color: Color.fromARGB(117, 236, 234, 234),
+                              height: 0.1, indent: 20, endIndent: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 0, left: 10, right: 10, top: 0),
+                          child: ListTile(
+                            title: Text(
+                              "Açık Rıza Sözleşmesi",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                            trailing: Icon(Icons.navigate_next_outlined,
+                                color: Colors.white),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Acikriza()));
+                            },
+                          ),
                         ),
-
-                        // Geliştiriciler
-                        // Padding(
-                        //   padding: const EdgeInsets.only(
-                        //     left: 20,
-                        //     right: 20,
-                        //   ),
-                        //   child: Divider(
-                        //       color: Color.fromARGB(255, 236, 234, 234),
-                        //       height: 0.1),
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(
-                        //       bottom: 0, top: 0, left: 10, right: 10),
-                        //   child: ListTile(
-                        //     title: Text(
-                        //       "Sıkça Sorulan Sorular",
-                        //       style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 14,
-                        //         fontWeight: FontWeight.w400,
-                        //       ),
-                        //       textAlign: TextAlign.start,
-                        //     ),
-                        //     trailing: Icon(Icons.navigate_next_outlined,
-                        //         color: Colors.white),
-                        //     onTap: () {
-                        //       Navigator.push(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //               builder: (context) => Sss()));
-                        //     },
-                        //   ),
-                        // ),
 
                         Padding(
                           padding: const EdgeInsets.only(
@@ -179,7 +172,40 @@ class _AyarlarState extends State<Ayarlar> {
                             right: 20,
                           ),
                           child: Divider(
-                              color: Color.fromARGB(255, 236, 234, 234),
+                              color: Color.fromARGB(117, 236, 234, 234),
+                              height: 0.1),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 0, top: 0, left: 10, right: 10),
+                          child: ListTile(
+                            title: Text(
+                              "Gizlilik Sözleşmesi",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                            trailing: Icon(Icons.navigate_next_outlined,
+                                color: Colors.white),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Gizlilik()));
+                            },
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                          ),
+                          child: Divider(
+                              color: Color.fromARGB(117, 236, 234, 234),
                               height: 0.1),
                         ),
                         Padding(
@@ -210,7 +236,7 @@ class _AyarlarState extends State<Ayarlar> {
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: Divider(
-                            color: Color.fromARGB(255, 236, 234, 234),
+                            color: Color.fromARGB(117, 236, 234, 234),
                             height: 0.1,
                           ),
                         ),

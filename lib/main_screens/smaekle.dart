@@ -4,8 +4,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
+import 'package:flutter/gestures.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
+import 'package:saranel_application/settings_screens/acikriza.dart';
+import 'package:saranel_application/settings_screens/gizlilik.dart';
+import 'package:saranel_application/settings_screens/kosullar.dart';
 
 class SMAIlanEkle extends StatefulWidget {
   @override
@@ -17,12 +20,12 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
   final picker = ImagePicker();
   String? _uploadedImageUrl1;
   String? _uploadedImageUrl2;
+  bool isAgreed = false;
 
   bool isImage1Uploaded = false;
   bool isImage2Uploaded = false;
 
   String adSoyad = '';
-  String kampanyaTuru = 'SMA';
   String tamamlanmaOrani = '';
   String bankaAdi = '';
   String iban = '';
@@ -84,7 +87,6 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
     controllers['telefonNo']?.text = telefonNo;
     controllers['email']?.text = email;
     controllers['adSoyad']?.text = adSoyad;
-    controllers['kampanyaTuru']?.text = kampanyaTuru;
     controllers['tamamlanmaOrani']?.text = tamamlanmaOrani;
     controllers['bankaAdi']?.text = bankaAdi;
     controllers['iban']?.text = iban;
@@ -100,7 +102,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate() && isAgreed) {
       // Görsel alanlarının kontrolü
       if (_uploadedImageUrl1 == null || _uploadedImageUrl2 == null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -114,7 +116,6 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
           telefonNo.isEmpty ||
           email.isEmpty ||
           adSoyad.isEmpty ||
-          kampanyaTuru.isEmpty ||
           tamamlanmaOrani.isEmpty ||
           bankaAdi.isEmpty ||
           iban.isEmpty ||
@@ -130,7 +131,6 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
 
       bekleyenler.add({
         'aciklama1': adSoyad,
-        'kampanyaTuru': kampanyaTuru,
         'bagis': tamamlanmaOrani,
         'banka2': bankaAdi,
         'iban': iban,
@@ -331,7 +331,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                   controller: controllers['adSoyad'],
                   cursorColor: Colors.blue.shade800,
                   decoration: InputDecoration(
-                    labelText: 'Ad Soyad',
+                    labelText: 'Hasta Ad Soyad',
                     labelStyle: TextStyle(
                         color: Colors.blue.shade800,
                         fontSize: 12,
@@ -350,41 +350,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Container(
-                  width: 100, // İstediğiniz genişliği ayarlayabilirsiniz.
-                  child: DropdownButtonFormField<String>(
-                    value: kampanyaTuru,
-                    decoration: InputDecoration(
-                      labelText: 'Kampanya Türü',
-                      labelStyle: TextStyle(
-                        color: Colors.blue.shade800,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    items: <String>['SMA']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      // Burada seçilen değeri işleyebilirsiniz.
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Kampanya türü seçilmelidir';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
+              
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 40),
                 child: TextFormField(
@@ -682,7 +648,97 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                     ],
                   ),
                 ),
+              ),    Divider(
+                thickness: 0.5,
+                color: Colors.blue.shade100, 
+                ),
+                Row(
+  children: [
+    Checkbox(
+      activeColor: Colors.amber,
+      checkColor: Colors.white, 
+      fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return Colors.amber;
+        }
+        return Colors.white;
+      }),
+       value: isAgreed,
+          onChanged: (newValue) {
+            setState(() {
+              isAgreed = newValue!;
+            });
+          },
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: const Color.fromARGB(255, 245, 128, 128), width: 0),
+            borderRadius: BorderRadius.circular(4),
+          ), 
+        ), 
+    Expanded(
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.white,
+          ),
+          children: [
+            TextSpan(
+              text: "İlan vermek için ",
+            ),
+            TextSpan(
+              text: "Açık Rıza Sözleşmesi",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
               ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Acikriza()));
+                            },
+            ),
+            TextSpan(
+              text: ", ",
+            ),
+            TextSpan(
+              text: "Gizlilik Sözleşmesi",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Gizlilik()));
+                            },
+            ),
+            TextSpan(
+              text: " ve ",
+            ),
+            TextSpan(
+              text: "Kullanım Koşulları",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Kosullar()));
+                            },
+            ),
+            TextSpan(
+              text: " sözleşmelerini kabul ettiğimi onaylıyorum",
+            ),
+          ],
+        ),
+      ),
+    ),
+  ],
+),
               Padding(
                 padding: const EdgeInsets.only(top: 22, bottom: 15),
                 child: ElevatedButton(
@@ -699,12 +755,12 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                       Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
-                ),
+                ), 
               ),
             ],
           ),
         ),
-      ),
+      ), 
     );
   }
 }

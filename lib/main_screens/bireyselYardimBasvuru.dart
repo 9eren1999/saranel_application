@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/gestures.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
+import 'package:saranel_application/settings_screens/acikriza.dart';
+import 'package:saranel_application/settings_screens/gizlilik.dart';
+import 'package:saranel_application/settings_screens/kosullar.dart';
 
 class bireyselbasvuruekle extends StatefulWidget {
   @override
@@ -11,7 +15,7 @@ class bireyselbasvuruekle extends StatefulWidget {
 
 class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
   final _formKey = GlobalKey<FormState>();
-
+bool isAgreed = false;
   String adsoyad = '';
   String aciklama = '';
   String il = '';
@@ -40,7 +44,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate() && isAgreed) {
       CollectionReference bekleyenleryt =
           FirebaseFirestore.instance.collection('bekleyenyt');
 
@@ -87,7 +91,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
     } else {
       // Form doğru bir şekilde doldurulmamışsa, bir hata mesajı gösterilir.
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Lütfen eksik alanları tamamlayın.')),
+        SnackBar(content: Text('Lütfen eksik ya da kabul edilmeyen alanları tamamlayın.')),
       );
     }
   }
@@ -97,7 +101,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Bireysel Yardım Yeni İlan ekle",
+        title: Text("Yardım Talebi Oluştur",
             style:
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
         leading: IconButton(
@@ -260,7 +264,95 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                     return null;
                   },
                 ),
+              ),  Row(
+  children: [
+    Checkbox(
+      activeColor: Colors.amber,
+      checkColor: Colors.white, 
+      fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return Colors.amber;
+        }
+        return Colors.white;
+      }),
+       value: isAgreed,
+          onChanged: (newValue) {
+            setState(() {
+              isAgreed = newValue!;
+            });
+          },
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: const Color.fromARGB(255, 245, 128, 128), width: 0),
+            borderRadius: BorderRadius.circular(4),
+          ), 
+        ), 
+    Expanded(
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.white,
+          ),
+          children: [
+            TextSpan(
+              text: "İlan vermek için ",
+            ),
+            TextSpan(
+              text: "Açık Rıza Sözleşmesi",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
               ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Acikriza()));
+                            },
+            ),
+            TextSpan(
+              text: ", ",
+            ),
+            TextSpan(
+              text: "Gizlilik Sözleşmesi",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Gizlilik()));
+                            },
+            ),
+            TextSpan(
+              text: " ve ",
+            ),
+            TextSpan(
+              text: "Kullanım Koşulları",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Kosullar()));
+                            },
+            ),
+            TextSpan(
+              text: " sözleşmelerini kabul ettiğimi onaylıyorum",
+            ),
+          ],
+        ),
+      ),
+    ),
+  ],
+),
+
+
               Padding(
                 padding: const EdgeInsets.only(top: 22, bottom: 15),
                 child: ElevatedButton(

@@ -68,24 +68,25 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   }
 
   Future<List<Map<String, dynamic>>> fetchDataFromFirebaseOnce() async {
-    final prefs = await SharedPreferences.getInstance();
-    final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
-    final currentTime = DateTime.now().millisecondsSinceEpoch;
+  final prefs = await SharedPreferences.getInstance();
+  final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
+  final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-    final data = prefs.getString('sma_data');
-    if (data != null && currentTime - lastFetchTime < 60000) {
-      List<Map<String, dynamic>> decodedData = List<Map<String, dynamic>>.from(jsonDecode(data));
-      return decodedData;
-    } else {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sma').get();
-      List<Map<String, dynamic>> docs = querySnapshot.docs
-          .map((doc) => doc.data() as Map<String, dynamic>)
-          .toList();
-
-      await saveDataToLocal(docs);
-      return docs;
-    }
+  final data = prefs.getString('sma_data');
+  if (data != null && currentTime - lastFetchTime < 60000) {
+    List<Map<String, dynamic>> decodedData = List<Map<String, dynamic>>.from(jsonDecode(data));
+    decodedData.shuffle(); // Cached data shuffle
+    return decodedData;
+  } else {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sma').get();
+    List<Map<String, dynamic>> docs = querySnapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+    docs.shuffle(); // New fetch data shuffle
+    await saveDataToLocal(docs);
+    return docs;
   }
+}
 
   Widget buildListViewFromLocalData(List<Map<String, dynamic>> data) {
     return ListView.builder(
@@ -101,12 +102,12 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   }
   Widget buildCard(Map<String, dynamic> data, int index) {
     return Card(
-        margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 12),
+        margin: EdgeInsets.only(top: 15, left: 17, right: 17, bottom: 10),
         color: Colors.blue.shade600,
         shadowColor: Color.fromARGB(110, 0, 0, 0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-            padding: const EdgeInsets.only(left: 25, top: 20, bottom: 15),
+            padding: const EdgeInsets.only(left: 20, top: 15, bottom: 6),
             child: Row(
               children: [
                 Padding(
@@ -115,8 +116,8 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(
                       data['image'],
-                      height: 110,
-                      width: 140,
+                      height: 100,
+                      width: 165,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -127,29 +128,28 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                     children: [
                       Text(
                         "Ad Soyad",
-                        style: TextStyle(
+                        style: TextStyle( fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 253, 253, 253)),
                       ),
-                      SizedBox(height: 0), // Bu satırı ekledim
                       Text(
                         data['aciklama1'],
-                        style: TextStyle(
+                        style: TextStyle( 
                             fontWeight: FontWeight.w100,
-                            fontSize: 14,
+                            fontSize: 12,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
                       SizedBox(height: 10), // Bu satırı ekledim
                       Text(
                         "Kampanya Türü",
-                        style: TextStyle(
+                        style: TextStyle( fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
                       SizedBox(width: 10),
                       Text(
                         "SMA",
-                        style: TextStyle(
+                        style: TextStyle( fontSize: 12,
                             fontWeight: FontWeight.normal,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
@@ -161,7 +161,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
           ),
           Divider(
             color: Colors.blue.shade800,
-            thickness: 4,
+            thickness: 2,
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -179,7 +179,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   children: [
                     Text(
                       "Kampanya Detayları ",
-                      style: TextStyle(
+                      style: TextStyle( fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: const Color.fromARGB(255, 250, 250, 250)),
                     ),
@@ -187,9 +187,6 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       Icons.arrow_drop_down,
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
-                    SizedBox(
-                      height: 30,
-                    )
                   ],
                 ),
               ),
@@ -203,14 +200,14 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                 top: 15,
               ),
               child: Column(children: [
-                Text(
+                Text( 
                   "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(1)}%",
                   style: TextStyle(
-                      fontSize: 13, color: Color.fromARGB(255, 255, 255, 255)),
+                      fontSize: 12, color: Color.fromARGB(255, 255, 255, 255)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 35, right: 35, top: 4, bottom: 35),
+                      left: 35, right: 35, top: 4, bottom: 15),
                   child: LinearProgressIndicator(
                     color: Color.fromARGB(255, 159, 230, 79),
                     value: double.parse(data['bagis']) / 100,
@@ -220,30 +217,30 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   Expanded(
                     child: Divider(
                       color: Colors.blue.shade100,
-                      thickness: 0.5,
+                      thickness: 0.3,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text("Banka Bilgileri",
                         style: TextStyle(
-                            fontSize: 12, color: Colors.blue.shade100)),
+                            fontSize: 11, color: Colors.blue.shade100)),
                   ),
                   Expanded(
                     child: Divider(
                       color: Colors.blue.shade100,
-                      thickness: 0.5,
+                      thickness: 0.3,
                     ),
                   ),
                 ]),
                 Padding(
-                  padding: const EdgeInsets.only(left: 1, right: 0, top: 15),
+                  padding: const EdgeInsets.only(left: 1, right: 0, top: 10),
                   child: Row(
                     children: [
                       Text("Banka:",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: const Color.fromARGB(255, 255, 255, 255))),
                       SizedBox(width: 5),
                       Flexible(
@@ -251,7 +248,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                         child: Text(data['banka2'],
                             softWrap: true,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 fontWeight: FontWeight.normal,
                                 color:
                                     const Color.fromARGB(255, 249, 249, 250))),
@@ -266,14 +263,14 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       Text("IBAN:",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: const Color.fromARGB(255, 255, 255, 255))),
                       SizedBox(width: 5),
                       Flexible(
                         child: Text(data['iban'],
                             softWrap: true,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 fontWeight: FontWeight.normal,
                                 color:
                                     const Color.fromARGB(255, 249, 249, 250))),
@@ -281,7 +278,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       IconButton(
                           icon: Icon(
                             Icons.copy,
-                            size: 14,
+                            size: 13,
                             color: const Color.fromARGB(255, 253, 253, 253),
                           ),
                           onPressed: () {
@@ -306,7 +303,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       Text("Alıcı:",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: const Color.fromARGB(255, 255, 255, 255))),
                       SizedBox(width: 5),
                       Flexible(
@@ -314,7 +311,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                         child: Text(data['alici'],
                             softWrap: true,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 fontWeight: FontWeight.normal,
                                 color:
                                     const Color.fromARGB(255, 249, 249, 250))),
@@ -330,7 +327,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       Text("Açıklama:",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: const Color.fromARGB(255, 255, 255, 255))),
                       SizedBox(width: 5),
                       Flexible(
@@ -338,7 +335,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                         child: Text(data['aciklamasi'],
                             softWrap: true,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 fontWeight: FontWeight.normal,
                                 color:
                                     const Color.fromARGB(255, 249, 249, 250))),
@@ -350,19 +347,19 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   Expanded(
                     child: Divider(
                       color: Colors.blue.shade100,
-                      thickness: 0.5,
+                      thickness: 0.3,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text("Kampanya İzinleri",
                         style: TextStyle(
-                            fontSize: 12, color: Colors.blue.shade100)),
+                            fontSize: 11, color: Colors.blue.shade100)),
                   ),
                   Expanded(
                     child: Divider(
                       color: Colors.blue.shade100,
-                      thickness: 0.5,
+                      thickness: 0.3,
                     ),
                   ),
                 ]),
@@ -372,7 +369,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                     children: [
                       Text("Yasal İzin:",
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: const Color.fromARGB(255, 253, 253, 253))),
                       Flexible(
@@ -391,7 +388,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                   actions: [
                                     TextButton(
                                       child: Text("Kapat",
-                                          style: TextStyle(
+                                          style: TextStyle( fontSize: 12,
                                               color: const Color.fromARGB(
                                                   255, 255, 255, 255))),
                                       onPressed: () {
@@ -410,7 +407,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontWeight: FontWeight.normal,
-                              fontSize: 13,
+                              fontSize: 12,
                               color: const Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
@@ -423,19 +420,19 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   Expanded(
                     child: Divider(
                       color: Colors.blue.shade100,
-                      thickness: 0.5,
+                      thickness: 0.3,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text("Diğer Bilgiler",
                         style: TextStyle(
-                            fontSize: 12, color: Colors.blue.shade100)),
+                            fontSize: 11, color: Colors.blue.shade100)),
                   ),
                   Expanded(
                     child: Divider(
                       color: Colors.blue.shade100,
-                      thickness: 0.5,
+                      thickness: 0.3,
                     ),
                   ),
                 ]),
@@ -446,7 +443,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       Text("Detaylar:",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: const Color.fromARGB(255, 255, 255, 255))),
                       SizedBox(width: 10),
                       Flexible(
@@ -455,7 +452,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                             softWrap: true,
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 fontWeight: FontWeight.normal,
                                 color:
                                     const Color.fromARGB(255, 249, 249, 250))),

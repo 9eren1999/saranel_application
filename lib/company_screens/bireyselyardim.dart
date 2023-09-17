@@ -78,7 +78,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
 
 
   Future<List<Map<String, dynamic>>> getDataFromApi() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('yardimtalepleri').get();
+   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('yardimtalepleri').orderBy('eklenme_tarihi', descending: true).get();
     List<Map<String, dynamic>> dataList = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
 
     // Yeni çekilen verileri yerelde kaydet
@@ -180,7 +180,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
       } else {
         return Center( heightFactor: 5,
           child: Text( 
-            'Aktif bir talep bulunamadı',
+            'Bekleyen bireysel yardım talebi bulunamadı.',
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,
@@ -220,7 +220,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                       Flexible( flex: 0,
                         child: Text(
                           "${data['adsoyad']}",
-                          style: TextStyle(
+                          style: TextStyle( fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 253, 253, 253),
                           ),
@@ -232,8 +232,8 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                         child: Flexible(
                           child: Text(
                             "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // Tarih ve saat manuel olarak girilmiştir
-                            textAlign: TextAlign.end,
-                            style: TextStyle( fontSize: 10,
+                            textAlign: TextAlign.end, 
+                            style: TextStyle( fontSize: 10, 
                               color: const Color.fromARGB(255, 253, 253, 253),
                             ),
                           ),
@@ -246,7 +246,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                     data['aciklama'],
                     style: TextStyle(
                         fontWeight: FontWeight.w100,
-                        fontSize: 14,
+                        fontSize: 12,
                         color: const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   Divider(thickness: 0.5, color: Colors.blue.shade100),
@@ -262,7 +262,7 @@ Row(
       "${data['il'] ?? 'Bilgi yok'}",
       style: TextStyle(
         fontWeight: FontWeight.w100,
-        fontSize: 14,
+        fontSize: 12,
         color: const Color.fromARGB(255, 255, 255, 255),
       ),
     ),
@@ -270,29 +270,34 @@ Row(
 ),
                   SizedBox(height: 5),
                   Row(
-                    children: [
-                      Icon(
-                        Icons.visibility,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      SizedBox(width: 8),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            showDetails[index] = !(showDetails[index] ?? false);
-                          });
-                        },
-                        child: Text(
-                          showDetails[index] ?? false
-                              ? "İletişim bilgisini gizle"
-                              : "İletişim bilgisini görüntülemek için tıklayınız",
-                          style: TextStyle( decoration: TextDecoration.underline,
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+  children: [
+    Icon(
+      Icons.visibility,
+      color: const Color.fromARGB(255, 255, 255, 255),
+    ),
+    SizedBox(width: 8),
+    Flexible( // Flexible widget ekleyerek içerik için dinamik alan sağlayabiliriz.
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            showDetails[index] = !(showDetails[index] ?? false);
+          });
+        },
+        child: Text(
+          showDetails[index] ?? false
+              ? "İletişim Bilgisi Gizle"
+              : "İletişim Bilgisini Görüntüle",
+          style: TextStyle( fontSize: 12,
+            decoration: TextDecoration.underline,
+            color: const Color.fromARGB(255, 255, 255, 255),
+          ),
+          maxLines: 1, // Maksimum satır sayısını sınırla
+          overflow: TextOverflow.ellipsis, // Fazla içeriği "..." ile göster
+        ),
+      ),
+    ),
+  ],
+),
                   if (showDetails[index] ?? false)
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
@@ -304,13 +309,13 @@ Row(
                           children: [
                             TextSpan(
                               text: 'İletişim Adresi: ',
-                              style: TextStyle(
+                              style: TextStyle( fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextSpan(
                               text: '${data['iletisimadres']}',
-                              style: TextStyle(
+                              style: TextStyle(fontSize: 12,
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
