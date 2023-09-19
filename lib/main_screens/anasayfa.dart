@@ -261,7 +261,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => dernekler(),
+                            builder: (context) => DerneklerPage(),
                           ));
                     },
                     child: Container(

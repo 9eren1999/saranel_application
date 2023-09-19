@@ -9,7 +9,7 @@ class iletisim extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Bize Ulaş",
+          "İletişim",
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
         ),
         leading: IconButton(
@@ -35,7 +35,9 @@ class iletisim extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10,),
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                  ),
                   child: ListTile(
                     title: Text(
                       "iletisim@saranel.com.tr",
@@ -45,11 +47,15 @@ class iletisim extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    leading:
-                        Icon(Icons.mail_outlined, color: const Color.fromARGB(255, 255, 255, 255)),
+                    leading: Icon(Icons.mail_outlined,
+                        color: const Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
-                Divider(color: Color.fromARGB(200, 236, 234, 234), height: 0.1, indent: 20, endIndent: 20),
+                Divider(
+                    color: Color.fromARGB(200, 236, 234, 234),
+                    height: 0.1,
+                    indent: 20,
+                    endIndent: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: ListTile(
@@ -61,8 +67,8 @@ class iletisim extends StatelessWidget {
                         fontWeight: FontWeight.w100,
                       ),
                     ),
-                    leading: Image.network(
-                      "https://freepngimg.com/download/logo/62837-instagram-icons-photography-computer-logo-icon.png",
+                    leading: Image(
+                      image: AssetImage('assets/instalogo.png'),
                       width: 30,
                       color: const Color.fromARGB(255, 255, 255, 255),
                     ),
