@@ -12,11 +12,11 @@
 // }
 
 // class _MainPageState extends State<MainPage> {
-//   int _selectedIndex = 1; // Şu anda seçili olan sekmenin endeksi
+//   int _selectedIndex = 1; 
 
 //   final List<Widget> pages = [
 //     IlanEkle(),
-//     AnaSayfa(),
+//     AnaSayfa(),  //bu sayfa isimleri güncellenirse kullanılabilir burası navbar.....:)
 //     Ayarlar(),
 //   ];
 //   @override
@@ -26,8 +26,7 @@
 //         bottomNavigationBar: _selectedIndex == 3
 //     ? null
 //     : Container(
-//         height: MediaQuery.of(context).size.height * 0.08, // Ekranın %8'i
-//         // decoration kısmı isteğe bağlı olarak eklenebilir
+//         height: MediaQuery.of(context).size.height * 0.08, 
 //         child: GNav(
 //           gap: 7,
 //           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),

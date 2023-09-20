@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
+
+/*ilerde belki kullanılabilir bu sayfa
+
+
+ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/belediyelink.dart'; // Bu dosyanın doğru bir şekilde mevcut olduğundan emin olun.
+import '../models/belediyelink.dart'; 
 
 class belediyepage extends StatefulWidget {
   const belediyepage({super.key});
@@ -198,3 +202,4 @@ class _belediyepageState extends State<belediyepage> {
     );
   }
 }
+ */

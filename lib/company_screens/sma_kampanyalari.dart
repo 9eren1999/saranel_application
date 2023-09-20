@@ -15,6 +15,7 @@ class SmaKampanyalari extends StatefulWidget {
 class _SmaKampanyalariState extends State<SmaKampanyalari> {
   List<bool> showDetails = [];
   late Future<List<Map<String, dynamic>>> _dataFuture;
+  bool isExpanded = false;
 
   @override
   void initState() {
@@ -25,16 +26,18 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
   Future<void> saveDataToLocal(List<Map<String, dynamic>> documents) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('sma_data', jsonEncode(documents));
-    await prefs.setInt('last_fetch_time', DateTime.now().millisecondsSinceEpoch);
+    await prefs.setInt(
+        'last_fetch_time', DateTime.now().millisecondsSinceEpoch);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
         title: Text("SMA Kampanyaları",
-            style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
+            style:
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -47,49 +50,56 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
         ),
       ),
       body: FutureBuilder(
-  future: _dataFuture,
-  builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(
-        child: CircularProgressIndicator(color: Colors.white),
-      );
-    } else if (snapshot.hasError) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Text('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.' ,textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 12),),
-        ),
-      );
-    } else {
-      List<Map<String, dynamic>> data = snapshot.data as List<Map<String, dynamic>>;
-      return buildListViewFromLocalData(data);
-    }
-  },
-),
-
+        future: _dataFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text(
+                  'Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            );
+          } else {
+            List<Map<String, dynamic>> data =
+                snapshot.data as List<Map<String, dynamic>>;
+            return buildListViewFromLocalData(data);
+          }
+        },
+      ),
     );
   }
 
   Future<List<Map<String, dynamic>>> fetchDataFromFirebaseOnce() async {
-  final prefs = await SharedPreferences.getInstance();
-  final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
-  final currentTime = DateTime.now().millisecondsSinceEpoch;
+    final prefs = await SharedPreferences.getInstance();
+    final lastFetchTime = prefs.getInt('last_fetch_time') ?? 0;
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-  final data = prefs.getString('sma_data');
-  if (data != null && currentTime - lastFetchTime < 86400000) { //24 saatte bir çeksin
-    List<Map<String, dynamic>> decodedData = List<Map<String, dynamic>>.from(jsonDecode(data));
-    decodedData.shuffle(); // Cached data shuffle
-    return decodedData;
-  } else {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sma').get();
-    List<Map<String, dynamic>> docs = querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
-    docs.shuffle(); // New fetch data shuffle
-    await saveDataToLocal(docs);
-    return docs;
+    final data = prefs.getString('sma_data');
+    if (data != null && currentTime - lastFetchTime < 86400000) {
+      //24 saatte bir çeksin
+      List<Map<String, dynamic>> decodedData =
+          List<Map<String, dynamic>>.from(jsonDecode(data));
+      decodedData.shuffle(); // Cached data shuffle
+      return decodedData;
+    } else {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('sma').get();
+      List<Map<String, dynamic>> docs = querySnapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
+      docs.shuffle(); //rastgele
+      await saveDataToLocal(docs);
+      return docs;
+    }
   }
-}
 
   Widget buildListViewFromLocalData(List<Map<String, dynamic>> data) {
     return ListView.builder(
@@ -103,9 +113,10 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
       },
     );
   }
+
   Widget buildCard(Map<String, dynamic> data, int index) {
     return Card(
-        margin: EdgeInsets.only(top: 15, left: 17, right: 17, bottom: 10),
+        margin: EdgeInsets.only(top: 20, left: 17, right: 17, bottom: 10),
         color: Colors.blue.shade600,
         shadowColor: Color.fromARGB(110, 0, 0, 0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -131,28 +142,31 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                     children: [
                       Text(
                         "Ad Soyad",
-                        style: TextStyle( fontSize: 12,
+                        style: TextStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 253, 253, 253)),
                       ),
                       Text(
                         data['aciklama1'],
-                        style: TextStyle( 
+                        style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 12,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
-                      SizedBox(height: 10), // Bu satırı ekledim
+                      SizedBox(height: 10), 
                       Text(
                         "Kampanya Türü",
-                        style: TextStyle( fontSize: 12,
+                        style: TextStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
                       SizedBox(width: 10),
                       Text(
                         "SMA",
-                        style: TextStyle( fontSize: 12,
+                        style: TextStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.normal,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
@@ -175,6 +189,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                 onTap: () {
                   setState(() {
                     showDetails[index] = !showDetails[index];
+                    isExpanded = !isExpanded;
                   });
                 },
                 child: Row(
@@ -182,12 +197,13 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   children: [
                     Text(
                       "Kampanya Detayları ",
-                      style: TextStyle( fontSize: 12,
+                      style: TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: const Color.fromARGB(255, 250, 250, 250)),
                     ),
                     Icon(
-                      Icons.arrow_drop_down,
+                      isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ],
@@ -203,7 +219,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                 top: 15,
               ),
               child: Column(children: [
-                Text( 
+                Text(
                   "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(1)}%",
                   style: TextStyle(
                       fontSize: 12, color: Color.fromARGB(255, 255, 255, 255)),
@@ -391,7 +407,8 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                                   actions: [
                                     TextButton(
                                       child: Text("Kapat",
-                                          style: TextStyle( fontSize: 12,
+                                          style: TextStyle(
+                                              fontSize: 12,
                                               color: const Color.fromARGB(
                                                   255, 255, 255, 255))),
                                       onPressed: () {
@@ -406,7 +423,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                           child: Text(
                             "Görüntülemek için tıklayınız.",
                             softWrap:
-                                true, // Metnin yumuşak bir şekilde taşmasına izin ver
+                                true, 
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontWeight: FontWeight.normal,

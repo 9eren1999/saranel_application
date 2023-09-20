@@ -15,19 +15,18 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   Map<int, bool> showDetails = {};
   late Future<List<Map<String, dynamic>>> dataListFuture;
 
-  // Verileri yerel depodan almanın ve API'dan almanın zaman aşımı süresi
 
   @override
   void initState() {
     super.initState();
     dataListFuture = fetchData();
   }
+
   Future<void> saveDataToLocal(List<Map<String, dynamic>> dataList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<Map<String, dynamic>> modifiedDataList = dataList.map((data) {
       Map<String, dynamic> newData = Map<String, dynamic>.from(data);
-  
 
       return newData;
     }).toList();
@@ -61,27 +60,31 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   }
 
   Future<List<Map<String, dynamic>>> fetchData() async {
-  try {
-    List<Map<String, dynamic>>? dataListFromLocal = await getDataFromLocal();
+    try {
+      List<Map<String, dynamic>>? dataListFromLocal = await getDataFromLocal();
 
-    if (dataListFromLocal != null) {
-      return dataListFromLocal;
+      if (dataListFromLocal != null) {
+        return dataListFromLocal;
+      }
+
+      return await getDataFromApi();
+    } catch (e) {
+      print("An error occurred while fetching data: $e");
+      throw Exception(
+          'Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.');
     }
-
-    return await getDataFromApi();
-  } catch (e) {
-    // Hata yakalama ve kullanıcıya gösterilecek bir hata mesajı oluşturma
-    print("An error occurred while fetching data: $e");
-    throw Exception('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.');
   }
-}
-
 
   Future<List<Map<String, dynamic>>> getDataFromApi() async {
-   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('yardimtalepleri').orderBy('eklenme_tarihi', descending: true).get();
-    List<Map<String, dynamic>> dataList = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('yardimtalepleri')
+        .orderBy('eklenme_tarihi', descending: true)
+        .get();
+    List<Map<String, dynamic>> dataList = querySnapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
 
-    // Yeni çekilen verileri yerelde kaydet
+    
     await saveDataToLocal(dataList);
 
     setState(() {});
@@ -89,11 +92,10 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
     return dataList;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
         title: Text("Bireysel Yardım Talepleri", style: appbarStyle()),
         leading: IconButton(
@@ -109,232 +111,263 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            margin: EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.red.shade900,
+                borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
-              margin: EdgeInsets.only(top: 95, right: 15, left: 15, bottom: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.red.shade900,
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
+              child: ListTile(
+                contentPadding:
+                    EdgeInsets.only(right: 12, left: 12, top: 5, bottom: 5),
+                title: Text(
+                  "Bu kategorideki yardım talepleri, bireysel başvurular yoluyla oluşturulmuş ve başvuran kişilerin T.C. Aile ve Sosyal Politakalar Bakanlığı tarafında 'ihtiyaç sahibi' olup olmadığı teyid edilmemiştir. Bu alanda yapacağınız yardımları gerçekleştirirken dikkatli olunması gerekmektedir.",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                  ),
+                  textAlign: TextAlign.start,
                 ),
-                child: ListTile(
-                  contentPadding: EdgeInsets.only(right: 12, left: 12, top: 5, bottom: 5),
-                  title: Text(
-                    "Bu kategorideki yardım talepleri, bireysel başvurular yoluyla oluşturulmuş ve başvuran kişilerin T.C. Aile ve Sosyal Politakalar Bakanlığı tarafında 'ihtiyaç sahibi' olup olmadığı teyid edilmemiştir. Bu alanda yapacağınız yardımları gerçekleştirirken dikkatli olunması gerekmektedir.",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
+                leading: Icon(
+                  Icons.warning, 
+                  size: 26, 
+                  color: Colors.white, 
+                ),
+              ),
+            ),
+          ),
+          FutureBuilder(
+            future: dataListFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SizedBox(
+                  height: 250,
+                  child: Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                );
+              }
+
+              if (snapshot.hasError) {
+                return Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Text(
+                    'Bir hata oluştu: ${snapshot.error}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                );
+              }
+
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  List<Map<String, dynamic>> dataList =
+                      snapshot.data as List<Map<String, dynamic>>;
+
+                  if (dataList.isEmpty) {
+                    return Center(
+                      heightFactor: 7,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'Bekleyen bireysel yardım talebi bulunamadı.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                      ),
+                    );
+                  }
+
+                  return Column(
+                    children: dataList.asMap().entries.map((e) {
+                      int index = e.key;
+                      Map<String, dynamic> data = e.value;
+                      return buildCard(data, index);
+                    }).toList(),
+                  );
+                } else {
+                  return Center(
+                    heightFactor: 5,
+                    child: Text(
+                      'Bekleyen bireysel yardım talebi bulunamadı.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
                     ),
-                    textAlign: TextAlign.start,
-                  ),
-                  leading: Icon(
-                    Icons.warning, // Ünlem simgesi
-                    size: 26, // İkon boyutu
-                    color: Colors.white, // İkon rengi
-                  ),
-                ),
-              ),
-            ),   FutureBuilder(
-  future: dataListFuture,
-  builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return SizedBox(
-        height: 250,
-        child: Center(
-          child: CircularProgressIndicator(
-            color: Colors.white
-          ),
-        ),
-      );
-    }
+                  );
+                }
+              }
 
-    if (snapshot.hasError) {
-      return Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Text('Bir hata oluştu: ${snapshot.error}',textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 12),),
-      );
-    }
-
-    if (snapshot.connectionState == ConnectionState.done) {
-      if (snapshot.hasData) {
-        List<Map<String, dynamic>> dataList = snapshot.data as List<Map<String, dynamic>>;
-
-        if (dataList.isEmpty) {
-          return Center( heightFactor: 7,
-            child: Text(  textAlign: TextAlign.center,
-              'Bekleyen bireysel yardım talebi bulunamadı.',
-              style: TextStyle( 
-                color: Colors.white,
-                fontSize: 10,
-              ),
-            ),
-          );
-        }
-
-        return Column(
-          children: dataList.asMap().entries.map((e) {
-            int index = e.key;
-            Map<String, dynamic> data = e.value;
-            return buildCard(data, index);
-          }).toList(),
-        );
-      } else {
-        return Center( heightFactor: 5,
-          child: Text( 
-            'Bekleyen bireysel yardım talebi bulunamadı.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
-          ),
-        );
-      }
-    }
-
-    return SizedBox.shrink();
-  },
-)
-  ]),
-        ),
-      );
-    
+              return SizedBox.shrink();
+            },
+          )
+        ]),
+      ),
+    );
   }
 
-          
-           Widget buildCard(Map<String, dynamic> data, int index) {
-  return Card(
-    margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 12),
-    color: Colors.blue.shade600,
-    shadowColor: Color.fromARGB(110, 0, 0, 0),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 1),
-        child: Row(
-          children: [
-            Flexible(
-              flex: 1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+  Widget buildCard(Map<String, dynamic> data, int index) {
+    return Card(
+      margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 12),
+      color: Colors.blue.shade600,
+      shadowColor: Color.fromARGB(110, 0, 0, 0),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 1),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible( flex: 0,
-                        child: Text(
-                          "${data['adsoyad']}",
-                          style: TextStyle( fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 253, 253, 253),
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25),
-                        child: Flexible(
-                          child: Text(
-                            "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // Tarih ve saat manuel olarak girilmiştir
-                            textAlign: TextAlign.end, 
-                            style: TextStyle( fontSize: 10, 
-                              color: const Color.fromARGB(255, 253, 253, 253),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ), 
-                  SizedBox(height: 2),
-                  Text(
-                    data['aciklama'],
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 12,
-                        color: const Color.fromARGB(255, 255, 255, 255)),
-                  ),
-                  Divider(thickness: 0.5, color: Colors.blue.shade100),
-                  SizedBox(height: 5),
-Row(
-  children: [
-    Icon(
-      Icons.location_on, // Konum simgesi
-      color: Color.fromARGB(255, 255, 255, 255),
-    ),
-    SizedBox(width: 8),
-    Text(
-      "${data['il'] ?? 'Bilgi yok'}",
-      style: TextStyle(
-        fontWeight: FontWeight.w100,
-        fontSize: 12,
-        color: const Color.fromARGB(255, 255, 255, 255),
-      ),
-    ),
-  ],
-),
-                  SizedBox(height: 5),
-                  Row(
-  children: [
-    Icon(
-      Icons.visibility,
-      color: const Color.fromARGB(255, 255, 255, 255),
-    ),
-    SizedBox(width: 8),
-    Flexible( // Flexible widget ekleyerek içerik için dinamik alan sağlayabiliriz.
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            showDetails[index] = !(showDetails[index] ?? false);
-          });
-        },
-        child: Text(
-          showDetails[index] ?? false
-              ? "İletişim Bilgisi Gizle"
-              : "İletişim Bilgisini Görüntüle",
-          style: TextStyle( fontSize: 12,
-            decoration: TextDecoration.underline,
-            color: const Color.fromARGB(255, 255, 255, 255),
-          ),
-          maxLines: 1, // Maksimum satır sayısını sınırla
-          overflow: TextOverflow.ellipsis, // Fazla içeriği "..." ile göster
-        ),
-      ),
-    ),
-  ],
-),
-                  if (showDetails[index] ?? false)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 255, 255, 255), // beyaz renk
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
                           children: [
-                            TextSpan(
-                              text: 'İletişim Adresi: ',
-                              style: TextStyle( fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                            Flexible(
+                              flex: 0,
+                              child: Text(
+                                "${data['adsoyad']}",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 253, 253, 253),
+                                ),
                               ),
                             ),
-                            TextSpan(
-                              text: '${data['iletisimadres']}',
-                              style: TextStyle(fontSize: 12,
-                                fontWeight: FontWeight.normal,
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 25),
+                              child: Text(
+                                "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // tarih ve saat manuel olarak 
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color:
+                                      const Color.fromARGB(255, 253, 253, 253),
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                ],
-              ),
+                      SizedBox(height: 2),
+                      Text(
+                        data['aciklama'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.w100,
+                            fontSize: 12,
+                            color: const Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      Divider(thickness: 0.5, color: Colors.blue.shade100),
+                      SizedBox(height: 5),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.location_on, // konum simgesi
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              "${data['il'] ?? 'Bilgi yok'}",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w100,
+                                fontSize: 12,
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.visibility,
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                            ),
+                            SizedBox(width: 8),
+                            Flexible(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    showDetails[index] =
+                                        !(showDetails[index] ?? false);
+                                  });
+                                },
+                                child: Text(
+                                  showDetails[index] ?? false
+                                      ? "İletişim Bilgisi Gizle"
+                                      : "İletişim Bilgisini Görüntüle",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    decoration: TextDecoration.underline,
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                  ),
+                                  maxLines:
+                                      1, 
+                                  overflow: TextOverflow
+                                      .ellipsis, // fazla içeriği ... ile göster
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (showDetails[index] ?? false)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: const Color.fromARGB(
+                                    255, 255, 255, 255), 
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'İletişim Adresi: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '${data['iletisimadres']}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    ]),
-  );
-}
+      ]),
+    );
+  }
 
-  TextStyle appbarStyle() => GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
+  TextStyle appbarStyle() =>
+      GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
 }

@@ -13,7 +13,7 @@ import 'package:saranel_application/main.dart';
 void main() {
   testWidgets('My Widget has a title and message', (WidgetTester tester) async {
     // MyApp sınıfını oluştururken bakimModu parametresini geçin
-    await tester.pumpWidget(MyApp(bakimModu: false));
+    await tester.pumpWidget(MyApp() /* (bakimModu: false) */);
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

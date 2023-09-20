@@ -31,12 +31,12 @@ Saranel Ekibi""";
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize
-                      .min, // Bu, içeriğin mümkün olduğunca küçük olmasını sağlar
+                      .min, 
                   children: [
                     Image.asset('assets/images/saranellogonew.png',
                         height:
-                            100), // Logo (logo yolunu projenize göre ayarlayın)
-                    SizedBox(height: 20), // Logo ve metin arasında biraz boşluk
+                            100), 
+                    SizedBox(height: 20), 
                     Text(
                       mesaj,
                       style: TextStyle(fontSize: 12, color: Colors.black),
@@ -49,7 +49,7 @@ Saranel Ekibi""";
             Positioned(
               bottom: MediaQuery.of(context).size.height * 0.05,
               left: MediaQuery.of(context).size.width * 0.5 -
-                  50, // Button'un genişliği 100 olduğunu varsayarsak, bu şekilde tam ortalanır.
+                  50, 
               child: ElevatedButton(
                 onPressed: () {
                   exit(0);

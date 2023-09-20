@@ -195,8 +195,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
-                 Expanded(
+                SizedBox(width: 20), 
+                Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
                     onTap: () {
@@ -248,68 +248,66 @@ class _AnaSayfaState extends State<AnaSayfa> {
             ),
           ),
         ),
-       Padding(
-  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-  child: IntrinsicHeight(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: InkWell(
-            splashColor: Colors.blue.shade800,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => dernekler(),
-                  ));
-            },
-            child: Container(
-              width: 185,
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 1),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade600,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(8, 0, 0, 1),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                  ),
-                ],
-                borderRadius: BorderRadius.all(Radius.circular(25)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center, 
-                    children: [
-                      Icon(Icons.account_balance_rounded, size: 32, color: Colors.white),
-                      SizedBox(width: 10),
-                      Text(
-                        'Sivil Toplum Kuruluşları',
-                        textAlign: TextAlign.center, 
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DerneklerPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
-                    ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.account_balance_rounded,
+                                  size: 32, color: Colors.white),
+                              SizedBox(width: 10),
+                              Text(
+                                'Sivil Toplum Kuruluşları',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      ],
-    ),
-  ),
-),
-
-
-
-
         Padding(
           padding: const EdgeInsets.only(
             top: 25,
@@ -377,7 +375,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -426,7 +424,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-            
               ],
             ),
           ),
@@ -496,7 +493,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -527,7 +524,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.question_mark, size: 32, color: Colors.white),
+                          Icon(Icons.question_mark,
+                              size: 32, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
                             'Sıkça Sorulan \nSorular',
@@ -547,7 +545,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ],
             ),
           ),
-        ),Padding(
+        ),
+        Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: IntrinsicHeight(
             child: Row(
@@ -585,8 +584,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.info,
-                              size: 32, color: Colors.white),
+                          Icon(Icons.info, size: 32, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
                             'Saranel Platformu \nHakkında',
@@ -603,7 +601,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -634,7 +632,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.perm_device_information, size: 32, color: Colors.white),
+                          Icon(Icons.perm_device_information,
+                              size: 32, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
                             'Uygulama Bilgileri',
@@ -655,64 +654,66 @@ class _AnaSayfaState extends State<AnaSayfa> {
             ),
           ),
         ),
-         Padding(
-  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-  child: IntrinsicHeight(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: InkWell(
-            splashColor: Colors.blue.shade800,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DonationPage(),
-                  ));
-            },
-            child: Container(
-              width: 185,
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 1),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(8, 0, 0, 1),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                  ),
-                ],
-                borderRadius: BorderRadius.all(Radius.circular(25)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center, 
-                    children: [
-                      Icon(Icons.add_task_sharp, size: 30, color: Colors.white),
-                      SizedBox(width: 10),
-                      Text(
-                        'Saranel Platformuna Bağış Yap',
-                        textAlign: TextAlign.center, 
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DonationPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
-                    ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add_task_sharp,
+                                  size: 30, color: Colors.white),
+                              SizedBox(width: 10),
+                              Text(
+                                'Saranel Platformuna Bağış Yap',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      ],
-    ),
-  ),
-),
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
@@ -735,9 +736,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 textAlign: TextAlign.start,
               ),
               leading: Icon(
-                Icons.warning, // Ünlem simgesi
-                size: 26, // İkon boyutu
-                color: Colors.white, // İkon rengi
+                Icons.warning, 
+                size: 26, 
+                color: Colors.white, 
               ),
             ),
           ),
