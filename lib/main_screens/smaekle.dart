@@ -36,6 +36,11 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
   String email = '';
   String telefonNo = '';
 
+  bool isValidIban(String iban) {
+    final RegExp ibanRegExp = RegExp(r'^TR[0-9]{24}$');
+    return ibanRegExp.hasMatch(iban);
+  }
+
   Future<void> _uploadImage(int imageNumber) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -53,10 +58,10 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
         setState(() {
           if (imageNumber == 1) {
             _uploadedImageUrl1 = downloadUrl;
-            isImage1Uploaded = true; // Görsel yüklendiğinde durumu güncelleyin
+            isImage1Uploaded = true; // görsel yüklendiyse durum true
           } else if (imageNumber == 2) {
             _uploadedImageUrl2 = downloadUrl;
-            isImage2Uploaded = true; // Görsel yüklendiğinde durumu güncelleyin
+            isImage2Uploaded = true; //görsel yüklendiyse durum true
           }
         });
       } catch (e) {
@@ -111,7 +116,6 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
         return;
       }
 
-      // Diğer zorunlu alanların kontrolü
       if (ilgiliadSoyad.isEmpty ||
           telefonNo.isEmpty ||
           email.isEmpty ||
@@ -173,7 +177,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
         );
       });
     } else {
-      // Form doğru bir şekilde doldurulmamışsa, bir hata mesajı gösterilir.
+      //inputlar doğru bir şekilde doldurulmamışsa hata mesajı göstersin
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Lütfen eksik alanları tamamlayın.')),
       );
@@ -228,8 +232,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: TextFormField(
-                    controller: controllers[
-                        'ilgiliadSoyad'], // Burada controller'ı ekledik
+                    controller: controllers['ilgiliadSoyad'],
                     decoration: InputDecoration(
                       labelText: 'Yetkili Ad Soyad',
                       labelStyle: TextStyle(
@@ -281,8 +284,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: TextFormField(
                     controller: controllers['email'],
-                    keyboardType:
-                        TextInputType.emailAddress, // E-mail için klavye tipi
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: 'E-mail',
                       labelStyle: TextStyle(
@@ -297,11 +299,17 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                       email = value;
                     },
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value == null || value.isEmpty) {
                         return 'E-mail alanı boş olamaz';
                       }
-                      // E-mail doğrulama işlemleri de burada yapılabilir.
-                      return null;
+                      //mail doğrulama işlemi
+                      Pattern pattern =
+                          r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
+                      RegExp regex = new RegExp(pattern as String);
+                      if (!regex.hasMatch(value))
+                        return 'Geçerli bir e-mail adresi giriniz';
+                      else
+                        return null;
                     },
                   ),
                 ),
@@ -357,8 +365,8 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                   child: TextFormField(
                     controller: controllers['tamamlanmaOrani'],
                     cursorColor: Colors.blue.shade800,
-                    keyboardType: TextInputType
-                        .number, // Sadece sayısal değer girişi için
+                    keyboardType:
+                        TextInputType.number, // sayısal değer girişi için
                     decoration: InputDecoration(
                       labelText: 'Kampanya Tamamlanma Oranı (%)',
                       labelStyle: TextStyle(
@@ -431,7 +439,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                   ),
                 ),
 
-                // IBAN için TextFormField
+                // iban
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: TextFormField(
@@ -454,7 +462,9 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                       if (value!.isEmpty) {
                         return 'IBAN alanı boş olamaz';
                       }
-                      // IBAN için ekstra doğrulama yapabilirsiniz.
+                      if (!isValidIban(value)) {
+                        return 'Geçersiz IBAN';
+                      }
                       return null;
                     },
                   ),
@@ -519,7 +529,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                     controller: controllers['ekDetaylar'],
                     cursorColor: Colors.blue.shade800,
                     maxLines:
-                        null, // Kullanıcının birden fazla satır girebilmesi için
+                        null, 
                     decoration: InputDecoration(
                       labelText: 'Eklemek İstediğiniz Diğer Detaylar',
                       labelStyle: TextStyle(
@@ -532,7 +542,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                     ),
                     onChanged: (value) {
                       ekDetaylar =
-                          value; // Bu değişkeni sınıfınızın üst kısmında tanımlamanız gerekiyor
+                          value; 
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -593,7 +603,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                             style: TextStyle(color: Colors.white70),
                           ),
                         ),
-                        if (isImage1Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
+                        if (isImage1Uploaded) // eğer görsel yüklendiyse onay işareti
                           Icon(
                             Icons.check_circle,
                             color: Colors.green,
@@ -640,7 +650,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                             style: TextStyle(color: Colors.white70),
                           ),
                         ),
-                        if (isImage2Uploaded) // Eğer görsel yüklendiyse, onay işaretini göster
+                        if (isImage2Uploaded) 
                           Icon(
                             Icons.check_circle,
                             color: Colors.green,

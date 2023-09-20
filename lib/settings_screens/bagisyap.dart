@@ -135,7 +135,7 @@ class _DonationPageState extends State<DonationPage> {
                             String? link =
                                 amountLinks[int.parse(selectedAmount!)];
                             if (link != null) {
-                              // TODO: Navigate to the link using a suitable method
+                              //google play dijital peketleri buraya tanımlanacak
                             }
                           },
                           child: Text(
@@ -146,13 +146,13 @@ class _DonationPageState extends State<DonationPage> {
                           ),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                                Colors.white), // Butonun arkaplan rengi
+                                Colors.white), 
                             shadowColor: MaterialStateProperty.all(Colors
-                                .transparent), // Gölge rengini transparan yapar
+                                .transparent), 
                             elevation: MaterialStateProperty.all(
-                                0.0), // Gölgeyi kaldırır
+                                0.0), 
                             side: MaterialStateProperty.all(
-                                BorderSide.none), // Kenar çizgilerini kaldırır
+                                BorderSide.none), 
                           ),
                         ),
                       SizedBox(height: 20),

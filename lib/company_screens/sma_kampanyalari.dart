@@ -95,7 +95,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
       List<Map<String, dynamic>> docs = querySnapshot.docs
           .map((doc) => doc.data() as Map<String, dynamic>)
           .toList();
-      docs.shuffle(); // New fetch data shuffle
+      docs.shuffle(); //rastgele
       await saveDataToLocal(docs);
       return docs;
     }
@@ -154,7 +154,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                             fontSize: 12,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
-                      SizedBox(height: 10), // Bu satırı ekledim
+                      SizedBox(height: 10), 
                       Text(
                         "Kampanya Türü",
                         style: TextStyle(
@@ -423,7 +423,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                           child: Text(
                             "Görüntülemek için tıklayınız.",
                             softWrap:
-                                true, // Metnin yumuşak bir şekilde taşmasına izin ver
+                                true, 
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontWeight: FontWeight.normal,

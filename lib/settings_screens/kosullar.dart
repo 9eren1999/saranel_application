@@ -7,23 +7,24 @@ class Kosullar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Kullanım Koşulları",
-          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
+        appBar: AppBar(
+          title: Text(
+            "Kullanım Koşulları",
+            style:
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
+          ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                color: Colors.blue.shade800,
+                size: 19,
+              )),
         ),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_sharp,
-              color: Colors.blue.shade800,
-              size: 19,
-            )),
-      ),
-      body: Container(
-        child: ListView(children: [
+        body: Container(
+            child: ListView(children: [
           Padding(
             padding:
                 const EdgeInsets.only(top: 20, left: 12, right: 12, bottom: 20),
@@ -89,13 +90,13 @@ Platforma ilan verirken veya Platformu kullanırken, kullanıcılar yukarıda be
                     ),
                     SizedBox(
                       height: 20,
-
-                )],
+                    )
+                  ],
                 ),
               ),
             ),
           ),
-    ])));
+        ])));
   }
 }
 

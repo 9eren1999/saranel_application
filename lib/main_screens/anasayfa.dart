@@ -195,7 +195,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -375,7 +375,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -493,7 +493,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -601,7 +601,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // İki Container arasında boşluk bırakır
+                SizedBox(width: 20), 
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -736,9 +736,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 textAlign: TextAlign.start,
               ),
               leading: Icon(
-                Icons.warning, // Ünlem simgesi
-                size: 26, // İkon boyutu
-                color: Colors.white, // İkon rengi
+                Icons.warning, 
+                size: 26, 
+                color: Colors.white, 
               ),
             ),
           ),

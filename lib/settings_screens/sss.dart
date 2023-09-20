@@ -31,7 +31,7 @@ class _SssState extends State<Sss> {
     false,
     false,
     false
-  ]; // Listeyi, kaç tane ExpansionTile olduğunuza göre ayarlayın
+  ];
 
   Widget buildQuestionTile(String soru, String cevap, int index) {
     return Theme(

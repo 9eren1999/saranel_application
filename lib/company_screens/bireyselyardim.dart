@@ -15,7 +15,6 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
   Map<int, bool> showDetails = {};
   late Future<List<Map<String, dynamic>>> dataListFuture;
 
-  // Verileri yerel depodan almanın ve API'dan almanın zaman aşımı süresi
 
   @override
   void initState() {
@@ -70,7 +69,6 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
 
       return await getDataFromApi();
     } catch (e) {
-      // Hata yakalama ve kullanıcıya gösterilecek bir hata mesajı oluşturma
       print("An error occurred while fetching data: $e");
       throw Exception(
           'Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.');
@@ -86,7 +84,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
 
-    // Yeni çekilen verileri yerelde kaydet
+    
     await saveDataToLocal(dataList);
 
     setState(() {});
@@ -135,9 +133,9 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                   textAlign: TextAlign.start,
                 ),
                 leading: Icon(
-                  Icons.warning, // Ünlem simgesi
-                  size: 26, // İkon boyutu
-                  color: Colors.white, // İkon rengi
+                  Icons.warning, 
+                  size: 26, 
+                  color: Colors.white, 
                 ),
               ),
             ),
@@ -251,7 +249,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                             Padding(
                               padding: const EdgeInsets.only(right: 25),
                               child: Text(
-                                "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // Tarih ve saat manuel olarak girilmiştir
+                                "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // tarih ve saat manuel olarak 
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   fontSize: 10,
@@ -278,7 +276,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.location_on, // Konum simgesi
+                              Icons.location_on, // konum simgesi
                               color: Color.fromARGB(255, 255, 255, 255),
                             ),
                             SizedBox(width: 8),
@@ -304,7 +302,6 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                             ),
                             SizedBox(width: 8),
                             Flexible(
-                              // Flexible widget ekleyerek içerik için dinamik alan sağlayabiliriz.
                               child: InkWell(
                                 onTap: () {
                                   setState(() {
@@ -323,9 +320,9 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                                         255, 255, 255, 255),
                                   ),
                                   maxLines:
-                                      1, // Maksimum satır sayısını sınırla
+                                      1, 
                                   overflow: TextOverflow
-                                      .ellipsis, // Fazla içeriği "..." ile göster
+                                      .ellipsis, // fazla içeriği ... ile göster
                                 ),
                               ),
                             ),
@@ -339,7 +336,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                             text: TextSpan(
                               style: TextStyle(
                                 color: const Color.fromARGB(
-                                    255, 255, 255, 255), // beyaz renk
+                                    255, 255, 255, 255), 
                               ),
                               children: [
                                 TextSpan(

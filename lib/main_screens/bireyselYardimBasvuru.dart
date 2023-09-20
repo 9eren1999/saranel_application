@@ -89,7 +89,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
         );
       });
     } else {
-      // Form doğru bir şekilde doldurulmamışsa, bir hata mesajı gösterilir.
+      // form eksikse hata mesajı gösteriliyor
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             content: Text(
@@ -200,7 +200,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: TextFormField(
                     controller: controllers['il'],
-                    keyboardType: TextInputType.name, // E-mail için klavye tipi
+                    keyboardType: TextInputType.name, // mail için klavye tipi
                     decoration: InputDecoration(
                       labelText: 'İl/ İlçe',
                       labelStyle: TextStyle(
@@ -218,7 +218,6 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                       if (value!.isEmpty) {
                         return 'İl alanı boş olamaz';
                       }
-                      // E-mail doğrulama işlemleri de burada yapılabilir.
                       return null;
                     },
                   ),
