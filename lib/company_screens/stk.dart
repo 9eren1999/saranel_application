@@ -75,8 +75,7 @@ class _DerneklerPageState extends State<DerneklerPage> {
       for (var doc in querySnapshot.docs) {
         var data = doc.data() as Map<String, dynamic>?;
         if (data != null) {
-          String logoUrl =
-              data['logoPath'] ?? ''; // Doğrudan logoPath alanını kullanıyoruz.
+          String logoUrl = data['logoPath'] ?? '';
 
           derneklerListesi.add(
             Dernek(
@@ -289,7 +288,7 @@ class _DerneklerPageState extends State<DerneklerPage> {
       body: loading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-              controller: _scrollController, // Bu satırı ekleyin
+              controller: _scrollController,
               padding: EdgeInsets.only(top: 12),
               itemCount: derneklerListesi.length,
               itemBuilder: (context, index) {
