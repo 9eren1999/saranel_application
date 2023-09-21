@@ -695,7 +695,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   size: 30, color: Colors.white),
                               SizedBox(width: 10),
                               Text(
-                                'Saranel Platformuna Destek Yap',
+                                'Saranel Platformuna Destek Ol',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 12,
