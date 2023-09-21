@@ -32,7 +32,7 @@ class _DonationPageState extends State<DonationPage> {
       backgroundColor: Colors.blue.shade800,
       appBar: AppBar(
         title: Text(
-          "Saranel'i Destekle",
+          "Saranel'e Destek Ol",
           style: appbarStyle(),
         ),
         leading: IconButton(
@@ -63,7 +63,7 @@ class _DonationPageState extends State<DonationPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Saranel Platformu, yardıma ihtiyacı olan vatandaşları yardımsever insanlarla bir araya getiren tamamen ücretsiz bir platformdur. Fakat platformun işleyişini sürdürebilmek için değerli bağışçılarımıza ihtiyacımız var. Yapacağınız bağışlarla, Saranel platformunun sunucu ve operasyonel giderlerine destek sağlayabilir, toplumsal yardımlaşma ve dayanışma misyonumuzun bir parçası olabilirsiniz.",
+                        "Saranel Platformu, yardıma ihtiyacı olan vatandaşları yardımsever insanlarla bir araya getiren tamamen ücretsiz bir uygulamadır. Fakat uygulamanın işleyişini sürdürebilmek için değerli destekçilerimize ihtiyacımız var. Yapacağınız bağışlarla, Saranel platformunun sunucu ve operasyonel giderlerine destek sağlayabilir, toplumsal yardımlaşma ve dayanışma misyonumuzun bir parçası olabilirsiniz.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color.fromARGB(255, 255, 255, 255),
@@ -73,7 +73,7 @@ class _DonationPageState extends State<DonationPage> {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        "Bağış yapmak istediğiniz miktarı seçin:",
+                        "Destek olmak istediğiniz miktarı belirleyin:",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -139,25 +139,23 @@ class _DonationPageState extends State<DonationPage> {
                             }
                           },
                           child: Text(
-                            "Bağış Yap",
+                            "Saranel'e Destek Ol",
                             style: TextStyle(
                                 color: Colors.blue.shade900,
                                 fontWeight: FontWeight.w400),
                           ),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.white), 
-                            shadowColor: MaterialStateProperty.all(Colors
-                                .transparent), 
-                            elevation: MaterialStateProperty.all(
-                                0.0), 
-                            side: MaterialStateProperty.all(
-                                BorderSide.none), 
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            shadowColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                            elevation: MaterialStateProperty.all(0.0),
+                            side: MaterialStateProperty.all(BorderSide.none),
                           ),
                         ),
                       SizedBox(height: 20),
                       Text(
-                        "Yapacağınız bağış tek seferliktir. Tekrar etmez.",
+                        "Yapacağınız destek bir defalıktır, otomatik olarak yenilenmez.",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 11,
