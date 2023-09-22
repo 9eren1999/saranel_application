@@ -181,7 +181,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               size: 30, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
-                            'Bireysel Yardım \nTalepleri',
+                            'Bireysel Yardım \nKampanyaları',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
