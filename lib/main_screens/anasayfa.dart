@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/company_screens/saranelhk.dart';
+import 'package:saranel_application/main_screens/akispage.dart';
 import 'package:saranel_application/main_screens/bireyselYardimBasvuru.dart';
 import 'package:saranel_application/company_screens/bireyselyardim.dart';
 import 'package:saranel_application/company_screens/resmikurum.dart';
@@ -145,7 +146,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
+                /* Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
                     onTap: () {
@@ -194,8 +195,58 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       ),
                     ),
                   ),
+                ), */
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AkisPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 5,
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.volunteer_activism_rounded,
+                              size: 30, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text(
+                            'AKIŞ',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                SizedBox(width: 20), 
+                SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -375,7 +426,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), 
+                SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -493,7 +544,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), 
+                SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -601,7 +652,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20), 
+                SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
@@ -736,9 +787,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 textAlign: TextAlign.start,
               ),
               leading: Icon(
-                Icons.warning, 
-                size: 26, 
-                color: Colors.white, 
+                Icons.warning,
+                size: 26,
+                color: Colors.white,
               ),
             ),
           ),

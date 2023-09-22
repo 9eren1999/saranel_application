@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/gestures.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
@@ -15,26 +18,77 @@ class bireyselbasvuruekle extends StatefulWidget {
 
 class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
   final _formKey = GlobalKey<FormState>();
+  final picker = ImagePicker();
+  String? _uploadedImageUrl1;
+  bool isImage1Uploaded = false;
   bool isAgreed = false;
   String adsoyad = '';
-  String aciklama = '';
-  String il = '';
+  String aciklama = ''; /* 
+  String il = ''; */
   String iletisimadres = '';
+  String banka = '';
+  String iban = '';
+  String alici = '';
+  String ibanaciklama = '';
+  String tamamlanmaorani = '';
+  String yetkiliadsoyad = '';
+
+  Future<void> _uploadImage(int imageNumber) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      File file = File(pickedFile.path);
+      String fileName = DateTime.now().toIso8601String();
+
+      try {
+        UploadTask uploadTask =
+            FirebaseStorage.instance.ref('uploads/$fileName.png').putFile(file);
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
+        String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+        setState(() {
+          if (imageNumber == 1) {
+            _uploadedImageUrl1 = downloadUrl;
+            isImage1Uploaded = true; // görsel yüklendiyse durum true
+          }
+        });
+      } catch (e) {
+        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Görsel yüklenirken bir hata oluştu.")));
+      }
+    }
+  }
 
   Map<String, TextEditingController> controllers = {
     'adsoyad': TextEditingController(),
     'aciklama': TextEditingController(),
-    'il': TextEditingController(),
+    /* 
+    'il': TextEditingController(), */
     'iletisimadres': TextEditingController(),
+    'banka': TextEditingController(),
+    'tamamlanmaorani': TextEditingController(),
+    'iban': TextEditingController(),
+    'alici': TextEditingController(),
+    'ibanaciklama': TextEditingController(),
+    'yetkiliadsoyad': TextEditingController(),
   };
 
   @override
   void initState() {
     super.initState();
     controllers['adsoyad']?.text = adsoyad;
-    controllers['aciklama']?.text = aciklama;
-    controllers['il']?.text = il;
+    controllers['aciklama']?.text =
+        aciklama; /* 
+    controllers['il']?.text = il; */
     controllers['iletisimadres']?.text = iletisimadres;
+    controllers['tamamlanmaorani']?.text = tamamlanmaorani;
+    controllers['banka']?.text = banka;
+    controllers['iban']?.text = iban;
+    controllers['alici']?.text = alici;
+    controllers['ibanaciklama']?.text = ibanaciklama;
+    controllers['yetkiliadsoyad']?.text = yetkiliadsoyad;
   }
 
   @override
@@ -45,6 +99,13 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate() && isAgreed) {
+      if (_uploadedImageUrl1 == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Lütfen tüm görsel alanlarını doldurunuz.')),
+        );
+        return;
+      }
+
       CollectionReference bekleyenleryt =
           FirebaseFirestore.instance.collection('bekleyenyt');
 
@@ -55,8 +116,16 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
       bekleyenleryt.add({
         'adsoyad': adsoyad,
         'aciklama': aciklama,
-        'il': il,
+        /* 
+        'il': il, */
         'iletisimadres': iletisimadres,
+        'banka': banka,
+        'iban': iban,
+        'alici': alici,
+        'tamamlanmaorani': tamamlanmaorani,
+        'yetkiliadsoyad': yetkiliadsoyad,
+        'ibanaciklama': ibanaciklama,
+        'image': _uploadedImageUrl1,
         'eklenme_tarihi': formattedDate,
       }).then((_) {
         showDialog(
@@ -103,7 +172,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        title: Text("Yardım Talebi Oluştur",
+        title: Text("Onaylı Yardım Talebi Oluştur",
             style:
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
         leading: IconButton(
@@ -132,7 +201,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text("Gerekli Bilgiler",
+                    child: Text("Kampanya Bilgileri",
                         style: TextStyle(
                             fontSize: 12, color: Colors.blue.shade100)),
                   ),
@@ -146,9 +215,10 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: TextFormField(
+                    keyboardType: TextInputType.text,
                     controller: controllers['adsoyad'],
                     decoration: InputDecoration(
-                      labelText: 'Ad Soyad',
+                      labelText: 'Kampanya Başlığı',
                       labelStyle: TextStyle(
                         color: Colors.blue.shade800,
                         fontSize: 12,
@@ -172,7 +242,6 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                   padding: const EdgeInsets.only(top: 20),
                   child: TextFormField(
                     controller: controllers['aciklama'],
-                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.only(top: 10, left: 10, bottom: 50),
@@ -196,6 +265,57 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                     },
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: controllers['kampanyaorani'],
+                    decoration: InputDecoration(
+                      labelText: 'Kampanya Tamamlanma Oranı (%)',
+                      labelStyle: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      tamamlanmaorani = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Kampanya Tamamlanma Oranı alanı boş olamaz';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Colors.blue.shade100,
+                      thickness: 0.5,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text("Banka Bilgileri",
+                        style: TextStyle(
+                            fontSize: 12, color: Colors.blue.shade100)),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.blue.shade100,
+                      thickness: 0.5,
+                    ),
+                  ),
+                ]),
+
+                /* 
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: TextFormField(
@@ -221,6 +341,109 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                       return null;
                     },
                   ),
+                ), */
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    controller: controllers['banka'],
+                    decoration: InputDecoration(
+                      labelText: 'Banka İsmi',
+                      labelStyle: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      banka = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Banka İsmi alanı boş olamaz';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    controller: controllers['iban'],
+                    decoration: InputDecoration(
+                      labelText: 'İban Bilgisi',
+                      labelStyle: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      iban = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'İban Bilgisi alanı boş olamaz';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    controller: controllers['alici'],
+                    decoration: InputDecoration(
+                      labelText: 'Alıcı Bilgisi',
+                      labelStyle: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      alici = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Alıcı Bilgisi alanı boş olamaz';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    controller: controllers['ibanaciklama'],
+                    decoration: InputDecoration(
+                      labelText: 'İbana Gönderim açıklaması',
+                      labelStyle: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      ibanaciklama = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'İbana Gönderim açıklaması alanı boş olamaz';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Row(children: <Widget>[
                   Expanded(
@@ -231,7 +454,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text("İletişim Bilgileri",
+                    child: Text("Yetkili İletişim Bilgileri",
                         style: TextStyle(
                             fontSize: 12, color: Colors.blue.shade100)),
                   ),
@@ -248,8 +471,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                     controller: controllers['iletisimadres'],
                     cursorColor: Colors.blue.shade800,
                     decoration: InputDecoration(
-                      labelText:
-                          'İstediğiniz bir iletişim tercihi(örn: numara, sosyal medya hesabı)',
+                      labelText: 'İletişim tercihi (Mail/ Telefon)',
                       labelStyle: TextStyle(
                           color: Colors.blue.shade800,
                           fontSize: 10,
@@ -266,6 +488,71 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                       }
                       return null;
                     },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    controller: controllers['yetkiliadsoyad'],
+                    cursorColor: Colors.blue.shade800,
+                    decoration: InputDecoration(
+                      labelText: 'Yetkili Ad Soyad',
+                      labelStyle: TextStyle(
+                          color: Colors.blue.shade800,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      yetkiliadsoyad = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Yetkili İsim Soyisim alanı boş olamaz';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: InkWell(
+                    onTap: () => _uploadImage(1),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.add_a_photo,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            "Kampanya Onay Görseli Yükle",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20, top: 10),
+                          child: Text(
+                            "Kampanya onay görselini yükleyiniz. Kendi resminizi ya da reklam afişinizi yüklemeyiniz.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ),
+                        if (isImage1Uploaded) // eğer görsel yüklendiyse onay işareti
+                          Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
+                            size: 24,
+                          )
+                      ],
+                    ),
                   ),
                 ),
                 Row(
