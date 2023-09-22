@@ -34,7 +34,7 @@ class _DerneklerPageState extends State<DerneklerPage> {
   List<bool> showDetailsList = [];
   List<Dernek> derneklerListesi = [];
   bool loading = true;
-  /* DateTime lastFetchTime = DateTime.now().subtract(Duration(days: 4)); */
+   DateTime lastFetchTime = DateTime.now().subtract(Duration(days: 4)); 
 
   @override
   void initState() {
@@ -286,7 +286,7 @@ class _DerneklerPageState extends State<DerneklerPage> {
             )
           : null,
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: Colors.white,))
           : ListView.builder(
               controller: _scrollController,
               padding: EdgeInsets.only(top: 12),
@@ -295,7 +295,7 @@ class _DerneklerPageState extends State<DerneklerPage> {
                 return dernekKarti(
                     derneklerListesi[index], showDetailsList[index], index);
               },
-            ),
+            ),  
     );
   }
 }

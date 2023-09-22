@@ -97,7 +97,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        title: Text("Bireysel Yardım Talepleri", style: appbarStyle()),
+        title: Text("Yardım Kampanyaları", style: appbarStyle()),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -118,14 +118,14 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
             margin: EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 10),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.red.shade900,
+                color: Colors.green,
                 borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
               child: ListTile(
                 contentPadding:
                     EdgeInsets.only(right: 12, left: 12, top: 5, bottom: 5),
                 title: Text(
-                  "Bu kategorideki yardım talepleri, bireysel başvurular yoluyla oluşturulmuş ve başvuran kişilerin T.C. Aile ve Sosyal Politakalar Bakanlığı tarafında 'ihtiyaç sahibi' olup olmadığı teyid edilmemiştir. Bu alanda yapacağınız yardımları gerçekleştirirken dikkatli olunması gerekmektedir.",
+                  "Bu kategorideki yardım kampanyaları, bireyler tarafından valiliklerden alınan proje izni ile oluşturulmuştur. Listelenen kampanyaların resmi olarak yardım toplama izni bulunmaktadır. ",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 11,
@@ -133,9 +133,9 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                   textAlign: TextAlign.start,
                 ),
                 leading: Icon(
-                  Icons.warning, 
-                  size: 26, 
-                  color: Colors.white, 
+                  Icons.verified_user_outlined,
+                  size: 26,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -216,10 +216,10 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
       margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 12),
       color: Colors.blue.shade600,
       shadowColor: Color.fromARGB(110, 0, 0, 0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 1),
+              const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 15),
           child: Container(
             width: MediaQuery.of(context).size.width,
             child: Row(
@@ -227,144 +227,223 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                 Flexible(
                   flex: 1,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          children: [
-                            Flexible(
-                              flex: 0,
-                              child: Text(
-                                "${data['adsoyad']}",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      const Color.fromARGB(255, 253, 253, 253),
-                                ),
-                              ),
-                            ),
-                            Spacer(),
+                        child: Row(  mainAxisAlignment:  MainAxisAlignment.center,  
+                          children: [ 
                             Padding(
-                              padding: const EdgeInsets.only(right: 25),
-                              child: Text(
-                                "${data['eklenme_tarihi'] ?? 'Saat bilgisi alınamadı!'}", // tarih ve saat manuel olarak 
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color:
-                                      const Color.fromARGB(255, 253, 253, 253),
+                              padding: const EdgeInsets.only(bottom: 5, top: 5),
+                              child: Flexible(
+                                flex: 0,
+                                child: Text(
+                                  "${data['adsoyad']}",
+                                  style: TextStyle( 
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        const Color.fromARGB(255, 253, 253, 253),
+                                  ),
                                 ),
                               ),
                             ),
+                            
                           ],
                         ),
                       ),
                       SizedBox(height: 2),
-                      Text(
+                      Text( 
                         data['aciklama'],
-                        style: TextStyle(
+                        style: TextStyle( 
                             fontWeight: FontWeight.w100,
                             fontSize: 12,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
                       Divider(thickness: 0.5, color: Colors.blue.shade100),
-                      SizedBox(height: 5),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.location_on, // konum simgesi
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              "${data['il'] ?? 'Bilgi yok'}",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w100,
-                                fontSize: 12,
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.visibility,
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                            ),
-                            SizedBox(width: 8),
-                            Flexible(
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    showDetails[index] =
-                                        !(showDetails[index] ?? false);
-                                  });
-                                },
-                                child: Text(
-                                  showDetails[index] ?? false
-                                      ? "İletişim Bilgisi Gizle"
-                                      : "İletişim Bilgisini Görüntüle",
-                                  style: TextStyle(
-                                    fontSize: 12,
+                      SizedBox(height: 5), 
+                      Padding(
+              padding: const EdgeInsets.only(
+                right: 25,
+                left: 25,
+                top: 15,
+              ),
+              child: Column(children: [
+                Text(
+                  "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(1)}%",
+                  style: TextStyle(
+                      fontSize: 12, color: Color.fromARGB(255, 255, 255, 255)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 35, right: 35, top: 4, bottom: 15),
+                  child: LinearProgressIndicator(
+                    color: Color.fromARGB(255, 159, 230, 79),
+                    value: double.parse(data['bagis']) / 100,
+                  ),
+                ),Padding(
+  padding: EdgeInsets.only(left: 0, bottom: 0, top: 10),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Text("Bağış Bilgileri:  ",
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 253, 253, 253))),
+      Flexible(
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              showDetails[index] = !(showDetails[index] ?? false);
+            });
+          },
+          child: Text(
+            showDetails[index] ?? false
+                ? "Gizlemek için tıklayınız."
+                : "Görüntülemek için tıklayınız.",
+            softWrap: true,
+            style: TextStyle(
+              fontSize: 12,
+              decoration: TextDecoration.underline,
+              color: const Color.fromARGB(255, 255, 255, 255),
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+if (showDetails[index] ?? false)
+   Padding(
+    padding: const EdgeInsets.only(top: 5),
+    child: Column(
+      children: [
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+            children: [
+              TextSpan(
+                text: 'Banka Adı: ',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: '${data['banka']}',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+            children: [
+              TextSpan( 
+                text: 'IBAN: ',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: '${data['iban']}',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+            children: [
+              TextSpan(
+                text: 'Alıcı Ad Soyad: ',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: '${data['alici']}',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+            children: [
+              TextSpan(
+                text: 'Açıklama: ',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: '${data['ibanaciklama']}',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+                       Padding(
+                  padding: EdgeInsets.only(left: 0, bottom: 0),
+                  child: Row( mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    
+                      Flexible(
+                        child: TextButton(
+                          onPressed: () {
+                            String urlString = data['image'];
+
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.blue.shade800,
+                                  content: Container(
+                                    child: Image.network(urlString),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Kapat",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: const Color.fromARGB(
+                                                  255, 255, 255, 255))),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                        "Yasal İzni görüntülemek için tıklayınız.",
+                            softWrap:
+                                true, 
+                            style: TextStyle(
+                              fontSize: 12,
                                     decoration: TextDecoration.underline,
                                     color: const Color.fromARGB(
                                         255, 255, 255, 255),
-                                  ),
-                                  maxLines:
-                                      1, 
-                                  overflow: TextOverflow
-                                      .ellipsis, // fazla içeriği ... ile göster
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (showDetails[index] ?? false)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: RichText(
-                            text: TextSpan(
-                              style: TextStyle(
-                                color: const Color.fromARGB(
-                                    255, 255, 255, 255), 
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: 'İletişim Adresi: ',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '${data['iletisimadres']}',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
                             ),
                           ),
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                  
+                    
                     ],
                   ),
                 ),
               ],
             ),
           ),
-        ),
       ]),
+    ))]),
     );
   }
 
