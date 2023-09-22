@@ -1,4 +1,8 @@
+/* import 'dart:js_util';
+import 'package:flutter/gestures.dart';
+ */
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
@@ -14,7 +18,6 @@ class BireyselYardimPage extends StatefulWidget {
 class _BireyselYardimPageState extends State<BireyselYardimPage> {
   Map<int, bool> showDetails = {};
   late Future<List<Map<String, dynamic>>> dataListFuture;
-
 
   @override
   void initState() {
@@ -84,12 +87,34 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
 
-    
     await saveDataToLocal(dataList);
 
     setState(() {});
 
     return dataList;
+  }
+
+  Widget buildRichTextWithIcon(String label, String value, Widget? icon) {
+    return Row(
+      children: [
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+            children: [
+              TextSpan(
+                text: label,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: value,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+        if (icon != null) icon
+      ],
+    );
   }
 
   @override
@@ -218,12 +243,11 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
       shadowColor: Color.fromARGB(110, 0, 0, 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Padding(
-          padding:
-              const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 15),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
+            padding:
+                const EdgeInsets.only(left: 15, top: 12, bottom: 15, right: 15),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Row(children: [
                 Flexible(
                   flex: 1,
                   child: Column(
@@ -231,219 +255,229 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Row(  mainAxisAlignment:  MainAxisAlignment.center,  
-                          children: [ 
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5, top: 5),
-                              child: Flexible(
-                                flex: 0,
-                                child: Text(
-                                  "${data['adsoyad']}",
-                                  style: TextStyle( 
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        const Color.fromARGB(255, 253, 253, 253),
-                                  ),
+                              child: Text(
+                                "${data['adsoyad']}",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 253, 253, 253),
                                 ),
                               ),
                             ),
-                            
                           ],
                         ),
                       ),
                       SizedBox(height: 2),
-                      Text( 
-                        data['aciklama'],
-                        style: TextStyle( 
-                            fontWeight: FontWeight.w100,
-                            fontSize: 12,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      Divider(thickness: 0.5, color: Colors.blue.shade100),
-                      SizedBox(height: 5), 
                       Padding(
-              padding: const EdgeInsets.only(
-                right: 25,
-                left: 25,
-                top: 15,
-              ),
-              child: Column(children: [
-                Text(
-                  "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(1)}%",
-                  style: TextStyle(
-                      fontSize: 12, color: Color.fromARGB(255, 255, 255, 255)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 35, right: 35, top: 4, bottom: 15),
-                  child: LinearProgressIndicator(
-                    color: Color.fromARGB(255, 159, 230, 79),
-                    value: double.parse(data['bagis']) / 100,
-                  ),
-                ),Padding(
-  padding: EdgeInsets.only(left: 0, bottom: 0, top: 10),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text("Bağış Bilgileri:  ",
-          style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: const Color.fromARGB(255, 253, 253, 253))),
-      Flexible(
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              showDetails[index] = !(showDetails[index] ?? false);
-            });
-          },
-          child: Text(
-            showDetails[index] ?? false
-                ? "Gizlemek için tıklayınız."
-                : "Görüntülemek için tıklayınız.",
-            softWrap: true,
-            style: TextStyle(
-              fontSize: 12,
-              decoration: TextDecoration.underline,
-              color: const Color.fromARGB(255, 255, 255, 255),
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-if (showDetails[index] ?? false)
-   Padding(
-    padding: const EdgeInsets.only(top: 5),
-    child: Column(
-      children: [
-        RichText(
-          text: TextSpan(
-            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
-            children: [
-              TextSpan(
-                text: 'Banka Adı: ',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(
-                text: '${data['banka']}',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
-            children: [
-              TextSpan( 
-                text: 'IBAN: ',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(
-                text: '${data['iban']}',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
-            children: [
-              TextSpan(
-                text: 'Alıcı Ad Soyad: ',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(
-                text: '${data['alici']}',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
-            children: [
-              TextSpan(
-                text: 'Açıklama: ',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(
-                text: '${data['ibanaciklama']}',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  ),
-                       Padding(
-                  padding: EdgeInsets.only(left: 0, bottom: 0),
-                  child: Row( mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    
-                      Flexible(
-                        child: TextButton(
-                          onPressed: () {
-                            String urlString = data['image'];
-
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.blue.shade800,
-                                  content: Container(
-                                    child: Image.network(urlString),
+                        padding: const EdgeInsets.only(right: 15, left: 15),
+                        child: Text(
+                          data['aciklama'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 12,
+                              color: const Color.fromARGB(255, 255, 255, 255)),
+                        ),
+                      ),
+                      /* Divider(thickness: 0.5, color: Colors.blue.shade100), */
+                      SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 25,
+                          left: 25,
+                          top: 15,
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Kampanya Tamamlanma Oranı: ${(int.parse(data['tamamlanmaorani']) / 100 * 100).toStringAsFixed(0)}%",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 35, right: 35, top: 4, bottom: 15),
+                              child: LinearProgressIndicator(
+                                color: Color.fromARGB(255, 159, 230, 79),
+                                value:
+                                    double.parse(data['tamamlanmaorani']) / 100,
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 0, bottom: 0, top: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Bağış Bilgileri:  ",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color.fromARGB(
+                                          255, 253, 253, 253),
+                                    ),
                                   ),
-                                  actions: [
-                                    TextButton(
-                                      child: Text("Kapat",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255))),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
+                                  Flexible(
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          showDetails[index] =
+                                              !(showDetails[index] ?? false);
+                                        });
                                       },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            showDetails[index] ?? false
+                                                ? Icons.visibility_off
+                                                : Icons.visibility,
+                                            color: const Color.fromARGB(
+                                                255, 255, 255, 255),
+                                            size: 13,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            showDetails[index] ?? false
+                                                ? " Gizlemek için tıklayınız."
+                                                : " Görüntülemek için tıklayınız.",
+                                            softWrap: true,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: const Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            if (showDetails[index] ?? false)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Divider(),
+                                    buildRichTextWithIcon('Banka Adı: ',
+                                        '${data['banka']}', null),
+                                    buildRichTextWithIcon(
+                                      'IBAN: ',
+                                      '${data['iban']}',
+                                      IconButton(
+                                        icon: Icon(Icons.copy,
+                                            size: 20, color: Colors.white),
+                                        onPressed: () {
+                                          Clipboard.setData(ClipboardData(
+                                              text: data['iban']));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text('IBAN kopyalandı!'),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    buildRichTextWithIcon('Alıcı Ad Soyad: ',
+                                        '${data['alici']}', null),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    buildRichTextWithIcon('Açıklama: ',
+                                        '${data['ibanaciklama']}', null),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 0, bottom: 0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                String urlString =
+                                                    data['image'];
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      backgroundColor:
+                                                          Colors.blue.shade800,
+                                                      content: Container(
+                                                        child: Image.network(
+                                                            urlString),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          child: Text(
+                                                            "Kapat",
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                              color: const Color
+                                                                  .fromARGB(
+                                                                  255,
+                                                                  255,
+                                                                  255,
+                                                                  255),
+                                                            ),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Text(
+                                                "Yasal İzni görüntülemek için tıklayınız.",
+                                                softWrap: true,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: const Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
-                                );
-                              },
-                            );
-                          },
-                          child: Text(
-                        "Yasal İzni görüntülemek için tıklayınız.",
-                            softWrap:
-                                true, 
-                            style: TextStyle(
-                              fontSize: 12,
-                                    decoration: TextDecoration.underline,
-                                    color: const Color.fromARGB(
-                                        255, 255, 255, 255),
-                            ),
-                          ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                  
-                    
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ]),
+            ))
       ]),
-    ))]),
     );
   }
 

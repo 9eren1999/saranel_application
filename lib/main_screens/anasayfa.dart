@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/company_screens/saranelhk.dart';
-import 'package:saranel_application/main_screens/akispage.dart';
+/* import 'package:saranel_application/main_screens/akispage.dart'; */
 import 'package:saranel_application/main_screens/bireyselYardimBasvuru.dart';
 import 'package:saranel_application/company_screens/bireyselyardim.dart';
 import 'package:saranel_application/company_screens/resmikurum.dart';
@@ -146,7 +146,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /* Expanded(
+                Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
                     onTap: () {
@@ -182,7 +182,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               size: 30, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
-                            'Bireysel Yardım \nKampanyaları',
+                            'Yardım \nKampanyaları',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -195,8 +195,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       ),
                     ),
                   ),
-                ), */
-                Expanded(
+                ),
+                /* Expanded(
                   child: InkWell(
                     splashColor: Colors.blue.shade800,
                     onTap: () {
@@ -245,7 +245,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       ),
                     ),
                   ),
-                ),
+                ), */
                 SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
