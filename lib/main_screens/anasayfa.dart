@@ -412,7 +412,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               size: 30, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
-                            'Yardım Talebi \nOluştur',
+                            'Yardım Kampanyası \nEkle',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -461,7 +461,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               size: 30, color: Colors.white),
                           SizedBox(height: 10),
                           Text(
-                            'SMA İlanı \nEkle',
+                            'SMA Kampanyası \nEkle',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(

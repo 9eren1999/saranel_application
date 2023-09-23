@@ -318,7 +318,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                                   Text(
                                     "Bağış Bilgileri:  ",
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 11,
                                       fontWeight: FontWeight.bold,
                                       color: const Color.fromARGB(
                                           255, 253, 253, 253),
@@ -340,7 +340,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                                                 : Icons.visibility,
                                             color: const Color.fromARGB(
                                                 255, 255, 255, 255),
-                                            size: 13,
+                                            size: 11,
                                           ),
                                           SizedBox(width: 4),
                                           Text(
@@ -349,7 +349,7 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                                                 : " Görüntülemek için tıklayınız.",
                                             softWrap: true,
                                             style: TextStyle(
-                                              fontSize: 13,
+                                              fontSize: 11,
                                               decoration:
                                                   TextDecoration.underline,
                                               color: const Color.fromARGB(

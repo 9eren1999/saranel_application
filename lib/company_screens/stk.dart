@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,10 @@ class DerneklerPage extends StatefulWidget {
 
 class _DerneklerPageState extends State<DerneklerPage> {
   ScrollController _scrollController = ScrollController();
-  bool _showBottomNavBar = false;
   List<bool> showDetailsList = [];
   List<Dernek> derneklerListesi = [];
   bool loading = true;
-   DateTime lastFetchTime = DateTime.now().subtract(Duration(days: 4)); 
+  DateTime lastFetchTime = DateTime.now().subtract(Duration(days: 4));
 
   @override
   void initState() {
@@ -43,13 +43,9 @@ class _DerneklerPageState extends State<DerneklerPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        setState(() {
-          _showBottomNavBar = true;
-        });
+        setState(() {});
       } else {
-        setState(() {
-          _showBottomNavBar = false;
-        });
+        setState(() {});
       }
     });
 
@@ -138,8 +134,11 @@ class _DerneklerPageState extends State<DerneklerPage> {
               Row(
                 children: [
                   ClipOval(
-                    child: Image.network(
-                      dernek.logoUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: dernek.logoUrl,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                       height: 45,
                       width: 45,
                       fit: BoxFit.cover,
@@ -229,14 +228,13 @@ class _DerneklerPageState extends State<DerneklerPage> {
                         onPressed: () {
                           _launchURL(dernek.webSiteUrl);
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          side: BorderSide(color: Colors.white, width: 2),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          shadowColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          elevation: MaterialStateProperty.all(0.0),
+                          side: MaterialStateProperty.all(BorderSide.none),
                         ),
                         child: Text(
                           'Bağış Yap',
@@ -274,28 +272,33 @@ class _DerneklerPageState extends State<DerneklerPage> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      bottomNavigationBar: _showBottomNavBar
-          ? Container(
-              color: Colors.blue.shade800,
-              padding: EdgeInsets.all(10),
-              child: Text(
-                "Kuruluşunuzu platformumuzda görmek istiyorsanız, lütfen iletisim@saranel.com.tr adresine talebinizi iletin.",
-                style: TextStyle(color: Colors.white, fontSize: 8),
-                textAlign: TextAlign.center,
-              ),
-            )
-          : null,
       body: loading
-          ? Center(child: CircularProgressIndicator(color: Colors.white,))
+          ? Center(
+              child: CircularProgressIndicator(
+              color: Colors.white,
+            ))
           : ListView.builder(
               controller: _scrollController,
               padding: EdgeInsets.only(top: 12),
-              itemCount: derneklerListesi.length,
+              itemCount: derneklerListesi.length + 1, // +1 ekledik
               itemBuilder: (context, index) {
-                return dernekKarti(
-                    derneklerListesi[index], showDetailsList[index], index);
+                if (index == derneklerListesi.length) {
+                  // Eğer son öğe ise
+                  return Container(
+                    color: Colors.blue.shade800,
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "Kuruluşunuzu platformumuzda görmek istiyorsanız, lütfen iletisim@saranel.com.tr adresine talebinizi iletin.",
+                      style: TextStyle(color: Colors.white, fontSize: 8),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                } else {
+                  return dernekKarti(
+                      derneklerListesi[index], showDetailsList[index], index);
+                }
               },
-            ),  
+            ),
     );
   }
 }

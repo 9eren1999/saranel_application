@@ -189,7 +189,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        title: Text("SMA Yeni İlan ekle",
+        title: Text("SMA Kampanyası Ekle",
             style:
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
         leading: IconButton(
@@ -528,8 +528,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                   child: TextFormField(
                     controller: controllers['ekDetaylar'],
                     cursorColor: Colors.blue.shade800,
-                    maxLines:
-                        null, 
+                    maxLines: null,
                     decoration: InputDecoration(
                       labelText: 'Eklemek İstediğiniz Diğer Detaylar',
                       labelStyle: TextStyle(
@@ -541,8 +540,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                       fillColor: Colors.white,
                     ),
                     onChanged: (value) {
-                      ekDetaylar =
-                          value; 
+                      ekDetaylar = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -650,7 +648,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                             style: TextStyle(color: Colors.white70),
                           ),
                         ),
-                        if (isImage2Uploaded) 
+                        if (isImage2Uploaded)
                           Icon(
                             Icons.check_circle,
                             color: Colors.green,

@@ -7,23 +7,24 @@ class Acikriza extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Açık Rıza Sözleşmesi",
-          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
+        appBar: AppBar(
+          title: Text(
+            "Açık Rıza Sözleşmesi",
+            style:
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800),
+          ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                color: Colors.blue.shade800,
+                size: 19,
+              )),
         ),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_sharp,
-              color: Colors.blue.shade800,
-              size: 19,
-            )),
-      ),
-      body: Container(
-        child: ListView(children: [
+        body: Container(
+            child: ListView(children: [
           Padding(
             padding:
                 const EdgeInsets.only(top: 20, left: 12, right: 12, bottom: 20),
@@ -35,8 +36,18 @@ class Acikriza extends StatelessWidget {
                 padding: EdgeInsets.only(top: 20, left: 30, right: 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [ 
-                  
+                  children: [
+                    Text(
+                      "Açık Rıza Sözleşmesi",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 248, 248, 248),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Text(
                       """İşbu sözleşme, Saranel Platformu ("Platform") kullanıcılarının ("Kullanıcı"), ilan verme aşamasında kabul etmeleri gereken hüküm ve koşulları içermektedir.
 
@@ -68,12 +79,16 @@ Kullanıcılar, ilan verme işlemini tamamlamak üzere bu sözleşmeyi kabul ett
                           color: Color.fromARGB(255, 255, 255, 255),
                           fontSize: 12,
                           fontWeight: FontWeight.w100),
-                    ),SizedBox(height: 20,)],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
                 ),
               ),
             ),
           ),
-    ])));
+        ])));
   }
 }
 

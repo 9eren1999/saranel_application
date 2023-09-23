@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class resmikurumpage extends StatefulWidget {
   const resmikurumpage({super.key});
 
@@ -104,14 +103,13 @@ class _resmikurumpageState extends State<resmikurumpage> {
                             ),
                             textAlign: TextAlign.center),
                       ),
- 
-                    ], 
-                  ), 
+                    ],
+                  ),
                 ),
             ],
           ),
-        ), 
-      ), 
+        ),
+      ),
     );
   }
 
@@ -121,8 +119,8 @@ class _resmikurumpageState extends State<resmikurumpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: false, 
-      appBar: AppBar( 
+      extendBodyBehindAppBar: false,
+      appBar: AppBar(
         title: Text("Sosyal Destek Programları", style: appbarStyle()),
         leading: IconButton(
             onPressed: () {
@@ -133,7 +131,7 @@ class _resmikurumpageState extends State<resmikurumpage> {
               color: Colors.blue.shade800,
               size: 19,
             )),
-      ), 
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -410,7 +408,9 @@ Engelli Öğrenci Ücretsiz Taşınması Desteği Başvuru Şartları
 •%40 ve üzeri engelli raporuna sahip olmak
 
 Engelli öğrenci ücretsiz taşınması desteği için başvurular, ikamet edilen il/ilçedeki Sosyal Yardımlaşma ve Dayanışma Vakfına yapılmaktadır.""",
-              () => toggleDetail(20),),
+              () => toggleDetail(20),
+            ),
+            SizedBox(height: 15),
           ],
         ),
       ),

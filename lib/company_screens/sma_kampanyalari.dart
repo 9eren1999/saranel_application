@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -128,8 +129,11 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                   padding: const EdgeInsets.only(right: 15),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: Image.network(
-                      data['image'],
+                    child: CachedNetworkImage(
+                      imageUrl: data['image'],
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                       height: 100,
                       width: 165,
                       fit: BoxFit.cover,
@@ -154,7 +158,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                             fontSize: 12,
                             color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
-                      SizedBox(height: 10), 
+                      SizedBox(height: 10),
                       Text(
                         "Kampanya Türü",
                         style: TextStyle(
@@ -422,8 +426,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                           },
                           child: Text(
                             "Görüntülemek için tıklayınız.",
-                            softWrap:
-                                true, 
+                            softWrap: true,
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontWeight: FontWeight.normal,

@@ -57,7 +57,7 @@ class iletisim extends StatelessWidget {
                     indent: 20,
                     endIndent: 20),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 12),
                   child: ListTile(
                     title: Text(
                       "saranelplatformu",
@@ -68,10 +68,33 @@ class iletisim extends StatelessWidget {
                       ),
                     ),
                     leading: Image(
-                      image: AssetImage('assets/instalogo.png'),
-                      width: 30,
+                      image: AssetImage('assets/images/instalogo.png'),
+                      width: 22,
+                      height: 22,
                       color: const Color.fromARGB(255, 255, 255, 255),
                     ),
+                  ),
+                ),
+                Divider(
+                    color: Color.fromARGB(200, 236, 234, 234),
+                    height: 0.1,
+                    indent: 20,
+                    endIndent: 20),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      "www.saranel.com.tr",
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    leading: Icon(Icons.language,
+                        color: const Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
               ],

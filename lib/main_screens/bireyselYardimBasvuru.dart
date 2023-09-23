@@ -172,7 +172,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        title: Text("Onaylı Yardım Talebi Oluştur",
+        title: Text("Yardım Kampanyası Ekle",
             style:
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800)),
         leading: IconButton(
@@ -515,6 +515,29 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                     },
                   ),
                 ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Colors.blue.shade100,
+                      thickness: 0.5,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text("Kampanya Onay Belgesi",
+                        style: TextStyle(
+                            fontSize: 12, color: Colors.blue.shade100)),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.blue.shade100,
+                      thickness: 0.5,
+                    ),
+                  ),
+                ]),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: InkWell(
@@ -529,7 +552,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(
-                            "Kampanya Onay Görseli Yükle",
+                            "Kampanya Onay Belgesi Yükle",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -540,12 +563,12 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20, top: 10),
                           child: Text(
-                            "Kampanya onay görselini yükleyiniz. Kendi resminizi ya da reklam afişinizi yüklemeyiniz.",
+                            "Kampanya onay belgesini yükleyiniz. Kendi resminizi ya da reklam afişinizi yüklemeyiniz. Yalnızca görsel formatta yükleme yapınız.",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white70),
                           ),
                         ),
-                        if (isImage1Uploaded) // eğer görsel yüklendiyse onay işareti
+                        if (isImage1Uploaded)
                           Icon(
                             Icons.check_circle,
                             color: Colors.green,
@@ -554,6 +577,10 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                       ],
                     ),
                   ),
+                ),
+                Divider(
+                  thickness: 0.5,
+                  color: Colors.blue.shade100,
                 ),
                 Row(
                   children: [

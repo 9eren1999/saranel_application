@@ -19,6 +19,13 @@ class _DonationPageState extends State<DonationPage> {
     1000: "playstore_link_for_1000TL",
   };
 
+  void onAmountDeselected() {
+    setState(() {
+      selectedAmount = null;
+      isButtonActive = false;
+    });
+  }
+
   void onAmountSelected(int amount) {
     setState(() {
       selectedAmount = amount.toString();
@@ -92,7 +99,9 @@ class _DonationPageState extends State<DonationPage> {
                               ),
                               selected: selectedAmount == amount.toString(),
                               onSelected: (selected) {
-                                if (selected) {
+                                if (selectedAmount == amount.toString()) {
+                                  onAmountDeselected();
+                                } else {
                                   onAmountSelected(amount);
                                 }
                               },
@@ -116,7 +125,9 @@ class _DonationPageState extends State<DonationPage> {
                               ),
                               selected: selectedAmount == amount.toString(),
                               onSelected: (selected) {
-                                if (selected) {
+                                if (selectedAmount == amount.toString()) {
+                                  onAmountDeselected();
+                                } else {
                                   onAmountSelected(amount);
                                 }
                               },
@@ -156,6 +167,7 @@ class _DonationPageState extends State<DonationPage> {
                       SizedBox(height: 20),
                       Text(
                         "Yapacağınız destek bir defalıktır, otomatik olarak yenilenmez.",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 11,
