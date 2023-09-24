@@ -116,7 +116,7 @@ class _SssState extends State<Sss> {
                           0),
                       buildQuestionTile(
                           "Uygulama üzerinden bağış yapabilir miyim?",
-                          "ayır, Saranel uygulaması bağışları kendine almaz. İlgili kurumların adreslerini paylaşır, böylece kullanıcılar doğrudan bu kurumlarla iletişime geçebilir.",
+                          "Hayır, Saranel uygulaması bağışları kendine almaz. İlgili kurumların adreslerini paylaşır, böylece kullanıcılar doğrudan bu kurumlarla iletişime geçebilir.",
                           1),
                       buildQuestionTile(
                           "Hesap oluşturmam gerekir mi?",
