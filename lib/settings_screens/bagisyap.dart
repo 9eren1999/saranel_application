@@ -1,5 +1,8 @@
+import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 class DonationPage extends StatefulWidget {
   @override
@@ -8,16 +11,24 @@ class DonationPage extends StatefulWidget {
 
 class _DonationPageState extends State<DonationPage> {
   bool isButtonActive = false;
+  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
+bool _availableForPurchase = true;
+List<ProductDetails> _products = [];
+List<PurchaseDetails> _purchases = [];
+StreamSubscription<List<PurchaseDetails>>? _subscription;
+
+
   String? selectedAmount;
   List<int> amounts = [20, 50, 100, 200, 500, 1000];
   Map<int, String> amountLinks = {
-    20: "playstore_link_for_20TL",
-    50: "playstore_link_for_50TL",
-    100: "playstore_link_for_100TL",
-    200: "playstore_link_for_200TL",
-    500: "playstore_link_for_500TL",
-    1000: "playstore_link_for_1000TL",
+    20: "20tl",
+    50: "50tl",
+    100: "100tl",
+    200: "200tl",
+    500: "500tl",
+    1000: "1000tl",
   };
+  
 
   void onAmountDeselected() {
     setState(() {
@@ -32,6 +43,7 @@ class _DonationPageState extends State<DonationPage> {
       isButtonActive = true;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -142,13 +154,20 @@ class _DonationPageState extends State<DonationPage> {
                       SizedBox(height: 20),
                       if (isButtonActive && selectedAmount != null)
                         ElevatedButton(
-                          onPressed: () {
-                            String? link =
-                                amountLinks[int.parse(selectedAmount!)];
-                            if (link != null) {
-                              //google play dijital peketleri buraya tanımlanacak
-                            }
-                          },
+  onPressed: () async {
+    if (selectedAmount != null) {
+      final String? productSKU = amountLinks[int.parse(selectedAmount!)]; 
+      if (productSKU != null) {
+        final ProductDetails? product = _products.firstWhereOrNull((product) => product.id == productSKU);
+        if (product != null) {
+          final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+          await _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Bu ürün şu an satın alınamıyor.')));
+        }
+      }
+    }
+  },
                           child: Text(
                             "Saranel'e Destek Ol",
                             style: TextStyle(
@@ -185,7 +204,53 @@ class _DonationPageState extends State<DonationPage> {
       ),
     );
   }
+@override
+void initState() {
+  super.initState();
+  _initializeInAppPurchase();
+}
 
+void _initializeInAppPurchase() async {
+  final bool isAvailable = await _inAppPurchase.isAvailable();
+  if (!isAvailable) {
+    setState(() {
+      _availableForPurchase = false;
+    });
+    return;
+  }
+
+  _subscription = _inAppPurchase.purchaseStream.listen((purchaseDetailsList) {
+    purchaseDetailsList.forEach((purchaseDetails) async {
+      if (purchaseDetails.status == PurchaseStatus.pending) {
+        // Satın alma işlemi bekliyor.
+      } else {
+        if (purchaseDetails.status == PurchaseStatus.error) {
+          // Satın alma işlemi hatası.
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Satın alma işlemi başarısız.')));
+        } else if (purchaseDetails.status == PurchaseStatus.purchased) {
+          // Satın alma başarılı.
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Teşekkürler! Destek oldunuz.')));
+          if (purchaseDetails.pendingCompletePurchase) {
+            await _inAppPurchase.completePurchase(purchaseDetails);
+          }
+        }
+      }
+    }); 
+    
+  });final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails({'20tl'});
+
+  if (productDetailResponse.notFoundIDs.isNotEmpty) {
+    setState(() {
+      _availableForPurchase = false;
+    });
+    return;
+  }
+
+  setState(() {
+    _products = productDetailResponse.productDetails;
+  });
+}
+  
   TextStyle appbarStyle() =>
       GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
 }
