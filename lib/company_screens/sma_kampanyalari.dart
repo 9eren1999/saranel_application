@@ -88,7 +88,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
       //24 saatte bir çeksin
       List<Map<String, dynamic>> decodedData =
           List<Map<String, dynamic>>.from(jsonDecode(data));
-      decodedData.shuffle(); // Cached data shuffle
+      decodedData.shuffle(); 
       return decodedData;
     } else {
       QuerySnapshot querySnapshot =
@@ -96,7 +96,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
       List<Map<String, dynamic>> docs = querySnapshot.docs
           .map((doc) => doc.data() as Map<String, dynamic>)
           .toList();
-      docs.shuffle(); //rastgele
+      docs.shuffle(); 
       await saveDataToLocal(docs);
       return docs;
     }
@@ -152,7 +152,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                             color: const Color.fromARGB(255, 253, 253, 253)),
                       ),
                       Text(
-                        data['aciklama1'],
+                        data['aciklama1'] ?? 'Bilinmiyor',
                         style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 12,
@@ -160,7 +160,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "Kampanya Türü",
+                        "Kampanya Bitiş Tarihi",
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       ),
                       SizedBox(width: 10),
                       Text(
-                        "SMA",
+                        (data['bitistarihi'] ?? 'Bilinmiyor'),
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
@@ -224,7 +224,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
               ),
               child: Column(children: [
                 Text(
-                  "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(1)}%",
+                  "Kampanya Tamamlanma Oranı: ${(double.parse(data['bagis']) / 100 * 100).toStringAsFixed(0)}%",
                   style: TextStyle(
                       fontSize: 12, color: Color.fromARGB(255, 255, 255, 255)),
                 ),
@@ -268,7 +268,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       SizedBox(width: 5),
                       Flexible(
                         // Bu satırı ekledim
-                        child: Text(data['banka2'],
+                        child: Text(data['banka2'] ?? 'Bilinmiyor',
                             softWrap: true,
                             style: TextStyle(
                                 fontSize: 12,
@@ -290,7 +290,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                               color: const Color.fromARGB(255, 255, 255, 255))),
                       SizedBox(width: 5),
                       Flexible(
-                        child: Text(data['iban'],
+                        child: Text(data['iban'] ?? 'Bilinmiyor',
                             softWrap: true,
                             style: TextStyle(
                                 fontSize: 12,
@@ -331,7 +331,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       SizedBox(width: 5),
                       Flexible(
                         // Bu satırı ekledim
-                        child: Text(data['alici'],
+                        child: Text(data['alici'] ?? 'Bilinmiyor',
                             softWrap: true,
                             style: TextStyle(
                                 fontSize: 12,
@@ -355,7 +355,7 @@ class _SmaKampanyalariState extends State<SmaKampanyalari> {
                       SizedBox(width: 5),
                       Flexible(
                         // Bu satırı ekledim
-                        child: Text(data['aciklamasi'],
+                        child: Text(data['aciklamasi'] ?? 'Bilinmiyor',
                             softWrap: true,
                             style: TextStyle(
                                 fontSize: 12,

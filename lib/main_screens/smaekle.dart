@@ -35,6 +35,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
   String ilgiliadSoyad = '';
   String email = '';
   String telefonNo = '';
+  String bitistarihi = '';
 
   bool isValidIban(String iban) {
     final RegExp ibanRegExp = RegExp(r'^TR[0-9]{24}$');
@@ -83,6 +84,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
     'alici': TextEditingController(),
     'aciklama': TextEditingController(),
     'ekDetaylar': TextEditingController(),
+    'bitistarihi': TextEditingController(),
   };
 
   @override
@@ -98,6 +100,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
     controllers['alici']?.text = alici;
     controllers['aciklama']?.text = aciklama;
     controllers['ekDetaylar']?.text = ekDetaylar;
+    controllers['bitistarihi']?.text = bitistarihi;
   }
 
   @override
@@ -123,6 +126,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
           tamamlanmaOrani.isEmpty ||
           bankaAdi.isEmpty ||
           iban.isEmpty ||
+          bitistarihi.isEmpty ||
           alici.isEmpty ||
           aciklama.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -138,6 +142,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
         'bagis': tamamlanmaOrani,
         'banka2': bankaAdi,
         'iban': iban,
+        'bitistarihi': bitistarihi,
         'alici': alici,
         'aciklamasi': aciklama,
         'ilgiliadSoyad': ilgiliadSoyad,
@@ -359,9 +364,8 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                     },
                   ),
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 40),
+                  padding: const EdgeInsets.only(top: 20),
                   child: TextFormField(
                     controller: controllers['tamamlanmaOrani'],
                     cursorColor: Colors.blue.shade800,
@@ -388,6 +392,53 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                       if (oran == null || oran < 0 || oran > 100) {
                         return 'Lütfen 0 ile 100 arasında bir değer girin';
                       }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: TextFormField(
+                    controller: controllers['bitistarihi'],
+                    cursorColor: Colors.blue.shade800,
+                    keyboardType:
+                        TextInputType.number, // sayısal değer girişi için
+                    decoration: InputDecoration(
+                      labelText: 'Kampanya Bitiş Tarihi (gg.aa.yyyy)',
+                      labelStyle: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      bitistarihi = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Kampanya Bitiş Tarihi alanı boş olamaz';
+                      }
+                      final RegExp datePattern =
+                          RegExp(r'^\d{2}\.\d{2}\.\d{4}$');
+
+                      final bool isValid = datePattern.hasMatch(value);
+                      if (!isValid) {
+                        return 'Lütfen tarihi gg.aa.yyyy formatında girin';
+                      }
+                      final parts = value.split('.');
+                      final day = int.parse(parts[0]);
+                      final month = int.parse(parts[1]);
+
+                      if (day < 1 || day > 31) {
+                        return 'Gün 1 ile 31 arasında olmalıdır';
+                      }
+
+                      if (month < 1 || month > 12) {
+                        return 'Ay 1 ile 12 arasında olmalıdır';
+                      }
+
                       return null;
                     },
                   ),

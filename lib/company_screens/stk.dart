@@ -54,15 +54,15 @@ class _DerneklerPageState extends State<DerneklerPage> {
         derneklerListesi = fetchedList;
         showDetailsList = List<bool>.filled(fetchedList.length, false);
         loading = false;
-        /* lastFetchTime = DateTime.now(); */
+        lastFetchTime = DateTime.now(); 
       });
     });
   }
 
   Future<List<Dernek>> fetchDernekler() async {
-    /* if (DateTime.now().isBefore(lastFetchTime.add(Duration(days: 3)))) {
+    if (DateTime.now().isBefore(lastFetchTime.add(Duration(days: 3)))) {
       return derneklerListesi;
-    } */
+    } 
 
     derneklerListesi = [];
     try {
