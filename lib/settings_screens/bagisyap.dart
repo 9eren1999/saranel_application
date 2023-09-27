@@ -1,4 +1,4 @@
-import 'dart:async';
+/* import 'dart:async'; */
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,11 +12,8 @@ class DonationPage extends StatefulWidget {
 class _DonationPageState extends State<DonationPage> {
   bool isButtonActive = false;
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-bool _availableForPurchase = true;
-List<ProductDetails> _products = [];
-List<PurchaseDetails> _purchases = [];
-StreamSubscription<List<PurchaseDetails>>? _subscription;
-
+  bool _availableForPurchase = true;
+  List<ProductDetails> _products = [];
 
   String? selectedAmount;
   List<int> amounts = [20, 50, 100, 200, 500, 1000];
@@ -28,7 +25,6 @@ StreamSubscription<List<PurchaseDetails>>? _subscription;
     500: "500tl",
     1000: "1000tl",
   };
-  
 
   void onAmountDeselected() {
     setState(() {
@@ -43,7 +39,6 @@ StreamSubscription<List<PurchaseDetails>>? _subscription;
       isButtonActive = true;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +64,27 @@ StreamSubscription<List<PurchaseDetails>>? _subscription;
       body: Container(
         child: ListView(
           children: [
+            if (!_availableForPurchase)
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Card(
+                  color: Colors.red.shade600,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      "Üzgünüz, Saranel'e destek için işlemler şu an desteklenmiyor. Lütfen daha sonra tekrar deneyin.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 15, left: 10, right: 10, bottom: 15),
@@ -154,20 +170,28 @@ StreamSubscription<List<PurchaseDetails>>? _subscription;
                       SizedBox(height: 20),
                       if (isButtonActive && selectedAmount != null)
                         ElevatedButton(
-  onPressed: () async {
-    if (selectedAmount != null) {
-      final String? productSKU = amountLinks[int.parse(selectedAmount!)]; 
-      if (productSKU != null) {
-        final ProductDetails? product = _products.firstWhereOrNull((product) => product.id == productSKU);
-        if (product != null) {
-          final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-          await _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Bu ürün şu an satın alınamıyor.')));
-        }
-      }
-    }
-  },
+                          onPressed: () async {
+                            if (selectedAmount != null) {
+                              final String? productSKU =
+                                  amountLinks[int.parse(selectedAmount!)];
+                              if (productSKU != null) {
+                                final ProductDetails? product =
+                                    _products.firstWhereOrNull(
+                                        (product) => product.id == productSKU);
+                                if (product != null) {
+                                  final PurchaseParam purchaseParam =
+                                      PurchaseParam(productDetails: product);
+                                  await _inAppPurchase.buyNonConsumable(
+                                      purchaseParam: purchaseParam);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Bu ürün şu an satın alınamıyor.')));
+                                }
+                              }
+                            }
+                          },
                           child: Text(
                             "Saranel'e Destek Ol",
                             style: TextStyle(
@@ -204,53 +228,57 @@ StreamSubscription<List<PurchaseDetails>>? _subscription;
       ),
     );
   }
-@override
-void initState() {
-  super.initState();
-  _initializeInAppPurchase();
-}
 
-void _initializeInAppPurchase() async {
-  final bool isAvailable = await _inAppPurchase.isAvailable();
-  if (!isAvailable) {
-    setState(() {
-      _availableForPurchase = false;
-    });
-    return;
+  @override
+  void initState() {
+    super.initState();
+    _initializeInAppPurchase();
   }
 
-  _subscription = _inAppPurchase.purchaseStream.listen((purchaseDetailsList) {
-    purchaseDetailsList.forEach((purchaseDetails) async {
-      if (purchaseDetails.status == PurchaseStatus.pending) {
-        // Satın alma işlemi bekliyor.
-      } else {
-        if (purchaseDetails.status == PurchaseStatus.error) {
-          // Satın alma işlemi hatası.
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Satın alma işlemi başarısız.')));
-        } else if (purchaseDetails.status == PurchaseStatus.purchased) {
-          // Satın alma başarılı.
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Teşekkürler! Destek oldunuz.')));
-          if (purchaseDetails.pendingCompletePurchase) {
-            await _inAppPurchase.completePurchase(purchaseDetails);
+  void _initializeInAppPurchase() async {
+    final bool isAvailable = await _inAppPurchase.isAvailable();
+    if (!isAvailable) {
+      setState(() {
+        _availableForPurchase = false;
+      });
+      return;
+    }
+
+    _inAppPurchase.purchaseStream.listen((purchaseDetailsList) {
+      purchaseDetailsList.forEach((purchaseDetails) async {
+        if (purchaseDetails.status == PurchaseStatus.pending) {
+          // Satın alma işlemi bekliyor.
+        } else {
+          if (purchaseDetails.status == PurchaseStatus.error) {
+            // Satın alma işlemi hatası.
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Satın alma işlemi başarısız.')));
+          } else if (purchaseDetails.status == PurchaseStatus.purchased) {
+            // Satın alma başarılı.
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Teşekkürler! Destek oldunuz.')));
+            if (purchaseDetails.pendingCompletePurchase) {
+              await _inAppPurchase.completePurchase(purchaseDetails);
+            }
           }
         }
-      }
-    }); 
-    
-  });final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails({'20tl'});
-
-  if (productDetailResponse.notFoundIDs.isNotEmpty) {
-    setState(() {
-      _availableForPurchase = false;
+      });
     });
-    return;
+    final ProductDetailsResponse productDetailResponse =
+        await _inAppPurchase.queryProductDetails({'20tl'});
+
+    if (productDetailResponse.notFoundIDs.isNotEmpty) {
+      setState(() {
+        _availableForPurchase = false;
+      });
+      return;
+    }
+
+    setState(() {
+      _products = productDetailResponse.productDetails;
+    });
   }
 
-  setState(() {
-    _products = productDetailResponse.productDetails;
-  });
-}
-  
   TextStyle appbarStyle() =>
       GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w800);
 }

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 /* import 'package:saranel_application/bakimmodu_screen/bakimmodu.dart'; */
 import 'package:saranel_application/firebase_options.dart';
-import 'package:saranel_application/genelayarlar/custompageGecis.dart';
+/* import 'package:saranel_application/genelayarlar/custompageGecis.dart'; */
 import 'package:saranel_application/main_screens/anasayfa.dart';
 
 Future<void> main() async {
@@ -49,10 +49,10 @@ class MyApp extends StatelessWidget {
       locale: Locale('tr', 'TR'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        pageTransitionsTheme: PageTransitionsTheme(builders: {
+        /* pageTransitionsTheme: PageTransitionsTheme(builders: {
           TargetPlatform.android: CustomPageTransitionBuilder(),
           TargetPlatform.iOS: CustomPageTransitionBuilder(),
-        }),
+        }), */
         textSelectionTheme: TextSelectionThemeData(
           selectionHandleColor: Colors.blue.shade600,
         ),
