@@ -474,7 +474,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                       labelText: 'İletişim tercihi (Mail/ Telefon)',
                       labelStyle: TextStyle(
                           color: Colors.blue.shade800,
-                          fontSize: 10,
+                          fontSize: 12,
                           fontWeight: FontWeight.w400),
                       filled: true,
                       fillColor: Colors.white,
@@ -499,7 +499,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                       labelText: 'Yetkili Ad Soyad',
                       labelStyle: TextStyle(
                           color: Colors.blue.shade800,
-                          fontSize: 10,
+                          fontSize: 12,
                           fontWeight: FontWeight.w400),
                       filled: true,
                       fillColor: Colors.white,
@@ -563,7 +563,7 @@ class _bireyselbasvuruekleState extends State<bireyselbasvuruekle> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20, top: 10),
                           child: Text(
-                            "Kampanya onay belgesini yükleyiniz. Kendi resminizi ya da reklam afişinizi yüklemeyiniz. Yalnızca görsel formatta yükleme yapınız.",
+                            "Kampanya onay belgesini yanlızca görsel olarak, Faaliyet No (xx-xxxx) ve iban bilgileri gibi tüm alanların görüntüleneceği şekilde yükleyiniz.",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white70),
                           ),
