@@ -643,7 +643,7 @@ class _SMAIlanEkleState extends State<SMAIlanEkle> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20, top: 10),
                           child: Text(
-                            "Valilik onay belgesini yanlızca görsel olarak yükleyiniz. PDF ya da diğer formatlar kabul edilememektedir.",
+                            "Valilik onay belgesini yanlızca görsel olarak, Faaliyet No (xx-xxxx) ve iban bilgileri gibi tüm alanların görüntüleneceği şekilde yükleyiniz.",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white70),
                           ),

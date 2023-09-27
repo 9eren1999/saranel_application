@@ -8,6 +8,7 @@ import 'package:saranel_application/company_screens/resmikurum.dart';
 import 'package:saranel_application/company_screens/stk.dart';
 import 'package:saranel_application/company_screens/sma_kampanyalari.dart';
 import 'package:saranel_application/main_screens/bilgi.dart';
+import 'package:saranel_application/main_screens/forum.dart';
 import 'package:saranel_application/settings_screens/bagisyap.dart';
 import 'package:saranel_application/settings_screens/sss.dart';
 import 'package:saranel_application/main_screens/smaekle.dart';
@@ -341,6 +342,65 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               SizedBox(width: 10),
                               Text(
                                 'Sivil Toplum Kuruluşları',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.blue.shade800,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForumPage(),
+                          ));
+                    },
+                    child: Container(
+                      width: 185,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade600,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(8, 0, 0, 1),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.forum_sharp,
+                                  size: 32, color: Colors.white),
+                              SizedBox(width: 10),
+                              Text(
+                                'Saranel Forum | Sor & Cevapla',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 12,
