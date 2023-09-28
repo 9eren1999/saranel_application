@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
@@ -20,8 +19,7 @@ class _ForumPageState extends State<ForumPage> {
   bool _isLoading = true;
   bool showAllComments = false;
   int shownCommentsLimit = 1;
-  String currentUsername =
-      "KullanicininAdi"; // Bu değeri nereden aldığınıza göre güncelleyin.
+  String currentUsername = "KullanicininAdi";
 
   String? selectedImagePath;
 
@@ -764,48 +762,45 @@ class _ForumPageState extends State<ForumPage> {
                                                                                   var commentData = commentSnapshot.data!.docs[commentIndex];
                                                                                   return Column(
                                                                                     children: [
-                                                                                     ListTile(
-  title: Row(
-    children: [
-      Expanded(
-        child: Text(
-          commentData['username'],
-          style: TextStyle(
-            fontSize: 10,
-            color: getRandomColor(),
-          ),
-        ),
-      ), if (commentData['username'] == username) // Yorumu ekleyen kullanıcı, şu anki kullanıcı mı kontrolü
-        IconButton(
-          icon: Icon(Icons.delete, color: Colors.white, size: 16),
-          onPressed: () {
-            // Silme işlemini burada gerçekleştir
-            _showDeleteCommentDialog(postId, commentData.id); // Yorumun id'sini gönderiyoruz
-          },
-        ),
-      Text(
-        "${timeAgo(commentData['timestamp'].toDate())}",
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white,
-        ),
-      ),
-     
-    ],
-  ),
-  subtitle: Text(
-    commentData['text'],
-    style: TextStyle(fontSize: 12, color: Colors.white),
-  ),
-), 
-
-
-
+                                                                                      ListTile(
+                                                                                        title: Row(
+                                                                                          children: [
+                                                                                            Expanded(
+                                                                                              child: Text(
+                                                                                                commentData['username'],
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: 10,
+                                                                                                  color: getRandomColor(),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                            if (commentData['username'] == username) // Yorumu ekleyen kullanıcı, şu anki kullanıcı mı kontrolü
+                                                                                              IconButton(
+                                                                                                icon: Icon(Icons.delete, color: Colors.white, size: 16),
+                                                                                                onPressed: () {
+                                                                                                  // Silme işlemini burada gerçekleştir
+                                                                                                  _showDeleteCommentDialog(postId, commentData.id); // Yorumun id'sini gönderiyoruz
+                                                                                                },
+                                                                                              ),
+                                                                                            Text(
+                                                                                              "${timeAgo(commentData['timestamp'].toDate())}",
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 10,
+                                                                                                color: Colors.white,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                        subtitle: Text(
+                                                                                          commentData['text'],
+                                                                                          style: TextStyle(fontSize: 12, color: Colors.white),
+                                                                                        ),
+                                                                                      ),
                                                                                       Divider(
                                                                                         color: Colors.white24,
                                                                                         height: 1.0,
                                                                                         thickness: 0.5,
-                                                                                      ), 
+                                                                                      ),
                                                                                     ],
                                                                                   );
                                                                                 },
