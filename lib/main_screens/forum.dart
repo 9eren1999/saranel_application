@@ -113,17 +113,13 @@ class _ForumPageState extends State<ForumPage> {
     final doc = await docRef.get();
 
     if (!doc.exists) {
-<<<<<<< HEAD
       await docRef.set({'id1': username});
-=======
->>>>>>> c93d203e6e1c20854edb48137a27e8c63d97689b
       return;
     }
 
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     int currentID = data.keys.where((key) => key.startsWith("id")).length + 1;
 
-<<<<<<< HEAD
     await docRef.set(
         {
           'id$currentID': username,
@@ -144,11 +140,6 @@ class _ForumPageState extends State<ForumPage> {
     } catch (error) {
       print("Error deleting comment: $error");
     }
-=======
-    await docRef.update({
-      'id$currentID': username,
-    });
->>>>>>> c93d203e6e1c20854edb48137a27e8c63d97689b
   }
 
   void _showUsernameDialog() {
@@ -537,7 +528,6 @@ class _ForumPageState extends State<ForumPage> {
                                   (data.data() as Map<String, dynamic>)
                                       .containsKey('resimUrl');
 
-<<<<<<< HEAD
                               return Column(children: [
                                 Card(
                                     margin: EdgeInsets.symmetric(
@@ -557,28 +547,10 @@ class _ForumPageState extends State<ForumPage> {
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceBetween,
-=======
-                              return Column(
-                                  // Burada Column widget'ını kullanarak birden fazla widget'ı dikey bir sıra içinde sıralıyoruz.
-                                  children: [
-                                    Card(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 12),
-                                        color: Colors.blue.shade600,
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  child: Column(
->>>>>>> c93d203e6e1c20854edb48137a27e8c63d97689b
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-<<<<<<< HEAD
                                                         Text(
                                                           "${data['adsoyad']}",
                                                           style: TextStyle(
@@ -871,273 +843,6 @@ class _ForumPageState extends State<ForumPage> {
                                                   ]))
                                         ]))
                               ]);
-=======
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(
-                                                              "${data['adsoyad']}",
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        255,
-                                                                        255,
-                                                                        255),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              timeAgo(DateTime
-                                                                  .parse(data[
-                                                                      'eklenme_tarihi'])),
-                                                              textAlign:
-                                                                  TextAlign.end,
-                                                              style: TextStyle(
-                                                                fontSize: 10,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        253,
-                                                                        253,
-                                                                        253),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  top: 10),
-                                                          child: Column(
-                                                            children: [
-                                                              if (hasImageUrl &&
-                                                                  data['resimUrl'] !=
-                                                                      null)
-                                                                // Eğer resim varsa bu bloğu göster
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    _showImageFullScreen(
-                                                                        context,
-                                                                        data[
-                                                                            'resimUrl']);
-                                                                  },
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            1.0),
-                                                                    child: Image
-                                                                        .network(
-                                                                      data[
-                                                                          'resimUrl'],
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      width: double
-                                                                          .infinity,
-                                                                      // istediğiniz yükseklik
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              SizedBox(
-                                                                  height: 2),
-                                                              Text(
-                                                                data[
-                                                                    'aciklama'],
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w100,
-                                                                  fontSize: 12,
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                ),
-                                                              ),
-                                                              Divider(
-                                                                thickness: 0.5,
-                                                                color: Colors
-                                                                    .blue
-                                                                    .shade100,
-                                                              ),
-                                                              TextField(
-                                                                controller:
-                                                                    _commentController,
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  hintText:
-                                                                      'Yorum yap...',
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white
-                                                                        .withOpacity(
-                                                                            0.6),
-                                                                    fontSize:
-                                                                        11,
-                                                                  ),
-                                                                  suffixIcon:
-                                                                      IconButton(
-                                                                    icon: Icon(
-                                                                        Icons
-                                                                            .send,
-                                                                        color: Colors
-                                                                            .white),
-                                                                    onPressed:
-                                                                        () {
-                                                                      addComment(
-                                                                          postId,
-                                                                          _commentController
-                                                                              .text);
-                                                                    },
-                                                                  ),
-                                                                  enabledBorder:
-                                                                      UnderlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: Color.fromARGB(
-                                                                          62,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                    ),
-                                                                  ),
-                                                                  focusedBorder:
-                                                                      UnderlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              FutureBuilder<
-                                                                      int>(
-                                                                  future:
-                                                                      getTotalComments(
-                                                                          postId),
-                                                                  builder: (context,
-                                                                      totalCommentsSnapshot) {
-                                                                    if (!totalCommentsSnapshot
-                                                                        .hasData) {
-                                                                      return SizedBox
-                                                                          .shrink(); // Eğer henüz yorum sayısı yüklenmediyse boş bir widget döndür.
-                                                                    }
-
-                                                                    int totalComments =
-                                                                        totalCommentsSnapshot
-                                                                            .data!;
-
-                                                                    return StreamBuilder<
-                                                                            QuerySnapshot>(
-                                                                        stream: _firestore
-                                                                            .collection('forum')
-                                                                            .doc(postId)
-                                                                            .collection('comments')
-                                                                            .orderBy('timestamp', descending: true)
-                                                                            .limit(showAllComments ? shownCommentsLimit : 1)
-                                                                            // Eğer tüm yorumları göstermek istiyorsak 4 yorum getir, değilse sadece 1 yorum getir
-                                                                            .snapshots(),
-                                                                        builder: (context, commentSnapshot) {
-                                                                          if (!commentSnapshot
-                                                                              .hasData) {
-                                                                            return SizedBox.shrink();
-                                                                          }
-                                                                          return Column(
-                                                                              children: [
-                                                                                // Yorumları gösteren bölüm:
-                                                                                Container(
-                                                                                  height: (commentSnapshot.data!.docs.length <= 4) ? null : 250, // Eğer yorum sayısı 4'ten fazla ise 200 piksel yükseklik tanımlıyoruz, bu da 4 yorumun gösterilmesine yetiyor.
-                                                                                  child: ListView.builder(
-                                                                                    shrinkWrap: true,
-                                                                                    physics: (commentSnapshot.data!.docs.length <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(), // Eğer yorum sayısı 4'ten fazla ise kaydırma işlevini aktifleştiriyoruz.
-                                                                                    itemCount: showAllComments ? commentSnapshot.data!.docs.length : min(commentSnapshot.data!.docs.length, 1),
-                                                                                    // Sadece ilk yorumu gösteriyoruz.
-                                                                                    itemBuilder: (context, commentIndex) {
-                                                                                      var commentData = commentSnapshot.data!.docs[commentIndex];
-                                                                                      return Column(
-                                                                                        children: [
-                                                                                          ListTile(
-                                                                                            title: Row(
-                                                                                              children: [
-                                                                                                Expanded(
-                                                                                                  child: Text(
-                                                                                                    commentData['username'],
-                                                                                                    style: TextStyle(
-                                                                                                      fontSize: 10,
-                                                                                                      color: getRandomColor(),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                SizedBox(width: 8.0),
-                                                                                                Text(
-                                                                                                  "${timeAgo(commentData['timestamp'].toDate())}",
-                                                                                                  style: TextStyle(
-                                                                                                    fontSize: 10,
-                                                                                                    color: Colors.white,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                            subtitle: Text(
-                                                                                              commentData['text'],
-                                                                                              style: TextStyle(fontSize: 12, color: Colors.white),
-                                                                                            ),
-                                                                                          ),
-                                                                                          Divider(
-                                                                                            color: Colors.white24,
-                                                                                            height: 1.0,
-                                                                                            thickness: 0.5,
-                                                                                          ),
-                                                                                        ],
-                                                                                      );
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                // Tüm yorumları gösteren buton:
-                                                                                if (totalComments > shownCommentsLimit)
-                                                                                  TextButton(
-                                                                                    child: Text(
-                                                                                      showAllComments ? "Yorumları gizle" : "Daha fazla yorum görüntüle (${min(totalComments, shownCommentsLimit + 4)} yorum)",
-                                                                                      style: TextStyle(color: Colors.white, fontSize: 10),
-                                                                                    ),
-                                                                                    onPressed: () {
-                                                                                      setState(() {
-                                                                                        if (showAllComments) {
-                                                                                          shownCommentsLimit = 1;
-                                                                                          showAllComments = false;
-                                                                                        } else {
-                                                                                          shownCommentsLimit += 4;
-
-                                                                                          if (shownCommentsLimit >= totalComments) {
-                                                                                            showAllComments = true;
-                                                                                          }
-                                                                                        }
-                                                                                      });
-                                                                                    },
-                                                                                  )
-                                                                              ]);
-                                                                        });
-                                                                  })
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ]))
-                                            ]))
-                                  ]);
->>>>>>> c93d203e6e1c20854edb48137a27e8c63d97689b
                             },
                           );
                         },
