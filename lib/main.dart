@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-/* import 'package:saranel_application/bakimmodu_screen/bakimmodu.dart'; */
 import 'package:saranel_application/firebase_options.dart';
-/* import 'package:saranel_application/genelayarlar/custompageGecis.dart'; */
 import 'package:saranel_application/main_screens/anasayfa.dart';
 
 Future<void> main() async {
@@ -14,22 +12,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  /*
-  final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
-
-  await remoteConfig.setConfigSettings(RemoteConfigSettings(
-    fetchTimeout: Duration(seconds: 1),
-    minimumFetchInterval: Duration(seconds: 1),
-  ));
-
-  await remoteConfig.fetchAndActivate();
-
-  bool bakimModu = remoteConfig.getBool('bakim_modu');
-
-  print('Bakım Modu: $bakimModu');
-  */
-
-  runApp(MyApp(/* bakimModu: bakimModu */));
+  runApp(MyApp());
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.white,
@@ -37,10 +20,61 @@ Future<void> main() async {
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
-class MyApp extends StatelessWidget {
-  // final bool bakimModu;
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  // MyApp({required this.bakimModu});
+class _MyAppState extends State<MyApp> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupFirebaseNotifications();
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data['tag'] == 'forumbildirim') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AnaSayfa(),
+          ),
+        );
+      }
+    });
+  }
+
+  Future<void> _setupFirebaseNotifications() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("onMessage: $message");
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print("onMessageOpenedApp: $message");
+    });
+
+    // Uygulama kapalıyken tıklanılan bildirim
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null && message.data['tag'] == 'forumbildirim') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AnaSayfa(),
+          ),
+        );
+      }
+    });
+
+    // iOS için bildirim izinleri
+    await _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+      provisional: false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
