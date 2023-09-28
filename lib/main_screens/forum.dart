@@ -18,7 +18,8 @@ class _ForumPageState extends State<ForumPage> {
   bool _isLoading = true;
   bool showAllComments = false;
   int shownCommentsLimit = 1;
-  String currentUsername = "KullanicininAdi";
+  String currentUsername =
+      "KullanicininAdi"; // Bu değeri nereden aldığınıza göre güncelleyin.
 
   String? selectedImagePath;
 
@@ -748,320 +749,305 @@ void _showPostInput(BuildContext context) {
                                       .containsKey('resimUrl');
 
                               return Column(children: [
-                                Card(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 12),
-                                    color: Colors.blue.shade600,
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                              padding: const EdgeInsets.all(20),
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "${data['adsoyad']}",
-                                                          style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    255),
+   Padding(
+     padding: const EdgeInsets.only(bottom: 14),
+     child: Material(
+      elevation: 0, // Gölgenin yüksekliği
+      shadowColor: Colors.blue.shade800, // Gölgenin rengi
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(2.0), // Card'ın köşe yuvarlaklığı
+      ), 
+      child: Container( 
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+         child: Column( 
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+                                            Padding(
+                                                padding: const EdgeInsets.all(10), 
+                                                child: Column( 
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "${data['adsoyad']}",
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Row(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                timeAgo(DateTime
-                                                                    .parse(data[
-                                                                        'eklenme_tarihi'])),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .end,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          253,
-                                                                          253,
-                                                                          253),
-                                                                ),
-                                                              ),
-                                                              if (data[
-                                                                      'adsoyad'] ==
-                                                                  username)
-                                                                Container(
-                                                                  height: 16.0,
-                                                                  child:
-                                                                      IconButton(
-                                                                    padding:
-                                                                        EdgeInsets
-                                                                            .zero, // IconButton için ekstra boşlukları kaldırın
-                                                                    icon: Icon(
-                                                                        Icons
-                                                                            .delete,
-                                                                        size:
-                                                                            17,
-                                                                        color: Colors
-                                                                            .white),
-                                                                    onPressed:
-                                                                        () {
-                                                                      _showDeleteConfirmationDialog(
-                                                                          data);
-                                                                    },
+                                                          Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  timeAgo(DateTime
+                                                                      .parse(data[
+                                                                          'eklenme_tarihi'])),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .end,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize: 10,
+                                                                    color: Colors.black,
                                                                   ),
                                                                 ),
-                                                            ]),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 10),
-                                                      child: Column(
-                                                        children: [
-                                                          if (hasImageUrl &&
-                                                              data['resimUrl'] !=
-                                                                  null)
-                                                            InkWell(
-                                                              onTap: () {
-                                                                _showImageFullScreen(
-                                                                    context,
-                                                                    data[
-                                                                        'resimUrl']);
-                                                              },
-                                                              child: Padding(
-                                                                padding: const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        1.0),
-                                                                child: Image
-                                                                    .network(
-                                                                  data[
-                                                                      'resimUrl'],
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  width: double
-                                                                      .infinity,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          SizedBox(height: 2),
-                                                          Text(
-                                                            data['aciklama'],
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w100,
-                                                              fontSize: 12,
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      255,
-                                                                      255,
-                                                                      255),
-                                                            ),
-                                                          ),
-                                                          Divider(
-                                                            thickness: 0.5,
-                                                            color: Colors
-                                                                .blue.shade100,
-                                                          ),
-                                                          TextField(
-                                                            controller:
-                                                                _commentController,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              hintText:
-                                                                  'Yorum yap...',
-                                                              hintStyle:
-                                                                  TextStyle(
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.6),
-                                                                fontSize: 11,
-                                                              ),
-                                                              suffixIcon:
-                                                                  IconButton(
-                                                                icon: Icon(
-                                                                    Icons.send,
-                                                                    color: Colors
-                                                                        .white),
-                                                                onPressed: () {
-                                                                  addComment(
-                                                                      postId,
-                                                                      _commentController
-                                                                          .text);
-                                                                },
-                                                              ),
-                                                              enabledBorder:
-                                                                  UnderlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          62,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                ),
-                                                              ),
-                                                              focusedBorder:
-                                                                  UnderlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          FutureBuilder<int>(
-                                                              future:
-                                                                  getTotalComments(
-                                                                      postId),
-                                                              builder: (context,
-                                                                  totalCommentsSnapshot) {
-                                                                if (!totalCommentsSnapshot
-                                                                    .hasData) {
-                                                                  return SizedBox
-                                                                      .shrink(); // Eğer henüz yorum sayısı yüklenmediyse boş bir widget döndür.
-                                                                }
-
-                                                                int totalComments =
-                                                                    totalCommentsSnapshot
-                                                                        .data!;
-
-                                                                return StreamBuilder<
-                                                                        QuerySnapshot>(
-                                                                    stream: _firestore
-                                                                        .collection('forum')
-                                                                        .doc(postId)
-                                                                        .collection('comments')
-                                                                        .orderBy('timestamp', descending: true)
-                                                                        .limit(showAllComments ? shownCommentsLimit : 1)
-                                                                        // Eğer tüm yorumları göstermek istiyorsak 4 yorum getir, değilse sadece 1 yorum getir
-                                                                        .snapshots(),
-                                                                    builder: (context, commentSnapshot) {
-                                                                      if (!commentSnapshot
-                                                                          .hasData) {
-                                                                        return SizedBox
-                                                                            .shrink();
-                                                                      }
-                                                                      return Column(
-                                                                          children: [
-                                                                            // Yorumları gösteren bölüm:
-                                                                            Container(
-                                                                              height: (commentSnapshot.data!.docs.length <= 4) ? null : 250, // Eğer yorum sayısı 4'ten fazla ise 200 piksel yükseklik tanımlıyoruz, bu da 4 yorumun gösterilmesine yetiyor.
-                                                                              child: ListView.builder(
-                                                                                shrinkWrap: true,
-                                                                                physics: (commentSnapshot.data!.docs.length <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(), // Eğer yorum sayısı 4'ten fazla ise kaydırma işlevini aktifleştiriyoruz.
-                                                                                itemCount: showAllComments ? commentSnapshot.data!.docs.length : min(commentSnapshot.data!.docs.length, 1),
-                                                                                // Sadece ilk yorumu gösteriyoruz.
-                                                                                itemBuilder: (context, commentIndex) {
-                                                                                  var commentData = commentSnapshot.data!.docs[commentIndex];
-                                                                                  return Column(
-                                                                                    children: [
-                                                                                     ListTile(
-  title: Row(
-    children: [
-      Expanded(
-        child: Text(
-          commentData['username'],
-          style: TextStyle(
-            fontSize: 10,
-            color: getRandomColor(),
-          ),
-        ),
-      ), if (commentData['username'] == username) // Yorumu ekleyen kullanıcı, şu anki kullanıcı mı kontrolü
-        IconButton(
-          icon: Icon(Icons.delete, color: Colors.white, size: 16),
-          onPressed: () {
-            // Silme işlemini burada gerçekleştir
-            _showDeleteCommentDialog(postId, commentData.id); // Yorumun id'sini gönderiyoruz
-          },
-        ),
-      Text(
-        "${timeAgo(commentData['timestamp'].toDate())}",
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white,
-        ),
-      ),
-     
-    ],
-  ),
-  subtitle: Text(
-    commentData['text'],
-    style: TextStyle(fontSize: 12, color: Colors.white),
-  ),
-), 
-
-
-
-                                                                                      Divider(
-                                                                                        color: Colors.white24,
-                                                                                        height: 1.0,
-                                                                                        thickness: 0.5,
-                                                                                      ), 
-                                                                                    ],
-                                                                                  );
-                                                                                },
-                                                                              ),
-                                                                            ),
-                                                                            // Tüm yorumları gösteren buton:
-                                                                            if (totalComments >
-                                                                                shownCommentsLimit)
-                                                                              TextButton(
-                                                                                child: Text(
-                                                                                  showAllComments ? "Yorumları gizle" : "Daha fazla yorum görüntüle (${min(totalComments, shownCommentsLimit + 4)} yorum)",
-                                                                                  style: TextStyle(color: Colors.white, fontSize: 10),
-                                                                                ),
-                                                                                onPressed: () {
-                                                                                  setState(() {
-                                                                                    if (showAllComments) {
-                                                                                      shownCommentsLimit = 1;
-                                                                                      showAllComments = false;
-                                                                                    } else {
-                                                                                      shownCommentsLimit += 4;
-
-                                                                                      if (shownCommentsLimit >= totalComments) {
-                                                                                        showAllComments = true;
-                                                                                      }
-                                                                                    }
-                                                                                  });
-                                                                                },
-                                                                              )
-                                                                          ]);
-                                                                    });
-                                                              })
+                                                                if (data[ 
+                                                                        'adsoyad'] ==
+                                                                    username)
+                                                                  Container(
+                                                                    height: 16.0,
+                                                                    child:
+                                                                        IconButton(
+                                                                      padding:
+                                                                          EdgeInsets
+                                                                              .zero, // IconButton için ekstra boşlukları kaldırın
+                                                                      icon: Icon(
+                                                                          Icons
+                                                                              .delete,
+                                                                          size:
+                                                                              17,
+                                                                          color: Colors
+                                                                              .black),
+                                                                      onPressed:
+                                                                          () {
+                                                                        _showDeleteConfirmationDialog(
+                                                                            data);
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                              ]),
                                                         ],
                                                       ),
-                                                    )
-                                                  ]))
-                                        ]))
-                              ]);
+                                                      Padding( 
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                top: 10),
+                                                        child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [  Text(
+                                                              data['aciklama'],
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w100,
+                                                                fontSize: 12,
+                                                                color: Colors.black,
+                                                              ), 
+                                                            ), 
+                                                            
+                                                            SizedBox(height: 2),
+                                                           if (hasImageUrl &&
+                                                                data['resimUrl'] !=
+                                                                    null)
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  _showImageFullScreen(
+                                                                      context,
+                                                                      data[
+                                                                          'resimUrl']);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          1.0),
+                                                                  child: Image
+                                                                      .network(
+                                                                    data[
+                                                                        'resimUrl'],
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                    width: double
+                                                                        .infinity,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            Divider(
+                                                              thickness: 0.2,
+                                                              color: Colors.black,
+                                                            ),
+                                                            TextField(
+                                                              controller:
+                                                                  _commentController,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                hintText:
+                                                                    'Yorum yap...',
+                                                                hintStyle:
+                                                                    TextStyle(
+                                                                  color: Colors.black
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                                  fontSize: 11,
+                                                                ),
+                                                                suffixIcon:
+                                                                    IconButton(
+                                                                  icon: Icon(
+                                                                      Icons.send,
+                                                                      color: Colors
+                                                                          .black),
+                                                                  onPressed: () {
+                                                                    addComment(
+                                                                        postId,
+                                                                        _commentController
+                                                                            .text);
+                                                                  },
+                                                                ),
+                                                                enabledBorder:
+                                                                    UnderlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            62,
+                                                                            255,
+                                                                            255,
+                                                                            255),
+                                                                  ),
+                                                                ),
+                                                                focusedBorder:
+                                                                    UnderlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            FutureBuilder<int>(
+                                                                future:
+                                                                    getTotalComments(
+                                                                        postId),
+                                                                builder: (context,
+                                                                    totalCommentsSnapshot) {
+                                                                  if (!totalCommentsSnapshot
+                                                                      .hasData) {
+                                                                    return SizedBox
+                                                                        .shrink(); // Eğer henüz yorum sayısı yüklenmediyse boş bir widget döndür.
+                                                                  }
+   
+                                                                  int totalComments =
+                                                                      totalCommentsSnapshot
+                                                                          .data!;
+   
+                                                                  return StreamBuilder<
+                                                                          QuerySnapshot>(
+                                                                      stream: _firestore
+                                                                          .collection('forum')
+                                                                          .doc(postId)
+                                                                          .collection('comments')
+                                                                          .orderBy('timestamp', descending: true)
+                                                                          .limit(showAllComments ? shownCommentsLimit : 1)
+                                                                          // Eğer tüm yorumları göstermek istiyorsak 4 yorum getir, değilse sadece 1 yorum getir
+                                                                          .snapshots(),
+                                                                      builder: (context, commentSnapshot) {
+                                                                        if (!commentSnapshot
+                                                                            .hasData) {
+                                                                          return SizedBox
+                                                                              .shrink();
+                                                                        }
+                                                                        return Column(
+                                                                            children: [
+                                                                              // Yorumları gösteren bölüm:
+                                                                              Container(
+                                                                                height: (commentSnapshot.data!.docs.length <= 4) ? null : 250, // Eğer yorum sayısı 4'ten fazla ise 200 piksel yükseklik tanımlıyoruz, bu da 4 yorumun gösterilmesine yetiyor.
+                                                                                child: ListView.builder(
+                                                                                  shrinkWrap: true,
+                                                                                  physics: (commentSnapshot.data!.docs.length <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(), // Eğer yorum sayısı 4'ten fazla ise kaydırma işlevini aktifleştiriyoruz.
+                                                                                  itemCount: showAllComments ? commentSnapshot.data!.docs.length : min(commentSnapshot.data!.docs.length, 1),
+                                                                                  // Sadece ilk yorumu gösteriyoruz.
+                                                                                  itemBuilder: (context, commentIndex) {
+                                                                                    var commentData = commentSnapshot.data!.docs[commentIndex];
+                                                                                    return Column(
+                                                                                      children: [
+                                                                                       ListTile(
+     title: Row(
+      children: [
+        Expanded(
+          child: Text(
+            commentData['username'],
+            style: TextStyle(
+              fontSize: 10,
+              color: getRandomColor(),
+            ),
+          ),
+        ), if (commentData['username'] == username) // Yorumu ekleyen kullanıcı, şu anki kullanıcı mı kontrolü
+          IconButton(
+            icon: Icon(Icons.delete, color: Colors.black87, size: 16),
+            onPressed: () {
+              // Silme işlemini burada gerçekleştir
+              _showDeleteCommentDialog(postId, commentData.id); // Yorumun id'sini gönderiyoruz
+            },
+          ),
+        Text(
+          "${timeAgo(commentData['timestamp'].toDate())}",
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.black87,
+          ),
+        ),
+       
+      ],
+     ),
+     subtitle: Text(
+      commentData['text'],
+      style: TextStyle(fontSize: 12, color: Colors.black87),
+     ),
+   ), 
+   
+   
+   
+                                                                                        Divider(
+                                                                                          color: Colors.black26,
+                                                                                          height: 1.0,
+                                                                                          thickness: 0.3,
+                                                                                        ), 
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                              // Tüm yorumları gösteren buton:
+                                                                               if (totalComments > shownCommentsLimit)
+      TextButton(
+        child: Text(
+          showAllComments ? "Yorumları gizle" : "Daha fazla yorum görüntüle (${min(totalComments, shownCommentsLimit + 4)} yorum)",
+          style: TextStyle(color: Colors.black87, fontSize: 10),
+        ),
+        onPressed: () {
+          setState(() {
+            showAllComments = !showAllComments; // Değerini tersine çevir
+            if (showAllComments) {
+              shownCommentsLimit = totalComments; // Tüm yorumları göster
+            } else {
+              shownCommentsLimit = 1; // Sadece ilk yorumu göster
+            }
+          });
+        },
+      )
+                                                                            ]);
+                                                                      });
+                                                                })
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ]))
+                                          ]))
+                            ),
+   )]);
                             },
                           );
                         },
