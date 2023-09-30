@@ -116,8 +116,9 @@ class _DonationPageState extends State<DonationPage> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 4.0,
                         children: amounts.sublist(0, 3).map((amount) {
                           return ChoiceChip(
                               side: BorderSide.none,
@@ -142,8 +143,9 @@ class _DonationPageState extends State<DonationPage> {
                         }).toList(),
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 4.0,
                         children: amounts.sublist(3, 6).map((amount) {
                           return ChoiceChip(
                               side: BorderSide.none,

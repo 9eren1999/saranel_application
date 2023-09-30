@@ -359,7 +359,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ],
             ),
           ),
-        ),Padding(
+        ),
+        Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: IntrinsicHeight(
             child: Row(
@@ -380,7 +381,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       padding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 1),
                       decoration: BoxDecoration(
-                        color: Colors.orange.shade600,
+                        color: Colors.amber.shade600,
                         boxShadow: [
                           BoxShadow(
                             color: Color.fromARGB(8, 0, 0, 1),

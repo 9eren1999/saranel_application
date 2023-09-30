@@ -1,8 +1,55 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+Future<void> saveDataToLocal(List<Dernek> dernekList) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<Map<String, dynamic>> dataList = dernekList
+      .map((dernek) => {
+            'logoUrl': dernek.logoUrl,
+            'ad': dernek.ad,
+            'kategori': dernek.kategori,
+            'kurumkt': dernek.kurumkt,
+            'kurumgm': dernek.kurumgm,
+            'kurumHakkinda': dernek.kurumHakkinda,
+            'webSiteUrl': dernek.webSiteUrl,
+          })
+      .toList();
+  String jsonString = jsonEncode(dataList);
+  prefs.setString('dernekList', jsonString);
+  prefs.setInt('dernekListTimestamp', DateTime.now().millisecondsSinceEpoch);
+}
+
+Future<List<Dernek>?> getDataFromLocal() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? jsonString = prefs.getString('dernekList');
+  if (jsonString != null) {
+    List<dynamic> jsonList = jsonDecode(jsonString);
+    List<Dernek> dernekList = jsonList.map((json) {
+      return Dernek(
+        logoUrl: json['logoUrl'],
+        ad: json['ad'],
+        kategori: json['kategori'],
+        kurumkt: json['kurumkt'],
+        kurumgm: json['kurumgm'],
+        kurumHakkinda: json['kurumHakkinda'],
+        webSiteUrl: json['webSiteUrl'],
+      );
+    }).toList();
+    int? timestamp = prefs.getInt('dernekListTimestamp');
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
+    final threeDays = 259200000; // 3 gün
+    if (timestamp != null && currentTime - timestamp < threeDays) {
+      return dernekList;
+    }
+  }
+  return null;
+}
 
 class Dernek {
   final String logoUrl;
@@ -68,10 +115,13 @@ class _DerneklerPageState extends State<DerneklerPage> {
   }
 
   Future<List<Dernek>> fetchDernekler() async {
-    if (DateTime.now().isBefore(lastFetchTime.add(Duration(days: 3)))) {
-      return derneklerListesi;
+    // Öncelikle yerel depolamadan veriyi almayı deneyin.
+    List<Dernek>? dernekListFromLocal = await getDataFromLocal();
+    if (dernekListFromLocal != null) {
+      return dernekListFromLocal;
     }
 
+    // Eğer yerel depolamada veri yoksa veya veri eskiyse Firebase'den veriyi çekin.
     derneklerListesi = [];
     try {
       QuerySnapshot querySnapshot =
@@ -80,7 +130,6 @@ class _DerneklerPageState extends State<DerneklerPage> {
         var data = doc.data() as Map<String, dynamic>?;
         if (data != null) {
           String logoUrl = data['logoPath'] ?? '';
-
           derneklerListesi.add(
             Dernek(
               logoUrl: logoUrl,
@@ -94,6 +143,8 @@ class _DerneklerPageState extends State<DerneklerPage> {
           );
         }
       }
+      // Firebase'den çekilen veriyi yerel depolamaya kaydedin.
+      await saveDataToLocal(derneklerListesi);
     } catch (e) {
       print('Dernekler fetch hatası: $e');
       throw Exception(
