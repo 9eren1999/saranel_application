@@ -65,7 +65,7 @@ Kullanıcılar, ilan verirken bu bilgileri Platform ile paylaşmayı kabul eder.
 Platform, Kullanıcılar tarafından sağlanan bilgileri, ilanın amacına uygun bir şekilde diğer Platform kullanıcılarına gösterebilir. Bu, ilanın daha geniş bir kitleye ulaşmasına yardımcı olabilir.
 
 3. Sorumluluk Reddi
-Platform, Kullanıcılar tarafından paylaşılan bilgilerin doğruluğunu garanti etmez ve bu bilgiler üzerinden gerçekleşebilecek herhangi bir işlem ya da olası zararlar için sorumluluk kabul etmez. Kullanıcılar, Platform aracılığıyla sağladıkları bilgilerin doğru ve güncel olduğunu beyan ve taahhüt ederler.
+Platform, Kullanıcılar tarafından paylaşılan bilgilerin doğruluğunu teyid etmek için ilgili kurumlarla işbirliği yapar ancak her zaman bu bilgilerin doğruluğunu garanti etmez ve bu bilgiler üzerinden gerçekleşebilecek herhangi bir işlem ya da olası zararlar için sorumluluk kabul etmez. Kampanya sahipleri, Platform aracılığıyla sağladıkları bilgilerin doğru ve güncel olduğunu beyan ve taahhüt ederler.
 
 4. Sorumluluk Limitleri
 Platform, herhangi bir zaman, hiçbir neden göstermeksizin bir ilanı kaldırma hakkını saklı tutar. Ayrıca, Platform, Kullanıcıların ilanlarında sağladıkları bilgiler üzerinden oluşabilecek herhangi bir problemde sorumlu tutulamaz.

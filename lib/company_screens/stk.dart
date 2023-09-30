@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Dernek {
   final String logoUrl;
@@ -39,6 +42,7 @@ class _DerneklerPageState extends State<DerneklerPage> {
   @override
   void initState() {
     super.initState();
+    
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -60,38 +64,60 @@ class _DerneklerPageState extends State<DerneklerPage> {
   }
 
   Future<List<Dernek>> fetchDernekler() async {
-    if (DateTime.now().isBefore(lastFetchTime.add(Duration(days: 3)))) {
-      return derneklerListesi;
-    } 
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  DateTime currentTime = DateTime.now();
 
-    derneklerListesi = [];
-    try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('dernekler').get();
-      for (var doc in querySnapshot.docs) {
-        var data = doc.data() as Map<String, dynamic>?;
-        if (data != null) {
-          String logoUrl = data['logoPath'] ?? '';
-
-          derneklerListesi.add(
-            Dernek(
-              logoUrl: logoUrl,
-              ad: data['ad'] ?? '',
-              kategori: data['kategori'] ?? '',
-              kurumkt: data['kurumkt'] ?? '',
-              kurumgm: data['kurumgm'] ?? '',
-              kurumHakkinda: data['kurumHakkinda'] ?? '',
-              webSiteUrl: data['webSiteUrl'] ?? '',
-            ),
-          );
-        }
-      }
-    } catch (e) {
-      print('Dernekler fetch hatası: $e');
-    }
-
+  // Eğer son çekimden 3 gün geçmediyse ve yerelde kaydedilmiş veri varsa, bu veriyi döndür.
+  String? storedData = prefs.getString('dernekler_data');
+  if (currentTime.isBefore(lastFetchTime.add(Duration(days: 3))) && storedData != null) {
+    List<dynamic> decodedData = jsonDecode(storedData);
+    derneklerListesi = decodedData.map((item) => Dernek(
+      logoUrl: item['logoUrl'],
+      ad: item['ad'],
+      kategori: item['kategori'],
+      kurumkt: item['kurumkt'],
+      kurumgm: item['kurumgm'],
+      kurumHakkinda: item['kurumHakkinda'],
+      webSiteUrl: item['webSiteUrl'],
+    )).toList();
     return derneklerListesi;
   }
+
+  // Eğer 3 gün geçtiyse veya yerelde kaydedilmiş veri yoksa, Firebase'den veri çek.
+  derneklerListesi = [];
+  try {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('dernekler').get();
+    for (var doc in querySnapshot.docs) {
+      var data = doc.data() as Map<String, dynamic>?;
+      if (data != null) {
+        String logoUrl = data['logoPath'] ?? '';
+
+        derneklerListesi.add(
+          Dernek(
+            logoUrl: logoUrl,
+            ad: data['ad'] ?? '',
+            kategori: data['kategori'] ?? '',
+            kurumkt: data['kurumkt'] ?? '',
+            kurumgm: data['kurumgm'] ?? '',
+            kurumHakkinda: data['kurumHakkinda'] ?? '',
+            webSiteUrl: data['webSiteUrl'] ?? '',
+          ),
+        );
+      }
+    }
+    // Veriyi yerelde kaydet
+    prefs.setString('dernekler_data', jsonEncode(derneklerListesi));
+  } catch (e) {
+    print('Dernekler fetch hatası: $e');
+  }
+
+  // Son çekim zamanını güncelle.
+  lastFetchTime = currentTime;
+
+  return derneklerListesi;
+}
+
 
   Future<String> getLogoUrl(String filePath) async {
     try {

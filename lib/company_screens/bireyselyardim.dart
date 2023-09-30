@@ -325,40 +325,37 @@ class _BireyselYardimPageState extends State<BireyselYardimPage> {
                                     ),
                                   ),
                                   Flexible(
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          showDetails[index] =
-                                              !(showDetails[index] ?? false);
-                                        });
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            showDetails[index] ?? false
-                                                ? Icons.visibility_off
-                                                : Icons.visibility,
-                                            color: const Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            size: 11,
+  child: InkWell(
+    onTap: () {
+      setState(() {
+        showDetails[index] = !(showDetails[index] ?? false);
+      });
+    },
+    child: Row(
+      children: [
+        Icon(
+          showDetails[index] ?? false
+              ? Icons.visibility_off
+              : Icons.visibility,
+          color: const Color.fromARGB(255, 255, 255, 255),
+          size: 11,
+        ),
+        SizedBox(width: 4),
+        Expanded( // Bu satırı ekledik
+          child: Text(
+            showDetails[index] ?? false
+                ? " Gizlemek için tıklayınız."
+                : " Görüntülemek için tıklayınız.",
+            softWrap: true,
+            style: TextStyle(
+              fontSize: 11,
+              decoration: TextDecoration.underline,
+              color: const Color.fromARGB(255, 255, 255, 255),
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis, // Bu satırı ekledik
                                           ),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            showDetails[index] ?? false
-                                                ? " Gizlemek için tıklayınız."
-                                                : " Görüntülemek için tıklayınız.",
-                                            softWrap: true,
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
+    )],
                                       ),
                                     ),
                                   ),
