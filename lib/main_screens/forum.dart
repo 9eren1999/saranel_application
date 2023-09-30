@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:saranel_application/settings_screens/platformkurallari.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,8 +17,6 @@ class ForumPage extends StatefulWidget {
 class _ForumPageState extends State<ForumPage> {
   String? username;
   bool _isLoading = true;
-  int _loadedPostsCount = 0; // Şu ana kadar yüklenen gönderi sayısı
-DocumentSnapshot? _lastDocument; // Son çekilen gönderi
   bool showAllComments = false;
   Map<String, TextEditingController> _commentControllers = {};
   String? expandedPostId; // Hangi postun yorumları genişletildiğini takip eder
@@ -63,30 +62,16 @@ DocumentSnapshot? _lastDocument; // Son çekilen gönderi
   }
 
   Future<QuerySnapshot> getForumData() async {
-  if (_loadedPostsCount >= 50) {
-    print("En fazla 50 gönderi yüklenebilir.");
-    return Future.value(); // Boş bir Future döndür
-  }
-
-  Query query = _firestore.collection('forum')
+  QuerySnapshot snapshot = await _firestore.collection('forum')
       .orderBy('eklenme_tarihi', descending: true)
-      .limit(5);
-
-  if (_lastDocument != null) {
-    query = query.startAfterDocument(_lastDocument!);
-  }
-
-  QuerySnapshot snapshot = await query.get(GetOptions(source: Source.cache));
+      .get(GetOptions(source: Source.cache));
   
   if (snapshot.docs.isEmpty) {
-    snapshot = await query.get(GetOptions(source: Source.server));
+    snapshot = await _firestore.collection('forum')
+        .orderBy('eklenme_tarihi', descending: true)
+        .get(GetOptions(source: Source.server));
   }
-
-  if (snapshot.docs.isNotEmpty) {
-    _lastDocument = snapshot.docs.last;
-    _loadedPostsCount += snapshot.docs.length;
-  }
-
+  
   return snapshot;
 }
 
@@ -177,8 +162,9 @@ void _showPostedDialog(BuildContext context) {
             SizedBox(height: 10),
             InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, "/platformkurallari"); // platformkurallari sayfasına yönlendirsin
+                Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PlatformKurallari()),); // platformkurallari sayfasına yönlendirsin
               },
               child: Text(  textAlign: TextAlign.start,
                 "Platform kurallarını okumak için tıklayınız.",
@@ -362,8 +348,9 @@ void _showPostInput(BuildContext context) {
             SizedBox(height: 10),
             InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, "/platformkurallari"); // platformkurallari sayfasına yönlendirsin
+              Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PlatformKurallari()), ); // platformkurallari sayfasına yönlendirsin
               },
               child: Text(  textAlign: TextAlign.center,
                 "Platform paylaşım kurallarını okumak için tıklayınız.",
@@ -434,23 +421,7 @@ void _showPostInput(BuildContext context) {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        prefixIcon: IconButton(
-                          icon: Icon(Icons.restart_alt_rounded,
-                              color: Colors
-                                  .white), // Örnek olarak shuffle iconu kullandım. İsterseniz farklı bir icon kullanabilirsiniz.
-                          onPressed: () {
-                            String randomUsername = "SaranelKullanıcısı" +
-                                (100 + Random().nextInt(99900)).toString();
-                            _usernameController.text =
-                                randomUsername; // TextField'a random kullanıcı adını ata
-                          },
-                        ),
-                        helperText:
-                            "Kullanıcı adı bulamadıysanız 🔄 icona tıklayarak \nrastgele bir kullanıcı adı oluşturabilirsiniz.",
-                        helperStyle:
-                            TextStyle(color: Colors.white70, fontSize: 10),
-                      ),
-                    ),
+                      ))    
                   ],
                 ),
               ),
@@ -1069,15 +1040,7 @@ TextField(
                         }, 
                       ), 
                     ),  
-                      if (_loadedPostsCount < 50) // 50'den az gönderi yüklendiyse düğmeyi göster
-      TextButton(
-        onPressed: () {
-          setState(() {
-            getForumData(); // Daha fazla gönderi yükle
-          });
-        },
-        child: Text("Daha Fazla Gönderi Yükle", style: TextStyle(color: Colors.blue.shade600,fontSize: 9),),
-      ),
+                  
     _loadingIndicator(), // Burada _loadingIndicator fonksiyonunu çağırıyoruz
   ], 
 ),

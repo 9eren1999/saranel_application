@@ -5,6 +5,7 @@ import 'package:saranel_application/settings_screens/gizlilik.dart';
 import 'package:saranel_application/settings_screens/iletisim.dart';
 import 'package:saranel_application/settings_screens/kosullar.dart';
 import 'package:saranel_application/settings_screens/lisanslar.dart';
+import 'package:saranel_application/settings_screens/platformkurallari.dart';
 
 class Ayarlar extends StatefulWidget {
   const Ayarlar({super.key});
@@ -102,6 +103,31 @@ class _AyarlarState extends State<Ayarlar> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => Acikriza()));
+                            },
+                          ),
+                        ),Divider(
+                              color: Color.fromARGB(117, 236, 234, 234),
+                              height: 0.1, indent: 20, endIndent: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 0, left: 10, right: 10, top: 0),
+                          child: ListTile(
+                            title: Text(
+                              "Platform Kuralları",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                            trailing: Icon(Icons.navigate_next_outlined,
+                                color: Colors.white),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PlatformKurallari()));
                             },
                           ),
                         ),
