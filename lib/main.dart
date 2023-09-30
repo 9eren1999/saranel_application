@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saranel_application/firebase_options.dart';
 import 'package:saranel_application/main_screens/anasayfa.dart';
+import 'package:saranel_application/main_screens/forum.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AnaSayfa(),
+            builder: (context) => ForumPage(),
           ),
         );
       }
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AnaSayfa(),
+            builder: (context) => ForumPage(),
           ),
         );
       }
