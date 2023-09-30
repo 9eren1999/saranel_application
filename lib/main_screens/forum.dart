@@ -16,7 +16,12 @@ class ForumPage extends StatefulWidget {
 class _ForumPageState extends State<ForumPage> {
   String? username;
   bool _isLoading = true;
+  int _loadedPostsCount = 0; // Şu ana kadar yüklenen gönderi sayısı
+DocumentSnapshot? _lastDocument; // Son çekilen gönderi
   bool showAllComments = false;
+  Map<String, TextEditingController> _commentControllers = {};
+  String? expandedPostId; // Hangi postun yorumları genişletildiğini takip eder
+
   int shownCommentsLimit = 1;
   String currentUsername =
       "KullanicininAdi"; // Bu değeri nereden aldığınıza göre güncelleyin.
@@ -25,7 +30,6 @@ class _ForumPageState extends State<ForumPage> {
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _postController = TextEditingController();
-  TextEditingController _commentController = TextEditingController();
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final picker = ImagePicker();
@@ -57,6 +61,81 @@ class _ForumPageState extends State<ForumPage> {
       this.username = username;
     });
   }
+
+  Future<QuerySnapshot> getForumData() async {
+  if (_loadedPostsCount >= 50) {
+    print("En fazla 50 gönderi yüklenebilir.");
+    return Future.value(); // Boş bir Future döndür
+  }
+
+  Query query = _firestore.collection('forum')
+      .orderBy('eklenme_tarihi', descending: true)
+      .limit(5);
+
+  if (_lastDocument != null) {
+    query = query.startAfterDocument(_lastDocument!);
+  }
+
+  QuerySnapshot snapshot = await query.get(GetOptions(source: Source.cache));
+  
+  if (snapshot.docs.isEmpty) {
+    snapshot = await query.get(GetOptions(source: Source.server));
+  }
+
+  if (snapshot.docs.isNotEmpty) {
+    _lastDocument = snapshot.docs.last;
+    _loadedPostsCount += snapshot.docs.length;
+  }
+
+  return snapshot;
+}
+
+
+Widget _buildCommentWidget(String postId, dynamic comment) {
+  return Column(
+    children: [
+      ListTile(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                comment['username'],
+                style: TextStyle(
+                  fontSize: 10,
+                  color: getRandomColor(),
+                ),
+              ),
+            ),
+            if (comment['username'] == username)
+              IconButton(
+                icon: Icon(Icons.delete, color: Colors.black87, size: 16),
+                onPressed: () {
+                  _showDeleteCommentDialog(postId, comment as Map<String, dynamic>);
+                },
+              ),
+            Text(
+              "${timeAgo(comment['timestamp'].toDate())}",
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
+        subtitle: Text(
+          comment['text'],
+          style: TextStyle(fontSize: 12, color: Colors.black87),
+        ),
+      ),
+      Divider(
+        color: Colors.black26,
+        height: 1.0,
+        thickness: 0.3,
+      ),
+    ],
+  );
+}
+
  
   void _showImageFullScreen(BuildContext context, String imageUrl) {
     showDialog(
@@ -124,26 +203,6 @@ void _showPostedDialog(BuildContext context) {
   );
 }
 
-Future<bool> canUserComment(String username) async {
-  DocumentSnapshot userDoc = await _firestore.collection('users').doc('gDseWoqVvlVEiKtqNKfE').get();
-  DateTime? lastCommentTime = userDoc[username]['lastCommentTime']?.toDate();
-  if (lastCommentTime == null || DateTime.now().difference(lastCommentTime).inMinutes >= 1) {
-    return true;
-  }
-  return false;
-}
-
-Future<bool> canUserPost(String username) async {
-  DocumentSnapshot userDoc = await _firestore.collection('users').doc('gDseWoqVvlVEiKtqNKfE').get();
-  DateTime? lastPostTime = userDoc[username]['lastPostTime']?.toDate();
-  if (lastPostTime == null || DateTime.now().difference(lastPostTime).inMinutes >= 5) {
-    return true;
-  }
-  return false;
-}
-
-
-
   Future<String?> uploadImage(File imageFile, String storagePath) async {
     final storageReference = FirebaseStorage.instance.ref().child(storagePath);
     UploadTask uploadTask = storageReference.putFile(imageFile);
@@ -162,7 +221,19 @@ Future<bool> canUserPost(String username) async {
     return result.docs.isEmpty;
   }
 
-  
+  void toggleComments(String postId) {
+  if (expandedPostId == postId) {
+    // Eğer bu postun yorumları zaten genişletilmişse, genişletmeyi kapat
+    setState(() {
+      expandedPostId = null;
+    });
+  } else {
+    // Eğer bu postun yorumları genişletilmemişse, genişlet
+    setState(() {
+      expandedPostId = postId;
+    });
+  }
+}
 
   Future<void> saveUsername(String username) async {
     final docRef = FirebaseFirestore.instance
@@ -186,20 +257,26 @@ Future<bool> canUserPost(String username) async {
             merge:
                 true)); // Bu kısım mevcut belgeyle birleştirme yapmamızı sağlar.
   }
-  
+  TextEditingController getCommentController(String postId) {
+  if (!_commentControllers.containsKey(postId)) {
+    _commentControllers[postId] = TextEditingController();
+  }
+  return _commentControllers[postId]!;
+}
 
-  Future<void> deleteComment(String postId, String commentId) async {
+ Future<void> deleteComment(String postId, Map<String, dynamic> comment) async {
     try {
-      await _firestore
-          .collection('forum')
-          .doc(postId)
-          .collection('comments')
-          .doc(commentId)
-          .delete();
+      await _firestore.collection('forum').doc(postId).update({
+        'comments': FieldValue.arrayRemove([comment]),
+        'commentCount': FieldValue.increment(-1) // Yorum sayısını azalt
+      });
     } catch (error) {
       print("Error deleting comment: $error");
     }
-  }
+}
+
+
+
 void _showPostInput(BuildContext context) {
   double screenHeight = MediaQuery.of(context).size.height;
 
@@ -390,22 +467,22 @@ void _showPostInput(BuildContext context) {
                        String inputUsername = _usernameController.text;
 
   // Kullanıcı adı uzunluğunu kontrol edin
-  if (inputUsername.length < 3 || inputUsername.length > 22) {
+  if (inputUsername.length < 3 || inputUsername.length > 24) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Kullanıcı adı en az 3, en fazla 22 karakter olmalıdır."),
+      content: Text("Kullanıcı adı en az 3, en fazla 24 karakter olabilir."),
       backgroundColor: Colors.red,
     ));
     return;
   }
 
-  // Kullanıcı adının sadece harf ve rakam içerip içermediğini kontrol edin
-  if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(inputUsername)) {
+  if (!RegExp(r'^[a-zA-Z0-9ıİğĞüÜşŞöÖçÇ]+$').hasMatch(inputUsername)) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Kullanıcı adı sadece harf ve rakam içerebilir."),
       backgroundColor: Colors.red,
     ));
     return;
-  }
+}
+
 
   // Diğer kontroller
   if (await isUsernameAvailable(inputUsername)) {
@@ -425,35 +502,53 @@ void _showPostInput(BuildContext context) {
     );
   }
 
-  Future<void> addComment(String postId, String commentText) async {
+ Future<void> addComment(String postId, String commentText) async {
     setState(() {
       _isLoading = true; // Yüklenme başladı
     });
 
+   if (commentText.trim().isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Yorum boş olamaz!"),
+      backgroundColor: Colors.blue.shade800,
+    ));
+    setState(() {
+        _isLoading = false; // Yüklenme durduruldu
+    });
+    return;
+}
+
+
+
+    Map<String, dynamic> newComment = {
+      'text': commentText,
+      'timestamp': Timestamp.now(),
+      'username': username,
+      'postId': postId,
+      'isEdited': false
+    };
+
     try {
       // Firebase'e yorum ekleme işlemini gerçekleştir
-      await _firestore
-          .collection('forum')
-          .doc(postId)
-          .collection('comments')
-          .add({
-        'text': commentText,
-        'timestamp': Timestamp.now(),
-        'username': username,
-        'postId': postId,
-        'isEdited': false
+      await _firestore.collection('forum').doc(postId).update({
+        'comments': FieldValue.arrayUnion([newComment]),
+        'commentCount': FieldValue.increment(1) // Yorum sayısını artır
       });
 
-      _commentController.clear(); // Bu satırı ekleyin.
+      
+
+      getCommentController(postId).clear(); // Bu satırı ekleyin.
     } catch (error) {
       // Hata oluştuğunda burası çalışır
       print("Error adding comment: $error");
     } finally {
       setState(() {
         _isLoading = false; // Yüklenme bitti
-      });
+      }); 
     }
-  }
+    
+}
+
 
   void _showDeleteConfirmationDialog(DocumentSnapshot data) {
     showDialog(
@@ -482,11 +577,10 @@ void _showPostInput(BuildContext context) {
     );
   }
 
-  Future<void> _showDeleteCommentDialog(String postId, String commentId) async {
+Future<void> _showDeleteCommentDialog(String postId, Map<String, dynamic> commentData) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible:
-          false, // Kullanıcının dialog dışına tıklamasıyla kapanmaması için
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Yorumu Sil'),
@@ -507,8 +601,7 @@ void _showPostInput(BuildContext context) {
             TextButton(
               child: Text('Sil'),
               onPressed: () {
-                deleteComment(
-                    postId, commentId); // Yorum silme fonksiyonunu çağırıyoruz
+                deleteComment(postId, commentData); // Yorum silme fonksiyonunu çağırıyoruz
                 Navigator.of(context).pop();
               },
             ),
@@ -516,7 +609,10 @@ void _showPostInput(BuildContext context) {
         );
       },
     );
-  }
+}
+
+
+
 
   Color getRandomColor() {
     final random = Random();
@@ -567,13 +663,11 @@ void _showPostInput(BuildContext context) {
   }
 
   Future<int> getTotalComments(String postId) async {
-    var query = await _firestore
-        .collection('forum')
-        .doc(postId)
-        .collection('comments')
-        .get();
-    return query.docs.length;
-  }
+  var document = await _firestore.collection('forum').doc(postId).get();
+  List comments = document.data()?['comments'] ?? [];
+  return comments.length;
+}
+
 
   Future<void> _addPostToFirebase() async {
     if (_postController.text.isNotEmpty) {
@@ -725,28 +819,26 @@ void _showPostInput(BuildContext context) {
     
 
               Expanded(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: _firestore.collection('forum').orderBy('eklenme_tarihi', descending: true).snapshots(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var data = snapshot.data!.docs[index];
-                              var postId = snapshot.data!.docs[index].id;
-                              bool hasImageUrl =
-                                  (data.data() as Map<String, dynamic>)
-                                      .containsKey('resimUrl');
+  child: Column(
+    children: [
+      Expanded(
+        child: FutureBuilder<QuerySnapshot>(
+          future: getForumData(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              );
+            }
+            return ListView.builder(
+  itemCount: snapshot.data!.docs.length,
+  itemBuilder: (context, index) {
+    var data = snapshot.data!.docs[index];
+    var postId = snapshot.data!.docs[index].id;
+    bool hasImageUrl = (data.data() as Map<String, dynamic>).containsKey('resimUrl');
+
 
                               return Column(children: [
    Padding(
@@ -827,8 +919,8 @@ void _showPostInput(BuildContext context) {
                                                                             data);
                                                                       },
                                                                     ),
-                                                                  ),
-                                                              ]),
+                                                                  ), 
+                                                              ]), 
                                                         ],
                                                       ),
                                                       Padding( 
@@ -878,13 +970,46 @@ void _showPostInput(BuildContext context) {
                                                               thickness: 0.2,
                                                               color: Colors.black,
                                                             ),
-                                                            TextField(
-                                                              controller:
-                                                                  _commentController,
-                                                              decoration:
-                                                                  InputDecoration(
-                                                                hintText:
-                                                                    'Yorum yap...',
+                                                           StreamBuilder<DocumentSnapshot>(
+  stream: _firestore.collection('forum').doc(postId).snapshots(),
+  builder: (context, snapshot) {
+    if (!snapshot.hasData) {
+      return SizedBox.shrink();
+    }
+    var postDocument = snapshot.data!;
+    Map<String, dynamic>? postData = postDocument.data() as Map<String, dynamic>?;
+
+    if (postData == null || !postData.containsKey('comments')) {
+      return SizedBox.shrink();
+    }
+
+    List<dynamic> comments = postData['comments'] ?? [];
+
+    double containerHeight;
+    if (comments.length <= 4) {
+      containerHeight = comments.length * 100.0; // Her yorum için 50.0 yükseklik varsayıldı. Bu değeri ihtiyacınıza göre ayarlayabilirsiniz.
+    } else {
+      containerHeight = 340.0; // 4 yorum için toplam 200.0 yükseklik varsayıldı.
+    }
+  
+    return Container(
+      height: containerHeight,
+      child: SingleChildScrollView(
+        child: Column(
+          children: comments.map((comment) {
+            return _buildCommentWidget(postId, comment);
+          }).toList(),
+        ), 
+      ),
+    ); 
+   },
+),Divider(color: Colors.black45,
+        height: 1.0,
+        thickness: 0.5,),
+TextField(
+  controller: getCommentController(postId,),
+  decoration: InputDecoration(
+    hintText: 'Yorum yap...',
                                                                 hintStyle:
                                                                     TextStyle(
                                                                   color: Colors.black
@@ -899,11 +1024,12 @@ void _showPostInput(BuildContext context) {
                                                                       color: Colors
                                                                           .black),
                                                                   onPressed: () {
-                                                                    addComment(
-                                                                        postId,
-                                                                        _commentController
-                                                                            .text);
-                                                                  },
+  if (_commentControllers.containsKey(postId)) {
+    addComment(postId, _commentControllers[postId]!.text);
+    _commentControllers[postId]!.clear();
+  }
+}
+
                                                                 ),
                                                                 enabledBorder:
                                                                     UnderlineInputBorder(
@@ -925,137 +1051,36 @@ void _showPostInput(BuildContext context) {
                                                                         .white,
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ),
-                                                            FutureBuilder<int>(
-                                                                future:
-                                                                    getTotalComments(
-                                                                        postId),
-                                                                builder: (context,
-                                                                    totalCommentsSnapshot) {
-                                                                  if (!totalCommentsSnapshot
-                                                                      .hasData) {
-                                                                    return SizedBox
-                                                                        .shrink(); // Eğer henüz yorum sayısı yüklenmediyse boş bir widget döndür.
-                                                                  }
-   
-                                                                  int totalComments =
-                                                                      totalCommentsSnapshot
-                                                                          .data!;
-   
-                                                                  return StreamBuilder<
-                                                                          QuerySnapshot>(
-                                                                      stream: _firestore
-                                                                          .collection('forum')
-                                                                          .doc(postId)
-                                                                          .collection('comments')
-                                                                          .orderBy('timestamp', descending: true)
-                                                                          .limit(showAllComments ? shownCommentsLimit : 1)
-                                                                          // Eğer tüm yorumları göstermek istiyorsak 4 yorum getir, değilse sadece 1 yorum getir
-                                                                          .snapshots(),
-                                                                      builder: (context, commentSnapshot) {
-                                                                        if (!commentSnapshot
-                                                                            .hasData) {
-                                                                          return SizedBox
-                                                                              .shrink();
-                                                                        }
-                                                                        return Column(
-                                                                            children: [
-                                                                              // Yorumları gösteren bölüm:
-                                                                              Container(
-                                                                                height: (commentSnapshot.data!.docs.length <= 4) ? null : 250, // Eğer yorum sayısı 4'ten fazla ise 200 piksel yükseklik tanımlıyoruz, bu da 4 yorumun gösterilmesine yetiyor.
-                                                                                child: ListView.builder(
-                                                                                  shrinkWrap: true,
-                                                                                  physics: (commentSnapshot.data!.docs.length <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(), // Eğer yorum sayısı 4'ten fazla ise kaydırma işlevini aktifleştiriyoruz.
-                                                                                  itemCount: showAllComments ? commentSnapshot.data!.docs.length : min(commentSnapshot.data!.docs.length, 1),
-                                                                                  // Sadece ilk yorumu gösteriyoruz.
-                                                                                  itemBuilder: (context, commentIndex) {
-                                                                                    var commentData = commentSnapshot.data!.docs[commentIndex];
-                                                                                    return Column(
-                                                                                      children: [
-                                                                                       ListTile(
-     title: Row(
-      children: [
-        Expanded(
-          child: Text(
-            commentData['username'],
-            style: TextStyle(
-              fontSize: 10,
-              color: getRandomColor(),
-            ),
-          ),
-        ), if (commentData['username'] == username) // Yorumu ekleyen kullanıcı, şu anki kullanıcı mı kontrolü
-          IconButton(
-            icon: Icon(Icons.delete, color: Colors.black87, size: 16),
-            onPressed: () {
-              // Silme işlemini burada gerçekleştir
-              _showDeleteCommentDialog(postId, commentData.id); // Yorumun id'sini gönderiyoruz
-            },
-          ),
-        Text(
-          "${timeAgo(commentData['timestamp'].toDate())}",
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.black87,
-          ),
-        ),
-       
-      ],
-     ),
-     subtitle: Text(
-      commentData['text'],
-      style: TextStyle(fontSize: 12, color: Colors.black87),
-     ),
-   ), 
-   
-   
-   
-                                                                                        Divider(
-                                                                                          color: Colors.black26,
-                                                                                          height: 1.0,
-                                                                                          thickness: 0.3,
-                                                                                        ), 
-                                                                                      ],
-                                                                                    );
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                              // Tüm yorumları gösteren buton:
-                                                                               if (totalComments > shownCommentsLimit)
+                                                              ), 
+                                                            ),  
+
+        
+                                            
+
+                                                                                                  
+                                                        
+                                                      
+                                                    
+                                          
+                            
+]))]))]))))]); 
+                            }, 
+                          );
+                        }, 
+                      ), 
+                    ),  
+                      if (_loadedPostsCount < 50) // 50'den az gönderi yüklendiyse düğmeyi göster
       TextButton(
-        child: Text(
-          showAllComments ? "Yorumları gizle" : "Daha fazla yorum görüntüle (${min(totalComments, shownCommentsLimit + 4)} yorum)",
-          style: TextStyle(color: Colors.black87, fontSize: 10),
-        ),
         onPressed: () {
           setState(() {
-            showAllComments = !showAllComments; // Değerini tersine çevir
-            if (showAllComments) {
-              shownCommentsLimit = totalComments; // Tüm yorumları göster
-            } else {
-              shownCommentsLimit = 1; // Sadece ilk yorumu göster
-            }
+            getForumData(); // Daha fazla gönderi yükle
           });
         },
-      )
-                                                                            ]);
-                                                                      });
-                                                                })
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ]))
-                                          ]))
-                            ),
-   )]);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    _loadingIndicator(), // Burada _loadingIndicator fonksiyonunu çağırıyoruz
-                  ],
-                ),
+        child: Text("Daha Fazla Gönderi Yükle", style: TextStyle(color: Colors.blue.shade600,fontSize: 9),),
+      ),
+    _loadingIndicator(), // Burada _loadingIndicator fonksiyonunu çağırıyoruz
+  ], 
+),
               )
             ],
           )

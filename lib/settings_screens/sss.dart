@@ -44,7 +44,7 @@ class _SssState extends State<Sss> {
           child: Text(
             soru,
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
           ),
         ),
         trailing: Icon(
@@ -124,7 +124,7 @@ class _SssState extends State<Sss> {
                           2),
                       buildQuestionTile(
                           "İlan eklemek istiyorum, nasıl ekleyebilirim?",
-                          "İlan eklemek için uygulama içindeki ilan ekleme bölümünü kullanabilirsiniz. İlgili bilgileri doldurduktan kısa bir süre sonra ilanınız incelenip yayına alınacaktır.Şimdilik sadece SMA kampanyası için ilan ekleyebilirsiniz.",
+                          "İlan eklemek için uygulama içindeki ilan ekleme bölümünü kullanabilirsiniz. İlgili bilgileri doldurduktan kısa bir süre sonra ilanınız incelenip yayına alınacaktır.",
                           3),
                       buildQuestionTile(
                           "Uygulamada listelenen kurumlar nasıl seçiliyor?",
@@ -146,6 +146,7 @@ class _SssState extends State<Sss> {
                           "Vakıf,dernek ya da kuruluşumu listeletmek istiyorum, bunu nasıl yapabilirim?",
                           "Herhangi bir kuruluşu listeletmek için kurum bilgilerini iletisim@saranel.com.tr adresine göndererek listeletme sağlayabilirsiniz",
                           8),
+                          
                     ],
                   ),
                 ),
