@@ -265,7 +265,7 @@ class _DonationPageState extends State<DonationPage> {
       });
     });
     final ProductDetailsResponse productDetailResponse =
-        await _inAppPurchase.queryProductDetails({'20tl'});
+        await _inAppPurchase.queryProductDetails(amountLinks.values.toSet());
 
     if (productDetailResponse.notFoundIDs.isNotEmpty) {
       setState(() {
